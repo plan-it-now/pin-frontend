@@ -18,6 +18,21 @@ import {
   Body,
   Content } from 'native-base';
 
+import MapView from 'react-native-maps';
+
+exports.framework = 'React';
+exports.title = 'Geolocation';
+exports.description = 'Examples of using the Geolocation API.';
+
+exports.examples = [
+  {
+    title: 'navigator.geolocation',
+    render: function(): React.Element<any> {
+      return <GeolocationExample />;
+    },
+  }
+];
+
 const cards = [
     {
         text: 'Card One',
@@ -88,6 +103,31 @@ class Recomedation extends React.Component {
             <CardItem>
                 <Text>Used to determine how should elements be distributed inside container along the secondary axis (opposite of flexDirection)</Text>
             </CardItem>
+            <View style={{
+                height: 300,
+                flex: 1,
+                display: 'flex',
+                justifyContent: 'flex-end',
+                alignItems: 'center',
+
+              }}>
+              <MapView
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  bottom: 0,
+                  left: 0,
+                  right: 0
+                }}
+                initialRegion={{
+                  latitude: 37.78825,
+                  longitude: -122.4324,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
+                }}
+                showUserLocation={true}
+              />
+            </View>
             <Text>Test...</Text>
             <Text>Test...</Text>
             <Text>Test...</Text>
