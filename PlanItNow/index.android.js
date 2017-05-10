@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import App from './src/components/App'
+import App from './src/components/'
 import {
  AppRegistry
 } from 'react-native';
@@ -18,7 +18,7 @@ export default class PlanItNow extends Component {
    return (
 
        <App />
-     
+
    );
  }
 }
