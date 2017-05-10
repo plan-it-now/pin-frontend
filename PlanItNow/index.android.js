@@ -12,22 +12,13 @@ import {
   View
 } from 'react-native';
 
+import App from './src/components';
+import Login from './src/components/';
+
 export default class PlanItNow extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-          Good Luck!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      <App />
     );
   }
 }
