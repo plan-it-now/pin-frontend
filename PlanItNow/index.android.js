@@ -18,6 +18,7 @@ export default class PlanItNow extends Component {
       <View style={styles.container}>
         <Text style={styles.welcome}>
           Welcome to React Native!
+          Good Luck!
         </Text>
         <Text style={styles.instructions}>
           To get started, edit index.android.js
