@@ -1,15 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import {
-  Text,
-  View
-} from 'react-native';
-
-import { StackNavigator } from 'react-navigation'
-import inputQuery from './inputQuery'
+import { StackNavigator } from 'react-navigation';
+import Login from './Login';
+import inputQuery from './inputQuery';
 
 const App = StackNavigator({
+  Main: {screen: Login},
   inputQuery: {screen: inputQuery}
 })
 
-export default App
+export default App;

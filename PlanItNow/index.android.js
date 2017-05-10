@@ -10,17 +10,16 @@ import {
  AppRegistry
 } from 'react-native';
 
-import { Provider } from 'react-redux'
-//import store from './src/store'
+import App from './src/components';
+import Login from './src/components/';
 
 export default class PlanItNow extends Component {
- render() {
-   return (
-
-       <App />
-
-   );
- }
+  render() {
+    return (
+      <App />
+    );
+  }
 }
+
 
 AppRegistry.registerComponent('PlanItNow', () => PlanItNow);
