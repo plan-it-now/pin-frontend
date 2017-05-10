@@ -10,7 +10,6 @@ import {
  AppRegistry
 } from 'react-native';
 
-import App from './src/components';
 import Login from './src/components/';
 
 export default class PlanItNow extends Component {
