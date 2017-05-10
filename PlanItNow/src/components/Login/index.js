@@ -14,7 +14,8 @@ import {
   Item,
   Input,
   Label,
-  Button
+  Button,
+  Icon
 } from 'native-base';
 
 class Login extends React.Component {
@@ -25,7 +26,11 @@ class Login extends React.Component {
 
   static navigationOptions = {
     headerTitle: 'SignIn',
-    headerTintColor: '#CCC'
+    headerTintColor: '#000',
+    headerStyle: {
+      backgroundColor: '#FFF59D'
+    }
+
   };
 
   render () {
@@ -40,36 +45,60 @@ class Login extends React.Component {
         >
           <View
             style={{
-              width: '80%',
+              width: '70%',
               height: '60%',
-            }}
-          >
-            <Form>
-              <Item floatingLabel>
-                <Label
-                  style={{color: '#fff'}}
-                >Username</Label>
-                <Input />
-              </Item>
-              <Item floatingLabel>
-                <Label
-                  style={{color: '#fff'}}
-                >Password</Label>
-                <Input />
-              </Item>
-            </Form>
+            }}>
+            <Image
+              style={{
+                width: 80,
+                height: 80,
+                alignSelf: 'center',
+              }}
+              source={{ uri : 'http://www.freeiconspng.com/uploads/orange-location-icon-png-18.png'}}
+            />
+            <Item floatingLabel>
+              <Icon name='person' style={{fontSize: 20, color: 'white'}} />
+
+              <Label
+                style={{color: '#fff'}}
+              >Username</Label>
+              <Input
+                style={{color: '#F44336'}}
+              >
+
+              </Input>
+            </Item>
+            <Item floatingLabel>
+              <Icon name='lock' style={{fontSize: 20, color: 'white'}} />
+              <Label
+                style={{color: '#fff'}}
+              >Password</Label>
+              <Input />
+            </Item>
             <Button
                 block warning
                 style={{
                   marginTop: 20,
                   alignItems: 'center',
-                  backgroundColor: '#FFCA28'
+                  backgroundColor: '#FFEB3B'
                 }}
                 >
                 <Text
-                  style={{color: '#fff'}}
+                  style={{color: '#000'}}
                   >SignIn</Text>
               </Button>
+              <Button
+                  block warning
+                  style={{
+                    marginTop: 20,
+                    alignItems: 'center',
+                    backgroundColor: '#FFEB3B'
+                  }}
+                  >
+                  <Text
+                    style={{color: '#000'}}
+                    >Signup</Text>
+                </Button>
           </View>
         </Image>
     </View>
