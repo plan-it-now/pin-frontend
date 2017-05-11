@@ -5,17 +5,21 @@
  */
 
 import React, { Component } from 'react';
-import App from './src/components/'
 import {
  AppRegistry
 } from 'react-native';
+import { Provider } from 'react-redux';
 
-import Login from './src/components/';
+import store from './src/store';
+import App from './src/components/'
+
 
 export default class PlanItNow extends Component {
   render() {
     return (
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     );
   }
 }
