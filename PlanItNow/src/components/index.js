@@ -8,10 +8,10 @@ import Register from './Register';
 import Recomendation from './Recomendation';
 
 const App = StackNavigator({
-  // Main: {screen: Main},
+  Main: {screen: Login},
   // Register: {screen: Register},
   // inputQuery: {screen: inputQuery},
-  Recomendation: {screen: Recomendation}
+  // Recomendation: {screen: Recomendation}
 })
 
 export default App;

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import axios from 'axios';
 import {
   View,
   Text,
@@ -21,6 +21,10 @@ import {
 class Login extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      email: '',
+      password: '',
+    }
 
   }
 
@@ -63,6 +67,7 @@ class Login extends React.Component {
                 style={{color: '#fff'}}
               >Username</Label>
               <Input
+                onChangeText = {(text) => this.setState({email:text})}
                 style={{color: '#F44336'}}
               >
 
@@ -73,7 +78,9 @@ class Login extends React.Component {
               <Label
                 style={{color: '#fff'}}
               >Password</Label>
-              <Input />
+              <Input
+                onChangeText = {(text) => this.setState({password:text})}
+              />
             </Item>
             <Button
                 block warning
