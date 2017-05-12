@@ -13,6 +13,7 @@
     "react-dom": "^15.5.4",
     "react-native": "0.44.0",
     "react-native-maps": "^0.13.0",
+    "react-native-sortable-listview": "^0.2.2",
     "react-navigation": "^1.0.0-beta.9",
     "react-redux": "^5.0.4",
     "redux": "^3.6.0",
