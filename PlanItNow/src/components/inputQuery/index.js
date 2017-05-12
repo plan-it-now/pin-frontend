@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {
   Text,
-  View
+  View,
+  BackHandler
 } from 'react-native';
 
 import { Container, Picker, Button, Form, Item as Stay, Input, Label } from 'native-base';
@@ -15,6 +16,18 @@ class inputQuery extends Component {
       day1:'',
       warning: ''
     }
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton)
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton)
+  }
+
+  handleBackButton() {
+    return true
   }
 
   static navigationOptions = {

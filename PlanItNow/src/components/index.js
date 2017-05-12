@@ -9,11 +9,12 @@ import Recomendation from './Recomendation';
 import ItineraryStepOne from './ItineraryStepOne';
 
 const App = StackNavigator({
-  Main: {screen: ItineraryStepOne},
-  // Register: {screen: Register},
-  // inputQuery: {screen: inputQuery},
+  Login: {screen: Login},
+  Register: {screen: Register},
+  inputQuery: {screen: inputQuery},
   // Recomendation: {screen: Recomendation}
-  // ItineraryStepOne: {screen: ItineraryStepOne}
+}, {
+  headerMode: 'none'
 
 })
 

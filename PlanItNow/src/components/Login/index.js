@@ -1,22 +1,10 @@
 import React from 'react';
-import axios from 'axios';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image
-} from 'react-native';
+import { connect } from 'react-redux';
+import { View, Text, StyleSheet, Image, AsyncStorage } from 'react-native';
 
-import {
-  Container,
-  Content,
-  Form,
-  Item,
-  Input,
-  Label,
-  Button,
-  Icon
-} from 'native-base';
+import { Container, Content, Form, Item, Input, Label, Button, Icon } from 'native-base';
+import { login } from '../../actions'
+
 
 class Login extends React.Component {
   constructor(props) {
@@ -24,18 +12,40 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      isRedirect: false,
+      warning: ''
     }
-
   }
 
   static navigationOptions = {
-    headerTitle: 'SignIn',
+    headerTitle: 'Sign In',
     headerTintColor: '#000',
     headerStyle: {
       backgroundColor: '#FFF59D'
     }
+  }
 
-  };
+  loginSuccess() {
+    const { navigate } = this.props.navigation
+    navigate('inputQuery')
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(this.props.logindata.shouldRedirect && !this.state.isRedirect){
+      this.setState({isRedirect: true})
+      this.loginSuccess()
+    }
+  }
+
+  loginHandler() {
+    this.props.login(this.state)
+    console.log(this.props.logindata)
+  }
+
+  navigateToRegister() {
+    const { navigate } = this.props.navigation
+    navigate('Register')
+  }
 
   render () {
     return (
@@ -61,14 +71,14 @@ class Login extends React.Component {
               source={{ uri : 'http://www.freeiconspng.com/uploads/orange-location-icon-png-18.png'}}
             />
             <Item floatingLabel>
-              <Icon name='person' style={{fontSize: 20, color: 'white'}} />
+              <Icon name='mail' style={{fontSize: 20, color: 'white'}} />
 
               <Label
                 style={{color: '#fff'}}
-              >Username</Label>
+              >Email</Label>
               <Input
                 onChangeText = {(text) => this.setState({email:text})}
-                style={{color: '#F44336'}}
+                style={{color: '#fff'}}
               >
 
               </Input>
@@ -80,9 +90,10 @@ class Login extends React.Component {
               >Password</Label>
               <Input
                 onChangeText = {(text) => this.setState({password:text})}
+                style={{color: '#fff'}}
               />
             </Item>
-            <Button
+            <Button onPress={() => this.loginHandler()}
                 block warning
                 style={{
                   marginTop: 20,
@@ -92,9 +103,9 @@ class Login extends React.Component {
                 >
                 <Text
                   style={{color: '#000'}}
-                  >SignIn</Text>
+                  >Sign In</Text>
               </Button>
-              <Button
+              <Button onPress={() => this.navigateToRegister()}
                   block warning
                   style={{
                     marginTop: 20,
@@ -104,8 +115,9 @@ class Login extends React.Component {
                   >
                   <Text
                     style={{color: '#000'}}
-                    >Signup</Text>
+                    >Sign Up</Text>
                 </Button>
+                <Text>{this.state.warning}</Text>
           </View>
         </Image>
     </View>
@@ -130,4 +142,12 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Login;
+const mapStateToProps = (state) => ({
+  logindata: state.logindata
+})
+
+const mapDispatchToProps = dispatch => ({
+  login: (user) => dispatch(login(user))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

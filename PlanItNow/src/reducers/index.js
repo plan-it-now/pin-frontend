@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import userReducer from './userReducer';
 
 const rootReducer = combineReducers({
-  data: userReducer,
+  logindata: userReducer,
 });
 
 export default rootReducer;
