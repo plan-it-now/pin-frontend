@@ -1,27 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image
-} from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 
-import {
-  Container,
-  Content,
-  Form,
-  Item,
-  Input,
-  Label,
-  Button,
-  Icon
-} from 'native-base';
+import { Container, Content, Form, Item, Input, Label, Button, Icon } from 'native-base';
+
+import { signup } from '../../actions'
 
 class Register extends React.Component {
   constructor(props) {
     super(props)
-
+    this.state = {
+      name: '',
+      email: '',
+      password: '',
+      isRedirect: false
+    }
   }
 
   static navigationOptions = {
@@ -30,8 +24,23 @@ class Register extends React.Component {
     headerStyle: {
       backgroundColor: '#FFF59D'
     }
-
   };
+
+  loginSuccess() {
+    const { navigate } = this.props.navigation
+    navigate('inputQuery')
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(this.props.logindata.shouldRedirect && !this.state.isRedirect){
+      this.setState({isRedirect: true})
+      this.loginSuccess()
+    }
+  }
+
+  signupHandler() {
+    this.props.signup(this.state)
+  }
 
   render () {
     return (
@@ -58,11 +67,21 @@ class Register extends React.Component {
             />
 
             <Item floatingLabel>
+              <Icon name='person' style={{fontSize: 20, color: 'white'}} />
+              <Label
+                style={{color: '#fff'}}
+              >Name</Label>
+              <Input
+               onChangeText = {(text) => this.setState({name:text})}/>
+            </Item>
+
+            <Item floatingLabel>
               <Icon name='mail' style={{fontSize: 20, color: 'white'}} />
               <Label
                 style={{color: '#fff'}}
               >Email</Label>
-              <Input />
+              <Input
+               onChangeText = {(text) => this.setState({email:text})}/>/>
             </Item>
 
             <Item floatingLabel>
@@ -70,11 +89,12 @@ class Register extends React.Component {
               <Label
                 style={{color: '#fff'}}
               >Password</Label>
-              <Input />
+              <Input
+               onChangeText = {(text) => this.setState({password:text})}/>/>
             </Item>
 
 
-            <Button
+            <Button onPress={() => this.signupHandler()}
                 block warning
                 style={{
                   marginTop: 20,
@@ -110,4 +130,12 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Register
+const mapStateToProps = (state) => ({
+  logindata: state.logindata
+})
+
+const mapDispatchToProps = dispatch => ({
+  signup: (user) => dispatch(signup(user))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
