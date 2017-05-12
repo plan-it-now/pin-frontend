@@ -22,10 +22,12 @@ import {
   Button,
   Content } from 'native-base';
 
-import MapDetail from '../MapDetail';
 import { connect } from 'react-redux';
 
 import Swiper from "react-native-deck-swiper";
+
+import MapDetail from '../MapDetail';
+
 exports.framework = 'React';
 exports.title = 'Geolocation';
 exports.description = 'Examples of using the Geolocation API.';
@@ -49,7 +51,8 @@ class Recomedation extends React.Component {
       swipeDirection: "",
       isSwipingBack: false,
       cardIndex: 0,
-      modalVisible: false
+      modalVisible: false,
+      mapData: {}
     };
   }
   componentDidMount() {
@@ -64,8 +67,9 @@ class Recomedation extends React.Component {
     }
   };
 
-  setModalVisible(visible) {
-    this.setState({modalVisible: visible})
+  setModalVisible(visible, card) {
+    this.setState({mapData: card,
+                modalVisible: visible})
   }
 
   renderCard = card => {
@@ -78,20 +82,9 @@ class Recomedation extends React.Component {
            source = {{ uri : card.photos}}
           />
           <Text style={{ fontSize: 12, padding: 20, textAlign: 'justify' }} >{card.description}</Text>
-          <Modal
-           animationType={"slide"}
-           transparent={true}
-           visible={this.state.modalVisible}
-           onRequestClose={() => {console.log('modal closed');}}
-          >
-            <MapDetail card={card} />
 
-            <Button style={{backgroundColor:"#5E35B1"}} block onPress={()=> {this.setModalVisible(false)}}>
-                <Text>back!</Text>
-            </Button>
-          </Modal>
         </View>
-        <Button style={{backgroundColor:"#5E35B1"}} block onPress={()=> {this.setModalVisible(true)}}>
+        <Button style={{backgroundColor:"#5E35B1"}} block onPress={()=> {this.setModalVisible(true, card)}}>
             <Text>Info</Text>
         </Button>
       </View>
@@ -145,6 +138,21 @@ class Recomedation extends React.Component {
               <Text>undo</Text>
           </Button>
         </Swiper>
+
+        <Modal
+         animationType={"slide"}
+         transparent={true}
+         visible={this.state.modalVisible}
+         onRequestClose={() => {console.log('modal closed');}}
+        >
+          <View style={styles.mapcontainer}>
+            <MapDetail card={this.state.mapData} />
+          </View>
+
+          <Button style={{backgroundColor:"#5E35B1"}} block onPress={()=> {this.setModalVisible(false, null)}}>
+              <Text>back!</Text>
+          </Button>
+        </Modal>
       </View>
     )
   }
