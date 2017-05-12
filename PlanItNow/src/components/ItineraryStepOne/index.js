@@ -97,53 +97,6 @@ class ItineraryStepOne extends React.Component {
               </View>
             </View>
 
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                backgroundColor: 'white',
-                height: 80,
-                marginBottom: 10,
-                marginTop: 10
-              }}
-            >
-              <View
-                style={{
-                  width: 200,
-                  paddingLeft: 10
-                }}
-              >
-                <Text
-                  style={{
-                    color: '#000',
-                    fontSize: 18
-                  }}
-                >Pulau Dewata </Text>
-              </View>
-              <View style={{
-                  width: 120,
-                  paddingRight: 10
-                }}
-              >
-                <Picker
-                  supportedOrientations={['portrait','landscape']}
-                  iosHeader="Select one"
-                  mode="dropdown"
-                  selectedValue={this.state.selected1}
-                  onValueChange={this.onValueChange.bind(this)}>
-                    <Item label="Day 1" value="key0" />
-                    <Item label="Day 2" value="key1" />
-                    <Item label="Day 3" value="key2" />
-                    <Item label="Day 4" value="key3" />
-                </Picker>
-              </View>
-            </View>
-
-
-
-
           </Content>
         </ScrollView>
 
