@@ -55,20 +55,19 @@ class Login extends React.Component {
         <Image
           style={styles.backgroundImage}
           source={{ uri : 'http://4.bp.blogspot.com/-dXMb3OIPqiw/UV5pkcbDQhI/AAAAAAAACPw/HnPIlLoEbj0/s1600/3.jpg' }}
-
         >
           <View
             style={{
               width: '70%',
-              height: '60%',
+              height: '80%',
             }}>
             <Image
               style={{
-                width: 80,
-                height: 80,
+                width: 150,
+                height: 150,
                 alignSelf: 'center',
               }}
-              source={{ uri : 'http://www.freeiconspng.com/uploads/orange-location-icon-png-18.png'}}
+              source={require('../../assets/pin-logo-transparent.png')}
             />
             <Item floatingLabel>
               <Icon name='mail' style={{fontSize: 20, color: 'white'}} />
