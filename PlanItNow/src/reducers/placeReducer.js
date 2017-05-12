@@ -10,3 +10,5 @@ const placeReducer = (state = [], action) => {
 
   }
 }
+
+export default placeReducer
