@@ -18,6 +18,7 @@ class inputQuery extends Component {
       days:'',
       warning: ''
     }
+    this.submitQuery = this.submitQuery.bind(this);
   }
 
   componentDidMount() {
@@ -45,8 +46,8 @@ class inputQuery extends Component {
   submitQuery() {
     this.setState({warning:''})
     const { pref, fetchPlaces } = this.props;
-    fetchPlaces(pref,this.state.city);
-
+    
+    fetchPlaces(pref,this.state.city.toLowerCase());
   }
 
 
@@ -99,4 +100,4 @@ const mapDispatchToProps = dispatch => ({
   fetchPlaces: (pref,city) => dispatch(fetchPlaces(pref,city))
 })
 
-export default inputQuery
+export default connect(mapStateToProps,mapDispatchToProps)(inputQuery);
