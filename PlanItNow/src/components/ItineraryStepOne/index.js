@@ -14,6 +14,7 @@ class ItineraryStepOne extends React.Component {
     return (
       <View>
         <Text>Details step 1</Text>
+        <Text>Develop ItineraryStepOne</Text>
       </View>
     )
   }
