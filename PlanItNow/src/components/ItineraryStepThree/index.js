@@ -135,12 +135,14 @@ class ItineraryStepThree extends React.Component {
         <Button
           rounded
           style={{
-            backgroundColor: '#5E35B1',
+            backgroundColor: '#37b578',
             position: 'absolute',
             bottom: 10,
             left: 10
           }}>
+          <Icon name="check" color="white" size={22}/>
           <Text style={{
+              paddingLeft: 5,
               color: '#fff',
               fontWeight: 'bold'
             }}>Submit</Text>
