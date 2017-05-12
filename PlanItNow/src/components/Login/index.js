@@ -12,7 +12,7 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      isRedirect: false,
+      // isRedirect: false,
       warning: ''
     }
   }
@@ -31,8 +31,10 @@ class Login extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(this.props.logindata.shouldRedirect && !this.state.isRedirect){
-      this.setState({isRedirect: true})
+    // console.log('prev', prevProps.logindata);
+    // console.log('next',this.props.logindata);
+    if(this.props.logindata.shouldRedirect && !prevProps.logindata.shouldRedirect){
+      // this.setState({isRedirect: true})
       this.loginSuccess()
     }
   }
