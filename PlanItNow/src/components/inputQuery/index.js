@@ -55,9 +55,9 @@ class inputQuery extends Component {
     return(
       <Container style={{flex:1, backgroundColor:'#B39DDB'}}>
       <Header style={{backgroundColor:'#5E35B1'}}>
-      <Body>
-      <Title>Inquiry</Title>
-      </Body>
+        <Body>
+          <Title>Inquiry</Title>
+        </Body>
       </Header>
         <View style={{flex:1, justifyContent:'center', flexDirection:'row', marginTop:50}}>
           <View style={{width: 300, flexDirection:'column'}}>
