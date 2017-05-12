@@ -5,7 +5,7 @@ import {
   BackHandler
 } from 'react-native';
 
-import { Container, Picker, Button, Form, Item as Stay, Input, Label } from 'native-base';
+import { Container, Picker, Button, Form, Item as Stay, Input, Label, Header, Body, Title } from 'native-base';
 const Item = Picker.Item;
 
 class inputQuery extends Component {
@@ -50,7 +50,12 @@ class inputQuery extends Component {
 
   render() {
     return(
-      <Container style={{flex:1, backgroundColor:'#FFF59D'}}>
+      <Container style={{flex:1, backgroundColor:'#B39DDB'}}>
+      <Header style={{backgroundColor:'#5E35B1'}}>
+      <Body>
+      <Title>Inquiry</Title>
+      </Body>
+      </Header>
         <View style={{flex:1, justifyContent:'center', flexDirection:'row', marginTop:50}}>
           <View style={{width: 300, flexDirection:'column'}}>
             <Picker
