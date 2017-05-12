@@ -12,16 +12,16 @@ const MapDetail = (props) => (
     <MapView
         style={styles.map}
         region={{
-          latitude: +(card.latitude),
-          longitude: +(card.longitude),
+          latitude: +(props.card.latitude),
+          longitude: +(props.card.longitude),
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
         showUserLocation={true}
     >
       <MapView.Marker.Animated coordinate={new MapView.AnimatedRegion({
-        latitude: +(card.latitude),
-        longitude: +(card.longitude),
+        latitude: +(props.card.latitude),
+        longitude: +(props.card.longitude),
         })}
       />
     </MapView>

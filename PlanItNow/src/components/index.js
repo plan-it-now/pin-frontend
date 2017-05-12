@@ -11,7 +11,7 @@ import ItineraryStepThree from './ItineraryStepThree';
 import step2 from './step2';
 
 const App = StackNavigator({
-  
+
   // ItineraryStepOne: {screen: ItineraryStepOne}
   ItineraryStepThree: {screen: ItineraryStepThree}
   // Login: {screen: Login},

@@ -22,7 +22,7 @@ import {
   Button,
   Content } from 'native-base';
 
-import MapView from 'react-native-maps';
+import MapDetail from '../MapDetail';
 import { connect } from 'react-redux';
 
 import Swiper from "react-native-deck-swiper";
@@ -84,24 +84,7 @@ class Recomedation extends React.Component {
            visible={this.state.modalVisible}
            onRequestClose={() => {console.log('modal closed');}}
           >
-            <View style={styles.mapcontainer}>
-              <MapView
-                  style={styles.map}
-                  region={{
-                    latitude: +(card.latitude),
-                    longitude: +(card.longitude),
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                  }}
-                  showUserLocation={true}
-              >
-                <MapView.Marker.Animated coordinate={new MapView.AnimatedRegion({
-                  latitude: +(card.latitude),
-                  longitude: +(card.longitude),
-                  })}
-                />
-              </MapView>
-            </View>
+            <MapDetail card={card} />
 
             <Button style={{backgroundColor:"#5E35B1"}} block onPress={()=> {this.setModalVisible(false)}}>
                 <Text>back!</Text>
