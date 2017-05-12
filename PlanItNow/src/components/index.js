@@ -9,7 +9,7 @@ import Recomendation from './Recomendation';
 import ItineraryStepOne from './ItineraryStepOne';
 import step2 from './step2';
 
-const App = StackNavigator({  
+const App = StackNavigator({
   // Login: {screen: Login},
   // Register: {screen: Register},
   // inputQuery: {screen: inputQuery},
@@ -18,7 +18,6 @@ const App = StackNavigator({
   step2: {screen: step2}
 }, {
   headerMode: 'none'
-
 })
 
 export default App;
