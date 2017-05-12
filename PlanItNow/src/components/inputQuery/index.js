@@ -46,8 +46,8 @@ class inputQuery extends Component {
   submitQuery() {
     this.setState({warning:''})
     const { pref, fetchPlaces } = this.props;
-    
     fetchPlaces(pref,this.state.city.toLowerCase());
+    this.props.navigation.navigate('Recomendation');
   }
 
 
