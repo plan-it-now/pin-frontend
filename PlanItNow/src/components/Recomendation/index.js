@@ -69,46 +69,48 @@ class Recomedation extends React.Component {
   }
 
   renderCard = card => {
-    const coordinate = new MapView.AnimatedRegion({
-      latitude: +(card.latitude),
-      longitude: +(card.longitude),
-    });
     return (
-      <View style={styles.card}>
-        <Text>{card.name}</Text>
-        <Image
-         style = {{ height: '30%', width: '90%'}}
-         source = {{ uri : card.photos}}
-        />
-        <Text>{card.description}</Text>
-        <Modal
-         animationType={"slide"}
-         transparent={true}
-         visible={this.state.modalVisible}
-        >
-          <View style={styles.mapcontainer}>
-            <MapView
-                style={styles.map}
-                initialRegion={{
+      <View>
+        <View style={styles.card}>
+          <Text style={{ marginTop: 20 }}>{card.name}</Text>
+          <Image
+           style = {{ height: '50%', width: '90%'}}
+           source = {{ uri : card.photos}}
+          />
+          <Text style={{ fontSize: 12, padding: 20, textAlign: 'justify' }} >{card.description}</Text>
+          <Modal
+           animationType={"slide"}
+           transparent={true}
+           visible={this.state.modalVisible}
+           onRequestClose={() => {console.log('modal closed');}}
+          >
+            <View style={styles.mapcontainer}>
+              <MapView
+                  style={styles.map}
+                  region={{
+                    latitude: +(card.latitude),
+                    longitude: +(card.longitude),
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421,
+                  }}
+                  showUserLocation={true}
+              >
+                <MapView.Marker.Animated coordinate={new MapView.AnimatedRegion({
                   latitude: +(card.latitude),
                   longitude: +(card.longitude),
-                  latitudeDelta: 0.0922,
-                  longitudeDelta: 0.0421,
-                }}
-                showUserLocation={true}
-            >
-              <MapView.Marker.Animated coordinate={coordinate} />
-            </MapView>
-          </View>
+                  })}
+                />
+              </MapView>
+            </View>
 
-          <Button style={{backgroundColor:"#5E35B1"}} block onPress={()=> {this.setModalVisible(false)}}>
-              <Text>back!</Text>
-          </Button>
-        </Modal>
+            <Button style={{backgroundColor:"#5E35B1"}} block onPress={()=> {this.setModalVisible(false)}}>
+                <Text>back!</Text>
+            </Button>
+          </Modal>
+        </View>
         <Button style={{backgroundColor:"#5E35B1"}} block onPress={()=> {this.setModalVisible(true)}}>
             <Text>Info</Text>
         </Button>
-
       </View>
     );
   };
@@ -156,7 +158,7 @@ class Recomedation extends React.Component {
           renderCard={this.renderCard}
           onSwipedAll={this.onSwipedAllCards}
         >
-          <Button style={{backgroundColor:"#5E35B1"}} rounded onPress={this.swipeBack}>
+          <Button style={{backgroundColor:"#5E35B1",margin: 10}} rounded onPress={this.swipeBack}>
               <Text>undo</Text>
           </Button>
         </Swiper>
@@ -171,27 +173,28 @@ const deviceHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#B39DDB'
+    backgroundColor: '#B39DDB',
   },
   card: {
     borderRadius: 8,
     borderWidth: 2,
     borderColor: '#E8E8E8',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: 'white',
-    height: '100%',
+    height: deviceHeight * 0.7,
+    marginTop: 20
   },
   map: {
-     position: 'absolute',
-     top: 0,
+    position: 'absolute',
+    top: 0,
     left: 0,
     right: 0,
     bottom: 0
   },
   mapcontainer: {
     width: deviceWidth,
-    height: deviceHeight * 0.9,
+    height: deviceHeight * 0.89,
     alignItems: 'center',
   }
 })
