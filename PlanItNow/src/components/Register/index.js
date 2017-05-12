@@ -14,7 +14,7 @@ class Register extends React.Component {
       name: '',
       email: '',
       password: '',
-      isRedirect: false
+      // isRedirect: false
     }
   }
 
@@ -32,8 +32,10 @@ class Register extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(this.props.logindata.shouldRedirect && !this.state.isRedirect){
-      this.setState({isRedirect: true})
+    // console.log('prev', prevProps.logindata);
+    // console.log('next',this.props.logindata);
+    if(this.props.logindata.shouldRedirect && !prevProps.logindata.shouldRedirect){
+      // this.setState({isRedirect: true})
       this.loginSuccess()
     }
   }
