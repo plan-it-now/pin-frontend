@@ -2,7 +2,11 @@ import React from 'react';
 
 import {
   View,
+<<<<<<< HEAD
   Image
+=======
+  Text
+>>>>>>> 3c5165dc8a0e738a8474f83cef425335a8ab9236
 } from 'react-native';
 
 import {
@@ -12,6 +16,7 @@ import {
   Content,
   Footer,
   FooterTab,
+<<<<<<< HEAD
   Button,
   Left,
   Right,
@@ -24,6 +29,11 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
+=======
+  Button, Left, Right, Body, Icon
+} from 'native-base';
+
+>>>>>>> 3c5165dc8a0e738a8474f83cef425335a8ab9236
 class Profile extends React.Component {
   constructor(props) {
     super(props)
@@ -32,6 +42,7 @@ class Profile extends React.Component {
 
   render () {
     return (
+<<<<<<< HEAD
       <Container style={{ backgroundColor: '#fff' }}>
         <Header style={{ backgroundColor: '#fc5757' }}>
           <Left>
@@ -41,6 +52,13 @@ class Profile extends React.Component {
             }}>
               <Icon name="menu" color="white" size={22}
               />
+=======
+      <Container>
+        <Header>
+          <Left>
+            <Button transparant>
+              <Icon name='menu' />
+>>>>>>> 3c5165dc8a0e738a8474f83cef425335a8ab9236
             </Button>
           </Left>
           <Body>
@@ -50,6 +68,7 @@ class Profile extends React.Component {
           </Body>
         </Header>
 
+<<<<<<< HEAD
         <Content padder>
           <Card>
             <View style={{  }}>
@@ -101,6 +120,17 @@ class Profile extends React.Component {
             }}/>
         </Button>
 
+=======
+        <Content>
+          <Text>Test</Text>
+        </Content>
+
+        <Footer backgroundColor="#fff">
+          <Button block>
+            <Text>Add</Text>
+          </Button>
+        </Footer>
+>>>>>>> 3c5165dc8a0e738a8474f83cef425335a8ab9236
       </Container>
     )
   }
