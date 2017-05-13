@@ -13,6 +13,7 @@ import {
   Content,
   Footer,
   FooterTab,
+<<<<<<< HEAD
   Button,
   Left,
   Right,
@@ -25,6 +26,11 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
+=======
+  Button, Left, Right, Body, Icon
+} from 'native-base';
+
+>>>>>>> resolve nothing to changes
 class Profile extends React.Component {
   constructor(props) {
     super(props)
@@ -33,6 +39,7 @@ class Profile extends React.Component {
 
   render () {
     return (
+<<<<<<< HEAD
       <Container style={{ backgroundColor: '#B39DDB' }}>
         <Header style={{ backgroundColor: '#5E35B1' }}>
           <Left>
@@ -42,6 +49,13 @@ class Profile extends React.Component {
             }}>
               <Icon name="menu" color="white" size={22}
               />
+=======
+      <Container>
+        <Header>
+          <Left>
+            <Button transparant>
+              <Icon name='menu' />
+>>>>>>> resolve nothing to changes
             </Button>
           </Left>
           <Body>
@@ -51,6 +65,7 @@ class Profile extends React.Component {
           </Body>
         </Header>
 
+<<<<<<< HEAD
         <Content padder>
           <Card>
             <View>
@@ -136,6 +151,17 @@ class Profile extends React.Component {
             }}/>
         </Button>
 
+=======
+        <Content>
+          <Text>Test</Text>
+        </Content>
+
+        <Footer backgroundColor="#fff">
+          <Button block>
+            <Text>Add</Text>
+          </Button>
+        </Footer>
+>>>>>>> resolve nothing to changes
       </Container>
     )
   }
