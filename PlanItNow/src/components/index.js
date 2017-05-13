@@ -12,10 +12,13 @@ import step2 from './step2';
 import Profile from './Profile';
 
 const App = StackNavigator({
-  Profile: {screen : Profile}
+  // Profile: {screen : Profile}
+  Login: {screen : Login},
+  inputQuery: {screen: inputQuery},
+  Register: {screen: Register},
   // ItineraryStepThree: {screen: ItineraryStepThree},
-  // ItineraryStepOne: {screen: ItineraryStepOne}
-  // step2: {screen: step2}
+  ItineraryStepOne: {screen: ItineraryStepOne},
+  step2: {screen: step2}
 }, {
   headerMode: 'none'
 })

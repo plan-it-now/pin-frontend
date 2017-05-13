@@ -122,6 +122,7 @@ class Profile extends React.Component {
 
         <Button
           style={{
+            justifyContent: 'center',
             width: 60,
             height: 60,
             backgroundColor: '#5E35B1',
