@@ -32,6 +32,8 @@ import Swiper from "react-native-deck-swiper";
 
 import MapDetail from '../MapDetail';
 
+import { processPlaces } from '../../actions';
+
 exports.framework = 'React';
 exports.title = 'Geolocation';
 exports.description = 'Examples of using the Geolocation API.';
@@ -69,9 +71,9 @@ class Recomedation extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(prevProps.places !== this.props.places) {
+    if(prevProps.places.recomendationPlaces !== this.props.places.recomendationPlaces) {
       this.setState({
-        cards: this.props.places
+        cards: this.props.places.recomendationPlaces
       })
     }
   }
@@ -156,29 +158,32 @@ class Recomedation extends React.Component {
 
   swipeLeft(cardIndex) {
     this.setState({
-      rejected: [...this.state.rejected, this.props.places[cardIndex]],
+      rejected: [...this.state.rejected, this.props.places.recomendationPlaces[cardIndex]],
       swipe: [...this.state.swipe, 'left']
     })
   }
 
   swipeRight(cardIndex) {
     this.setState({
-      approved: [...this.state.approved, this.props.places[cardIndex]],
+      approved: [...this.state.approved, this.props.places.recomendationPlaces[cardIndex]],
       swipe: [...this.state.swipe, 'right']
     })
   }
 
-  submitPlaces() {
-    console.log('ngapain nih?');
+  handleSubmitPlaces() {
+  console.log('lalalala',this.state.rejected);
+    this.props.submitPlaces(this.state.rejected,this.state.approved);
+    const { navigate } = this.props.navigation;
+    navigate('Step1');
   }
 
 
   displayAlert() {
     Alert.alert(
-      'You have seen all places in '+this.props.places[0].city,
+      'You have seen all places in '+this.props.places.recomendationPlaces[0].city,
       '',
       [
-        {text:'Okay', onPress: () => this.submitPlaces()}
+        {text:'Okay', onPress: () => this.handleSubmitPlaces()}
       ]
     )
   }
@@ -219,6 +224,7 @@ class Recomedation extends React.Component {
             }
             <Button
                 rounded
+                onPress={()=>this.handleSubmitPlaces()}
                 style={{
                   backgroundColor: '#5E35B1',
                   margin: 10,
@@ -285,4 +291,8 @@ const mapStateToProps = state => ({
   places: state.places,
 })
 
-export default connect(mapStateToProps,null)(Recomedation);
+const mapDispatchToProps = dispatch => ({
+  submitPlaces: (rejectedList ,approvedList) => dispatch(processPlaces(rejectedList, approvedList))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Recomedation);

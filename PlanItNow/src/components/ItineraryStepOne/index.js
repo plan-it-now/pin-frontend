@@ -16,14 +16,8 @@ import {
   Picker,
 } from 'native-base';
 
-let OPTIONS = [
-  'Day 1',
-  'Day 2',
-  'Day 3',
-  'Cancel'
-]
+import { connect } from 'react-redux';
 
-let CANCEL_INDEX = 3;
 const Item = Picker.Item;
 
 class ItineraryStepOne extends React.Component {
@@ -115,4 +109,7 @@ class ItineraryStepOne extends React.Component {
   }
 }
 
-export default ItineraryStepOne;
+const mapStateToProps = state => ({
+  places: state.places,
+})
+export default connect(mapStateToProps,null)(ItineraryStepOne);
