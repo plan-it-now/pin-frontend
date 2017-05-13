@@ -34,7 +34,7 @@ class Register extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     // console.log('prev', prevProps.logindata);
     // console.log('next',this.props.logindata);
-    if(this.props.logindata.shouldRedirect && !prevProps.logindata.shouldRedirect){
+    if(this.props.logindata.shouldRedirectSignUp && !prevProps.logindata.shouldRedirectSignUp){
       // this.setState({isRedirect: true})
       this.loginSuccess()
     }

@@ -21,17 +21,17 @@ class inputQuery extends Component {
     this.submitQuery = this.submitQuery.bind(this);
   }
 
-  componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton)
-  }
-
-  componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton)
-  }
-
-  handleBackButton() {
-    return true
-  }
+  // componentDidMount() {
+  //   BackHandler.addEventListener('hardwareBackPress', this.handleBackButton)
+  // }
+  //
+  // componentWillUnmount() {
+  //   BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton)
+  // }
+  //
+  // handleBackButton() {
+  //   return true
+  // }
 
   static navigationOptions = {
     headerTitle: "Inquiry"

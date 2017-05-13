@@ -4,7 +4,8 @@ import { AsyncStorage } from 'react-native';
 const initialState = {
   token: '',
   userdata: '',
-  shouldRedirect: false
+  shouldRedirectSignIn: false,
+  shouldRedirectSignUp: false,
 }
 
 function loginSuccess(payload) {
@@ -14,7 +15,10 @@ function loginSuccess(payload) {
   } else {
     console.log("xxx");
     AsyncStorage.setItem('token', payload.token)
-    return {shouldRedirect: true, ...payload};
+    return {...payload,
+        shouldRedirectSignIn: true,
+        shouldRedirectSignUp: false
+      };
   }
 }
 
@@ -34,7 +38,10 @@ function signUp(payload) {
   } else {
     console.log("xxx");
     AsyncStorage.setItem('token', payload.token)
-    return {shouldRedirect: true, ...payload};
+    return {...payload,
+        shouldRedirectSignUp: true,
+        shouldRedirectSignIn: false
+      };
   }
 }
 
