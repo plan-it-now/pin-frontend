@@ -52,7 +52,9 @@ class Recomedation extends React.Component {
       isSwipingBack: false,
       cardIndex: 0,
       modalVisible: false,
-      mapData: {}
+      mapData: {},
+      rejected:[],
+      approved:[]
     };
   }
   componentDidMount() {
@@ -99,6 +101,10 @@ class Recomedation extends React.Component {
 
   swipeBack = () => {
     if (!this.state.isSwipingBack) {
+      console.log('before',this.state.rejected.length);
+      this.state.rejected.pop();
+      this.forceUpdate();
+      console.log('after',this.state.rejected.length);
       this.setIsSwipingBack(true, () => {
         this.swiper.swipeBack(() => {
           this.setIsSwipingBack(false);
@@ -130,9 +136,12 @@ class Recomedation extends React.Component {
           backgroundColor = '#B39DDB'
           onSwiped={(cardIndex) => {console.log(cardIndex)}}
           cards={this.props.places}
+          onSwipedLeft={(cardIndex) => {this.setState({rejected: [...this.state.rejected, this.props.places[cardIndex]]})}}
+          onSwipedRight={(cardIndex) => {this.setState({approved: [...this.state.approved, this.props.places[cardIndex]]})}}
           cardIndex={this.state.cardIndex}
           renderCard={this.renderCard}
-          onSwipedAll={this.onSwipedAllCards}
+          onSwipedAll={() => console.log(this.state.approved)}
+
         >
           <Button style={{backgroundColor:"#5E35B1",margin: 10}} rounded onPress={this.swipeBack}>
               <Text>undo</Text>

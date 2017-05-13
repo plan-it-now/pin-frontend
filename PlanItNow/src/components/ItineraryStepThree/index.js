@@ -107,7 +107,6 @@ class ItineraryStepThree extends React.Component {
                   marginTop: 10,
                   marginBottom: 10
                 }}>
-
                 <View style={{ width: 130 }}>
                   <Item rounded red>
                     <Input style={{
@@ -130,7 +129,6 @@ class ItineraryStepThree extends React.Component {
               </View>
             </View>
           </ScrollView>
-
         </Content>
         <Button
           rounded
@@ -149,7 +147,6 @@ class ItineraryStepThree extends React.Component {
         </Button>
       </Container>
     )
-
   }
 
 }
