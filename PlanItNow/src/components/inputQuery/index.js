@@ -46,7 +46,7 @@ class inputQuery extends Component {
   submitQuery() {
     this.setState({warning:''})
     const { pref, fetchPlaces } = this.props;
-    fetchPlaces(pref,this.state.city.toLowerCase());
+    fetchPlaces(pref,this.state.city.toLowerCase(), +(this.state.days));
     this.props.navigation.navigate('Recomendation');
   }
 
@@ -99,7 +99,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchPlaces: (pref,city) => dispatch(fetchPlaces(pref,city))
+  fetchPlaces: (pref,city,days) => dispatch(fetchPlaces(pref,city,days))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(inputQuery);

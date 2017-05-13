@@ -16,9 +16,10 @@ const App = StackNavigator({
   Login: {screen : Login},
   inputQuery: {screen: inputQuery},
   Register: {screen: Register},
+  Recomendation: {screen: Recomendation},
+  Step1: {screen: ItineraryStepOne},
+  step2: {screen: step2},
   // ItineraryStepThree: {screen: ItineraryStepThree},
-  ItineraryStepOne: {screen: ItineraryStepOne},
-  step2: {screen: step2}
 }, {
   headerMode: 'none'
 })
