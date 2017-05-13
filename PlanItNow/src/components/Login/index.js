@@ -33,7 +33,7 @@ class Login extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     // console.log('prev', prevProps.logindata);
     // console.log('next',this.props.logindata);
-    if(this.props.logindata.shouldRedirect && !prevProps.logindata.shouldRedirect){
+    if(this.props.logindata.shouldRedirectSignIn && !prevProps.logindata.shouldRedirectSignIn){
       // this.setState({isRedirect: true})
       this.loginSuccess()
     }
