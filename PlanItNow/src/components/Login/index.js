@@ -56,7 +56,7 @@ class Login extends React.Component {
       >
         <Image
           style={styles.backgroundImage}
-          source={{ uri : 'http://4.bp.blogspot.com/-dXMb3OIPqiw/UV5pkcbDQhI/AAAAAAAACPw/HnPIlLoEbj0/s1600/3.jpg' }}
+          source={{ uri : 'https://s-media-cache-ak0.pinimg.com/originals/d7/99/d9/d799d98dac43a2e49d71eac78d632b79.jpg' }}
         >
           <View
             style={{
@@ -69,27 +69,22 @@ class Login extends React.Component {
                 height: 150,
                 alignSelf: 'center',
               }}
-              source={require('../../assets/pin-logo-transparent.png')}
-            />
-            <Item floatingLabel>
+              source={require('../../assets/pin-logo-transparent.png')}/>
+            <Item>
               <Icon name='mail' style={{fontSize: 20, color: 'white'}} />
-
-              <Label
-                style={{color: '#fff'}}
-              >Email</Label>
               <Input
+                placeholder = "Email"
+                placeholderTextColor = "#fff"
                 onChangeText = {(text) => this.setState({email:text})}
                 style={{color: '#fff'}}
-              >
-
-              </Input>
+              />
             </Item>
-            <Item floatingLabel>
+            <Item>
               <Icon name='lock' style={{fontSize: 20, color: 'white'}} />
-              <Label
-                style={{color: '#fff'}}
-              >Password</Label>
               <Input
+                placeholder = "Password"
+                placeholderTextColor = "#fff"
+                secureTextEntry = {true}
                 onChangeText = {(text) => this.setState({password:text})}
                 style={{color: '#fff'}}
               />
@@ -99,11 +94,11 @@ class Login extends React.Component {
                 style={{
                   marginTop: 20,
                   alignItems: 'center',
-                  backgroundColor: '#FFEB3B'
+                  backgroundColor: '#5E35B1'
                 }}
                 >
                 <Text
-                  style={{color: '#000'}}
+                  style={{color: '#fff'}}
                   >Sign In</Text>
               </Button>
               <Button onPress={() => this.navigateToRegister()}
@@ -111,11 +106,11 @@ class Login extends React.Component {
                   style={{
                     marginTop: 20,
                     alignItems: 'center',
-                    backgroundColor: '#FFEB3B'
+                    backgroundColor: '#5E35B1'
                   }}
                   >
                   <Text
-                    style={{color: '#000'}}
+                    style={{color: '#fff'}}
                     >Sign Up</Text>
                 </Button>
                 <Text>{this.state.warning}</Text>
@@ -135,11 +130,13 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    zIndex: 100,
-    resizeMode: 'cover',
+    zIndex:100,
+    width: '100%',
+    height: '100%',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    position: 'relative'
   }
 });
 
