@@ -20,7 +20,10 @@ import {
   Left,
   Body,
   Button,
-  Content } from 'native-base';
+  Content,
+  Header,
+  Title
+ } from 'native-base';
 
 import MapView from 'react-native-maps';
 import { connect } from 'react-redux';
@@ -51,7 +54,8 @@ class Recomedation extends React.Component {
       cardIndex: 0,
       modalVisible: false,
       rejected:[],
-      approved:[]
+      approved:[],
+      swipe:[]
     };
   }
   componentDidMount() {
@@ -110,9 +114,7 @@ class Recomedation extends React.Component {
             </Button>
           </Modal>
         </View>
-        <Button style={{backgroundColor:"#5E35B1"}} block onPress={()=> {this.setModalVisible(true)}}>
-            <Text>Info</Text>
-        </Button>
+
       </View>
     );
   };
@@ -125,10 +127,21 @@ class Recomedation extends React.Component {
 
   swipeBack = () => {
     if (!this.state.isSwipingBack) {
-      console.log('before',this.state.rejected.length);
-      this.state.rejected.pop();
-      this.forceUpdate();
-      console.log('after',this.state.rejected.length);
+      if(this.state.swipe[this.state.swipe.length - 1] === 'left') {
+        console.log('before => ' , this.state.rejected);
+        this.state.rejected.pop();
+        this.state.swipe.pop();
+        this.forceUpdate();
+        console.log('after => ' , this.state.rejected);
+      } else if (this.state.swipe[this.state.swipe.length - 1] === 'right') {
+        console.log('before approved => ' , this.state.approved);
+        this.state.approved.pop();
+        this.state.swipe.pop();
+        this.forceUpdate();
+        console.log('after approved => ' , this.state.approved);
+      }
+
+
       this.setIsSwipingBack(true, () => {
         this.swiper.swipeBack(() => {
           this.setIsSwipingBack(false);
@@ -150,9 +163,24 @@ class Recomedation extends React.Component {
     this.swiper.jumpToCardIndex(2);
   };
 
+  swipeLeft(cardIndex) {
+    this.setState({
+      rejected: [...this.state.rejected, this.props.places[cardIndex]],
+      swipe: [...this.state.swipe, 'left']
+    })
+  }
+
+  swipeRight(cardIndex) {
+    this.setState({
+      approved: [...this.state.approved, this.props.places[cardIndex]],
+      swipe: [...this.state.swipe, 'right']
+    })
+  }
+
   render () {
     return (
       <View style={styles.container}>
+
         <Swiper
           ref={swiper => {
             this.swiper = swiper;
@@ -160,15 +188,39 @@ class Recomedation extends React.Component {
           backgroundColor = '#B39DDB'
           onSwiped={(cardIndex) => {console.log(cardIndex)}}
           cards={this.props.places}
-          onSwipedLeft={(cardIndex) => {this.setState({rejected: [...this.state.rejected, this.props.places[cardIndex]]})}}
-          onSwipedRight={(cardIndex) => {this.setState({approved: [...this.state.approved, this.props.places[cardIndex]]})}}
+          verticalSwipe={false}
+          onSwipedLeft={(cardIndex) => this.swipeLeft(cardIndex)}
+          onSwipedRight={(cardIndex) => this.swipeRight(cardIndex)}
           cardIndex={this.state.cardIndex}
           renderCard={this.renderCard}
           onSwipedAll={() => console.log(this.state.approved)}
 
         >
-          <Button style={{backgroundColor:"#5E35B1",margin: 10}} rounded onPress={this.swipeBack}>
-              <Text>undo</Text>
+          <View style={{
+            width:deviceWidth,
+            flexDirection:'row',
+            justifyContent:'space-between'}}
+          >
+            {
+              this.state.swipe.length !== 0 ?
+              <Button style={{backgroundColor:"#5E35B1",margin: 10, alignSelf: 'flex-end'}} rounded onPress={this.swipeBack}>
+                  <Icon name="md-sync" color="white" size={22}/>
+              </Button>
+              :
+              <View />
+            }
+            <Button
+                rounded
+                style={{
+                  backgroundColor: '#5E35B1',
+                  margin: 10,
+                  alignSelf: 'flex-end'
+                }}>
+                <Icon name="md-send" color="white"/>
+            </Button>
+          </View>
+          <Button style={{backgroundColor:"#5E35B1", marginTop: deviceHeight*0.81}} block onPress={()=> {this.setModalVisible(true)}}>
+              <Text>Location</Text>
           </Button>
         </Swiper>
       </View>
@@ -191,8 +243,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: 'white',
-    height: deviceHeight * 0.7,
-    marginTop: 20
+    height: deviceHeight*0.75,
+    marginTop:10,
   },
   map: {
     position: 'absolute',
