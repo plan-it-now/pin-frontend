@@ -2,11 +2,7 @@ import React from 'react';
 
 import {
   View,
-<<<<<<< HEAD
   Image
-=======
-  Text
->>>>>>> 3c5165dc8a0e738a8474f83cef425335a8ab9236
 } from 'react-native';
 
 import {
@@ -16,7 +12,6 @@ import {
   Content,
   Footer,
   FooterTab,
-<<<<<<< HEAD
   Button,
   Left,
   Right,
@@ -29,11 +24,6 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
-=======
-  Button, Left, Right, Body, Icon
-} from 'native-base';
-
->>>>>>> 3c5165dc8a0e738a8474f83cef425335a8ab9236
 class Profile extends React.Component {
   constructor(props) {
     super(props)
@@ -42,23 +32,15 @@ class Profile extends React.Component {
 
   render () {
     return (
-<<<<<<< HEAD
-      <Container style={{ backgroundColor: '#fff' }}>
-        <Header style={{ backgroundColor: '#fc5757' }}>
+      <Container style={{ backgroundColor: '#B39DDB' }}>
+        <Header style={{ backgroundColor: '#5E35B1' }}>
           <Left>
             <Button style={{
-              backgroundColor: '#fc5757',
+              backgroundColor: '#5E35B1',
 
             }}>
               <Icon name="menu" color="white" size={22}
               />
-=======
-      <Container>
-        <Header>
-          <Left>
-            <Button transparant>
-              <Icon name='menu' />
->>>>>>> 3c5165dc8a0e738a8474f83cef425335a8ab9236
             </Button>
           </Left>
           <Body>
@@ -68,20 +50,34 @@ class Profile extends React.Component {
           </Body>
         </Header>
 
-<<<<<<< HEAD
         <Content padder>
           <Card>
-            <View style={{  }}>
+            <View>
               <Image
-                style={{ width: '100%', height: 200, backgroundColor: 'hsl(360, 100%, 100%)' }}
-                source={{ uri : 'http://alindstransport.com/wp-content/uploads/2016/09/Tugu-Jogja-Yogyakarta-jogja.jpg' }} />
+                style={{
+                  flex: 1,
+                  flexDirection: 'column',
+                  justifyContent: 'flex-end',
+                  width: '100%',
+                  height: 200,
+                  backgroundColor: 'rgba(52, 52, 52, 0.8)' }}
+                source={{ uri : 'http://alindstransport.com/wp-content/uploads/2016/09/Tugu-Jogja-Yogyakarta-jogja.jpg' }}>
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', backgroundColor: 'rgba(52, 52, 52, 0.4)' }}>
+                  <Text style={{
+                      color: '#fff', fontWeight: 'bold', margin: 5, flexWrap: 'wrap'
+                    }}>Yogyakarta Trip</Text>
+                  <Text style={{ color: '#fff', margin: 5}}>
+                    12 Mei 2017
+                  </Text>
+                </View>
+              </Image>
               <CardItem>
                 <Body>
                   <Text>
-                    Yogyakarta, Indonesia
+                    Tugu, Yogyakarta
                   </Text>
                   <Text note>
-                    12 Mei 2017
+                    2 days ago
                   </Text>
                 </Body>
               </CardItem>
@@ -89,19 +85,35 @@ class Profile extends React.Component {
 
             <View>
               <Image
-                style={{ width: '100%', height: 200, backgroundColor: '#696969' }}
-                source={{ uri : 'https://4.bp.blogspot.com/-4X3c0CA9Qp4/V-t1RvcGgII/AAAAAAAAAWY/CM_VOv8vjeYRpfnn6FJeIoZP44jQx6gSACLcB/s1600/600.PNG' }} />
+                style={{
+                  flex: 1,
+                  flexDirection: 'column',
+                  justifyContent: 'flex-end',
+                  width: '100%',
+                  height: 200,
+                  backgroundColor: 'rgba(52, 52, 52, 0.8)' }}
+                source={{ uri : 'https://4.bp.blogspot.com/-4X3c0CA9Qp4/V-t1RvcGgII/AAAAAAAAAWY/CM_VOv8vjeYRpfnn6FJeIoZP44jQx6gSACLcB/s1600/600.PNG' }}>
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', backgroundColor: 'rgba(52, 52, 52, 0.4)' }}>
+                  <Text style={{
+                      color: '#fff', fontWeight: 'bold', margin: 5, flexWrap: 'wrap'
+                    }}>Yogyakarta Trip</Text>
+                  <Text style={{ color: '#fff', fontWeight: 'bold', margin: 5}}>
+                    12 Mei 2017
+                  </Text>
+                </View>
+              </Image>
               <CardItem>
                 <Body>
                   <Text>
-                    Yogyakarta, Indonesia
+                    Tugu, Yogyakarta
                   </Text>
-                  <Text>
-                    12 Mei 2017
+                  <Text note>
+                    2 days ago
                   </Text>
                 </Body>
               </CardItem>
             </View>
+
           </Card>
         </Content>
 
@@ -109,7 +121,7 @@ class Profile extends React.Component {
           style={{
             width: 60,
             height: 60,
-            backgroundColor: '#fc5757',
+            backgroundColor: '#5E35B1',
             position: 'absolute',
             bottom: 10,
             right: 20,
@@ -120,17 +132,6 @@ class Profile extends React.Component {
             }}/>
         </Button>
 
-=======
-        <Content>
-          <Text>Test</Text>
-        </Content>
-
-        <Footer backgroundColor="#fff">
-          <Button block>
-            <Text>Add</Text>
-          </Button>
-        </Footer>
->>>>>>> 3c5165dc8a0e738a8474f83cef425335a8ab9236
       </Container>
     )
   }
