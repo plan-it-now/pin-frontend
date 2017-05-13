@@ -81,6 +81,9 @@ class Recomedation extends React.Component {
   renderCard = card => {
     return (
       <View>
+      <Button style={{backgroundColor:"#5E35B1"}} block onPress={()=> {this.setModalVisible(true, card)}}>
+          <Text>Info</Text>
+      </Button>
         <View style={styles.card}>
           <Text style={{ marginTop: 20 }}>{card.name}</Text>
           <Image
@@ -90,9 +93,7 @@ class Recomedation extends React.Component {
           <Text style={{ fontSize: 12, padding: 20, textAlign: 'justify' }} >{card.description}</Text>
 
         </View>
-        <Button style={{backgroundColor:"#5E35B1"}} block onPress={()=> {this.setModalVisible(true, card)}}>
-            <Text>Info</Text>
-        </Button>
+
 
       </View>
     );
@@ -164,6 +165,7 @@ class Recomedation extends React.Component {
           ref={swiper => {
             this.swiper = swiper;
           }}
+          childrenOnTop={true}
           backgroundColor = '#B39DDB'
           onSwiped={(cardIndex) => {console.log(cardIndex)}}
           cards={this.props.places}
@@ -198,9 +200,7 @@ class Recomedation extends React.Component {
                 <Icon name="md-send" color="white"/>
             </Button>
           </View>
-          <Button style={{backgroundColor:"#5E35B1", marginTop: deviceHeight*0.81}} block onPress={()=> {this.setModalVisible(true)}}>
-              <Text>Location</Text>
-          </Button>
+
         </Swiper>
 
         <Modal
@@ -237,8 +237,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: 'white',
-    height: deviceHeight*0.75,
-    marginTop:10,
+    height: deviceHeight*0.7,
+    marginTop:0,
   },
   map: {
     position: 'absolute',
