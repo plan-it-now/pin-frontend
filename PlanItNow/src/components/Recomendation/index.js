@@ -7,7 +7,8 @@ import {
   StyleSheet,
   Modal,
   TouchableHighlight,
-  Dimensions
+  Dimensions,
+  Alert
 } from 'react-native';
 import {
   Container,
@@ -58,11 +59,21 @@ class Recomedation extends React.Component {
       mapData: {},
       rejected:[],
       approved:[],
-      swipe:[]
+      swipe:[],
+      cards: [{
+        name:'',
+        description:'',
+        photos:'a',
+      }]
     };
   }
-  componentDidMount() {
-    console.log(this.props);
+
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.places !== this.props.places) {
+      this.setState({
+        cards: this.props.places
+      })
+    }
   }
 
   static navigationOptions = {
@@ -157,6 +168,22 @@ class Recomedation extends React.Component {
     })
   }
 
+  submitPlaces() {
+    console.log('ngapain nih?');
+  }
+
+
+  displayAlert() {
+    Alert.alert(
+      'You have seen all places in '+this.props.places[0].city,
+      '',
+      [
+        {text:'Okay', onPress: () => this.submitPlaces()}
+      ]
+    )
+  }
+
+
   render () {
     return (
       <View style={styles.container}>
@@ -168,13 +195,13 @@ class Recomedation extends React.Component {
           childrenOnTop={true}
           backgroundColor = '#B39DDB'
           onSwiped={(cardIndex) => {console.log(cardIndex)}}
-          cards={this.props.places}
+          cards={this.state.cards}
           verticalSwipe={false}
           onSwipedLeft={(cardIndex) => this.swipeLeft(cardIndex)}
           onSwipedRight={(cardIndex) => this.swipeRight(cardIndex)}
           cardIndex={this.state.cardIndex}
           renderCard={this.renderCard}
-          onSwipedAll={() => console.log(this.state.approved)}
+          onSwipedAll={() => this.displayAlert()}
 
         >
           <View style={{
