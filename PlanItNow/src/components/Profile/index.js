@@ -2,7 +2,8 @@ import React from 'react';
 
 import {
   View,
-  Image
+  Image,
+  TouchableHighlight
 } from 'react-native';
 
 import {
@@ -53,24 +54,26 @@ class Profile extends React.Component {
         <Content padder>
           <Card>
             <View>
-              <Image
-                style={{
-                  flex: 1,
-                  flexDirection: 'column',
-                  justifyContent: 'flex-end',
-                  width: '100%',
-                  height: 200,
-                  backgroundColor: 'rgba(52, 52, 52, 0.8)' }}
-                source={{ uri : 'http://alindstransport.com/wp-content/uploads/2016/09/Tugu-Jogja-Yogyakarta-jogja.jpg' }}>
-                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', backgroundColor: 'rgba(52, 52, 52, 0.4)' }}>
-                  <Text style={{
-                      color: '#fff', fontWeight: 'bold', margin: 5, flexWrap: 'wrap'
-                    }}>Yogyakarta Trip</Text>
-                  <Text style={{ color: '#fff', margin: 5}}>
-                    12 Mei 2017
-                  </Text>
-                </View>
-              </Image>
+              <TouchableHighlight onPress={this._onPressButtoon}>
+                <Image
+                  style={{
+                    flex: 1,
+                    flexDirection: 'column',
+                    justifyContent: 'flex-end',
+                    width: '100%',
+                    height: 200,
+                    backgroundColor: 'rgba(52, 52, 52, 0.8)' }}
+                  source={{ uri : 'http://alindstransport.com/wp-content/uploads/2016/09/Tugu-Jogja-Yogyakarta-jogja.jpg' }}>
+                  <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', backgroundColor: 'rgba(52, 52, 52, 0.4)' }}>
+                    <Text style={{
+                        color: '#fff', fontWeight: 'bold', margin: 5, flexWrap: 'wrap'
+                      }}>Yogyakarta Trip</Text>
+                    <Text style={{ color: '#fff', margin: 5}}>
+                      12 Mei 2017
+                    </Text>
+                  </View>
+                </Image>
+              </TouchableHighlight>
               <CardItem>
                 <Body>
                   <Text>
@@ -96,8 +99,8 @@ class Profile extends React.Component {
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', backgroundColor: 'rgba(52, 52, 52, 0.4)' }}>
                   <Text style={{
                       color: '#fff', fontWeight: 'bold', margin: 5, flexWrap: 'wrap'
-                    }}>Yogyakarta Trip</Text>
-                  <Text style={{ color: '#fff', fontWeight: 'bold', margin: 5}}>
+                    }}>Bali Trip</Text>
+                  <Text style={{ color: '#fff', margin: 5}}>
                     12 Mei 2017
                   </Text>
                 </View>
