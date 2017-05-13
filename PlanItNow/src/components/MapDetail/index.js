@@ -23,6 +23,7 @@ const MapDetail = (props) => (
         latitude: +(props.card.latitude),
         longitude: +(props.card.longitude),
         })}
+        image={require('../../assets/pin.png')}
       />
     </MapView>
   </View>
