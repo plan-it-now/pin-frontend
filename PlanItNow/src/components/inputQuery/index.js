@@ -21,17 +21,17 @@ class inputQuery extends Component {
     this.submitQuery = this.submitQuery.bind(this);
   }
 
-  // componentDidMount() {
-  //   BackHandler.addEventListener('hardwareBackPress', this.handleBackButton)
-  // }
-  //
-  // componentWillUnmount() {
-  //   BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton)
-  // }
-  //
-  // handleBackButton() {
-  //   return true
-  // }
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton)
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton)
+  }
+
+  handleBackButton() {
+    return true
+  }
 
   static navigationOptions = {
     headerTitle: "Inquiry"
@@ -82,7 +82,9 @@ class inputQuery extends Component {
               <Button rounded warning onPress={() => {(this.state.days !== '' && this.state.city !== 'key0') ? this.submitQuery() : this.setState({warning:'Please input all fields'})}}>
                  <Text>Lets Go!</Text>
              </Button>
-             <Text>{this.state.warning}</Text>
+           </View>
+           <View style={{flex:1, justifyContent:'center', flexDirection:'row'}}>
+           <Text style={{fontSize:15, color:'red'}}>{this.state.warning}</Text>
            </View>
           </View>
         </View>
