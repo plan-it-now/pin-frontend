@@ -93,6 +93,7 @@ class Recomedation extends React.Component {
         <Button style={{backgroundColor:"#5E35B1"}} block onPress={()=> {this.setModalVisible(true, card)}}>
             <Text>Info</Text>
         </Button>
+
       </View>
     );
   };
