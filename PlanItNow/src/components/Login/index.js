@@ -119,6 +119,7 @@ class Login extends React.Component {
         >
           <View
             style={{
+              marginTop: 30,
               width: '70%',
               height: '80%',
             }}>
@@ -149,7 +150,7 @@ class Login extends React.Component {
               />
             </Item>
             <Button onPress={() => this.loginHandler()}
-                block warning
+                block
                 style={{
                   marginTop: 20,
                   alignItems: 'center',
@@ -161,7 +162,7 @@ class Login extends React.Component {
                   >Sign In</Text>
               </Button>
               <Button onPress={() => this.navigateToRegister()}
-                  block warning
+                  block
                   style={{
                     marginTop: 20,
                     alignItems: 'center',
@@ -172,16 +173,21 @@ class Login extends React.Component {
                     style={{color: '#fff'}}
                     >Sign Up</Text>
                 </Button>
-              <Button
-                onPress={() => this.authfacebooksdk()}
+              <Button onPress={() => this.authfacebooksdk()}
+                block
+                style={{
+                  marginTop: 20,
+                  alignItems: 'center',
+                  backgroundColor: '#3B5998'
+                }}
               >
-                  <Text>Login FB</Text>
+                 <Icon name='logo-facebook' />
+                  <Text style={{color:'#fff'}}> Continue with Facebook</Text>
                 </Button>
-                <Text>{this.state.warning}</Text>
-                <View style={{flex:1, justifyContent:'center', flexDirection:'row'}}>
-                  <Text style={{fontSize:15, color:'#fff', marginTop:40}}>{this.state.warning}</Text>
-                  <Text style={{fontSize:15, color:'#fff', marginTop:40}}>{this.props.logindata.warning}</Text>
-                </View>
+          </View>
+          <View style={{flex:1, justifyContent:'center', flexDirection:'row'}}>
+            <Text style={{fontSize:15, color:'#fff', marginTop:10}}>{this.state.warning}</Text>
+            <Text style={{fontSize:15, color:'#fff', marginTop:10}}>{this.props.logindata.warning}</Text>
           </View>
         </Image>
     </View>
