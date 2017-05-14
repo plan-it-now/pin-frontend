@@ -14,7 +14,13 @@ class Register extends React.Component {
       name: '',
       email: '',
       password: '',
-      // isRedirect: false
+      warningMessage: '',
+      warning1: '',
+      warning2: '',
+      warning3: '',
+      checkName: false,
+      checkEmail: false,
+      checkPassword: false
     }
   }
 
@@ -32,16 +38,44 @@ class Register extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // console.log('prev', prevProps.logindata);
-    // console.log('next',this.props.logindata);
     if(this.props.logindata.shouldRedirectSignUp && !prevProps.logindata.shouldRedirectSignUp){
-      // this.setState({isRedirect: true})
       this.loginSuccess()
     }
   }
 
   signupHandler() {
-    this.props.signup(this.state)
+    const regexName = /^[a-zA-Z ]{6,30}$/;
+    if(regexName.test(this.state.name)){
+      this.setState({checkName: true})
+      this.setState({warning1: ''})
+    } else {
+      this.setState({warningMessage: 'SignUp Error :', warning1: '• Wrong Name format'})
+      this.setState({checkName: false})
+    }
+
+    const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    if(regexEmail.test(this.state.email)){
+      this.setState({checkEmail: true})
+      this.setState({warning2: ''})
+    } else {
+      this.setState({warningMessage: 'SignUp Error :', warning2: '• Wrong Email format'})
+      this.setState({checkEmail: false})
+    }
+
+    const regexPassword = /^[a-zA-Z0-9!@#$%^&*]{6,20}$/;
+    if(regexPassword.test(this.state.password)){
+      this.setState({checkPassword: true})
+      this.setState({warning3: ''})
+    } else {
+      this.setState({warningMessage: 'SignUp Error :', warning3: '• Password length min 6, max 20 char'})
+      this.setState({checkPassword: false})
+    }
+
+    if(this.state.checkName && this.state.checkEmail && this.state.checkPassword) {
+      this.props.signup({name: this.state.name, email: this.state.email, password: this.state.password})
+      this.setState({warning1: '', warning2: '', warning3: '', warningMessage: ''})
+    }
+
   }
 
   render () {
@@ -108,8 +142,15 @@ class Register extends React.Component {
                   style={{color: '#fff'}}
                   >Submit</Text>
               </Button>
+              <View style={{flex:1, justifyContent:'center', flexDirection:'column'}}>
+              <Text style={{fontSize:18, color:'#fff', marginTop:10}}>{this.state.warningMessage}</Text>
+              <Text style={{fontSize:13, color:'#fff'}}>{this.state.warning1}</Text>
+              <Text style={{fontSize:13, color:'#fff'}}>{this.state.warning2}</Text>
+              <Text style={{fontSize:13, color:'#fff'}}>{this.state.warning3}</Text>
+              </View>
           </View>
         </Image>
+
     </View>
     )
   }

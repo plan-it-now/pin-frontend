@@ -18,6 +18,8 @@ import {
 
 import { connect } from 'react-redux';
 
+import { processStep1 } from '../../actions';
+
 const Item = Picker.Item;
 
 class ItineraryStepOne extends React.Component {
@@ -53,6 +55,17 @@ class ItineraryStepOne extends React.Component {
     })
   }
 
+  handleSave(){
+    let approvedList = {approvedPlaces: this.props.places.approvedPlaces.map((appPlace, index) =>({
+      ...appPlace,
+      day: this.state.selectedDay[index]
+    }))
+  };
+    this.props.processStep1(approvedList);
+    const { navigate } = this.props.navigation;
+    navigate('step2');
+  }
+
   render () {
     const tmp = new Array(this.props.places.days);
     for(let i=1;i<=tmp.length;i++){
@@ -67,7 +80,7 @@ class ItineraryStepOne extends React.Component {
             padder
           >
             {
-              this.props.places.approvedPlaces.map( (place,idx) => (
+              this.props.places.approvedPlaces.map( (appPlace,idx) => (
                 <View key={idx}
                   style={{
                     flex: 1,
@@ -112,7 +125,7 @@ class ItineraryStepOne extends React.Component {
                         color: '#000',
                         fontSize: 18
                       }}
-                    >{place.name} </Text>
+                    >{appPlace.place.name} </Text>
                   </View>
                   <View style={{
                       width: 120,
@@ -146,7 +159,8 @@ class ItineraryStepOne extends React.Component {
           <FooterTab>
             <Button
               style={{ backgroundColor: '#5E35B1'}}
-              block>
+              block
+              onPress={()=>this.handleSave()}>
               <Text style={{ color: '#fff', fontWeight: 'bold' }}>Save</Text>
             </Button>
           </FooterTab>
@@ -159,4 +173,9 @@ class ItineraryStepOne extends React.Component {
 const mapStateToProps = state => ({
   places: state.places,
 })
-export default connect(mapStateToProps,null)(ItineraryStepOne);
+
+const mapDispatchToProps = dispatch => ({
+  processStep1: (approvedList) => dispatch(processStep1(approvedList))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ItineraryStepOne);
