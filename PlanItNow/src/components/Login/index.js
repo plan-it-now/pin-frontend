@@ -5,6 +5,7 @@ import { View, Text, StyleSheet, Image, AsyncStorage } from 'react-native';
 import { Container, Content, Form, Item, Input, Label, Button, Icon } from 'native-base';
 import { login } from '../../actions'
 
+import LoginFb from '../FacebookLogin'
 
 class Login extends React.Component {
   constructor(props) {
@@ -113,6 +114,7 @@ class Login extends React.Component {
                     style={{color: '#fff'}}
                     >Sign Up</Text>
                 </Button>
+                <LoginFb />
                 <Text>{this.state.warning}</Text>
           </View>
         </Image>
