@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { FETCH_PLACES, PROCESS_PLACES } from './constants';
+import { FETCH_PLACES, PROCESS_PLACES, PROCESS_STEP1 } from './constants';
 
 const mockingjayAlgorithm = (pref,data) => {
   let arrayPlaces = data;
@@ -66,6 +66,11 @@ const mockingjayAlgorithm = (pref,data) => {
   return urutan;
 }
 
+export const processStep1 = (data) => ({
+    type: PROCESS_STEP1,
+    payload: data
+})
+
 const fetchPlacesSucces = (pref,data,days) => ({
   type: FETCH_PLACES,
   payload: {
@@ -83,8 +88,16 @@ export const fetchPlaces = (pref,city,days) => {
   )
 }
 
-export const processPlaces = (rejectedList, approvedList) => ({
-  type: PROCESS_PLACES,
-  payload: {rejectedPlaces: rejectedList,
-            approvedPlaces: approvedList}
-})
+export const processPlaces = (rejectedList, approvedList) => {
+  let approvedPlaces = approvedList.map(place => ({
+    place,
+    day: 1,
+    orderIndex: 0,
+    schedule: ''
+  }));
+  return {
+    type: PROCESS_PLACES,
+    payload: {rejectedPlaces: rejectedList,
+              approvedPlaces}
+  }
+}
