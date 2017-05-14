@@ -6,15 +6,13 @@ import { Container, Content, Form, Item, Input, Label, Button, Icon } from 'nati
 import { login } from '../../actions'
 
 import LoginFb from '../FacebookLogin'
-
 const FBSDK = require('react-native-fbsdk');
+
 const {
   LoginButton,
   AccessToken,
   LoginManager
 } = FBSDK;
-
-
 
 class Login extends React.Component {
   constructor(props) {
@@ -164,7 +162,6 @@ class Login extends React.Component {
                     style={{color: '#fff'}}
                     >Sign Up</Text>
                 </Button>
-              
               <Button
                 onPress={() => this.authfacebooksdk()}
               >
