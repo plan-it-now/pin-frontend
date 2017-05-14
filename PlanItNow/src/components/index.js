@@ -13,6 +13,7 @@ import Profile from './Profile';
 import SpinnerLogin from './SpinnerLogin';
 import PopupLogin from './PopupLogin';
 import StepIndicators from './StepIndicators';
+import EditPassword from './EditPassword';
 
 const App = StackNavigator({
   // Profile: {screen : Profile}
@@ -24,7 +25,8 @@ const App = StackNavigator({
   // step2: {screen: step2},
   // SpinnerLogin: {screen: SpinnerLogin},
   // PopupLogin: {screen: PopupLogin},
-  StepIndicators: {screen: StepIndicators},
+  // StepIndicators: {screen: StepIndicators},
+  EditPassword: {screen: EditPassword},
   // ItineraryStepThree: {screen: ItineraryStepThree},
 }, {
   headerMode: 'none'
