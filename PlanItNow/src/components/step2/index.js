@@ -14,6 +14,8 @@ import { connect } from 'react-redux';
 
 import SortableListView from 'react-native-sortable-listview';
 
+import { processStep2 } from '../../actions';
+
 // let data1 = [['Place 1','Place 2','Place 3','Place 4','Place 5','Place 6'],['Place 4','Place 5','Place 6']]
 // let data2 = ['Place 4','Place 5','Place 6']
 
@@ -70,7 +72,22 @@ class MyComponent extends React.Component {
   }
 
   handleSubmitOrder() {
-    console.log("xxx--- ", this.state.orderAll );
+    let newArrPlaces = []
+    for (let i = 0; i < this.state.dataAll.length; i++) {
+      for (let j = 0; j < this.state.dataAll[i].length; j++) {
+        const idx = this.state.orderAll[i].findIndex( el => el == j);
+        const newObj = {
+          ...this.state.dataAll[i][idx],
+          orderIndex: this.state.orderAll[i][idx]
+        }
+        newArrPlaces.push(newObj);
+      }
+    }
+    this.props.processStep2({
+      approvedPlaces: newArrPlaces,
+    })
+    
+    // console.log("hasil nih bro--- ", newArrPlaces );
   }
 
   render() {
@@ -131,4 +148,8 @@ const mapStateToProps = state => ({
   places: state.places
 })
 
-export default connect(mapStateToProps, null)(MyComponent);
+const mapDispatchToProps = dispatch => ({
+  processStep2: (approvedPlaces) => dispatch(processStep2(approvedPlaces))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyComponent);
