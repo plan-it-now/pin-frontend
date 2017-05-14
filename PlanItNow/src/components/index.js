@@ -12,17 +12,19 @@ import step2 from './step2';
 import Profile from './Profile';
 import SpinnerLogin from './SpinnerLogin';
 import PopupLogin from './PopupLogin';
+import StepIndicators from './StepIndicators';
 
 const App = StackNavigator({
   // Profile: {screen : Profile}
-  Login: {screen : Login},
-  inputQuery: {screen: inputQuery},
-  Register: {screen: Register},
-  Recomendation: {screen: Recomendation},
-  Step1: {screen: ItineraryStepOne},
-  step2: {screen: step2},
-  SpinnerLogin: {screen: SpinnerLogin},
-  PopupLogin: {screen: PopupLogin},
+  // Login: {screen : Login},
+  // inputQuery: {screen: inputQuery},
+  // Register: {screen: Register},
+  // Recomendation: {screen: Recomendation},
+  // Step1: {screen: ItineraryStepOne},
+  // step2: {screen: step2},
+  // SpinnerLogin: {screen: SpinnerLogin},
+  // PopupLogin: {screen: PopupLogin},
+  StepIndicators: {screen: StepIndicators},
   // ItineraryStepThree: {screen: ItineraryStepThree},
 }, {
   headerMode: 'none'
