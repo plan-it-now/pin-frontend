@@ -6,18 +6,20 @@ const initialState = {
   userdata: '',
   shouldRedirectSignIn: false,
   shouldRedirectSignUp: false,
+  warning: ''
 }
 
 function loginSuccess(payload) {
   console.log("PAYLOAD", payload);
   if(payload.error === null || payload.error){
-    return initialState
+    return {...initialState, warning: 'Invalid Email or Password'}
   } else {
     console.log("xxx");
     AsyncStorage.setItem('token', payload.token)
     return {...payload,
         shouldRedirectSignIn: true,
-        shouldRedirectSignUp: false
+        shouldRedirectSignUp: false,
+        warning: ''
       };
   }
 }
