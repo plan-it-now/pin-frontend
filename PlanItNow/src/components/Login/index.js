@@ -20,7 +20,6 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      // isRedirect: false,
       warning: ''
     }
   }
@@ -33,22 +32,34 @@ class Login extends React.Component {
     }
   }
 
+
+  componentDidMount(){
+    this.setState({warning: this.props.logindata.warning})
+
+  componentWillMount(){
+    // if(AsyncStorage.getItem('token')){
+    //   this.loginSuccess();
+    // }
+    this.props.login({
+      email: 'a',
+      password: 'a'
+    })
+
+  }
+
   loginSuccess() {
     const { navigate } = this.props.navigation
     navigate('inputQuery')
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // console.log('prev', prevProps.logindata);
-    // console.log('next',this.props.logindata);
     if(this.props.logindata.shouldRedirectSignIn && !prevProps.logindata.shouldRedirectSignIn){
-      // this.setState({isRedirect: true})
       this.loginSuccess()
     }
   }
 
   loginHandler() {
-    this.props.login(this.state)
+    this.props.login({email:this.state.email, password:this.state.password})
     console.log(this.props.logindata)
   }
 
@@ -168,6 +179,9 @@ class Login extends React.Component {
                   <Text>Login FB</Text>
                 </Button>
                 <Text>{this.state.warning}</Text>
+                <View style={{flex:1, justifyContent:'center', flexDirection:'row'}}>
+                  <Text style={{fontSize:15, color:'#fff', marginTop:40}}>{this.props.logindata.warning}</Text>
+                </View>
           </View>
         </Image>
     </View>

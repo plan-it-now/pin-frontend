@@ -47,7 +47,11 @@ class inputQuery extends Component {
     this.setState({warning:''})
     const { pref, fetchPlaces } = this.props;
     fetchPlaces(pref,this.state.city.toLowerCase(), +(this.state.days));
-    this.props.navigation.navigate('Recomendation');
+    const regex = new RegExp('^(?=.*[0-9])')
+    if(regex.test(this.state.days)){
+      this.props.navigation.navigate('Recomendation');
+    }
+      this.setState({warning: 'Length of Stay field can only accept number.'})
   }
 
 
@@ -79,8 +83,13 @@ class inputQuery extends Component {
               </Stay>
             </Form>
             <View style={{flex:1,justifyContent:'center', marginTop:50, flexDirection:'row'}}>
-              <Button rounded warning onPress={() => {(this.state.days !== '' && this.state.city !== 'key0') ? this.submitQuery() : this.setState({warning:'Please input all fields'})}}>
-                 <Text>Lets Go!</Text>
+              <Button block warning onPress={() => {(this.state.days !== '' && this.state.city !== 'key0') ? this.submitQuery() : this.setState({warning:'Please input all fields'})}}
+              style={{
+                marginTop: 20,
+                alignItems: 'center',
+                backgroundColor: '#5E35B1'
+              }}>
+                 <Text style={{color: '#fff'}}>Lets Go!</Text>
              </Button>
            </View>
            <View style={{flex:1, justifyContent:'center', flexDirection:'row'}}>
