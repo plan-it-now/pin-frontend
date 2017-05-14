@@ -3,19 +3,24 @@ import { AsyncStorage } from 'react-native';
 
 const initialState = {
   token: '',
-  id: '',
-  shouldRedirect: false
+  userdata: '',
+  shouldRedirectSignIn: false,
+  shouldRedirectSignUp: false,
+  warning: ''
 }
 
 function loginSuccess(payload) {
   console.log("PAYLOAD", payload);
   if(payload.error === null || payload.error){
-    return initialState
+    return {...initialState, warning: 'Invalid Email or Password'}
   } else {
     console.log("xxx");
     AsyncStorage.setItem('token', payload.token)
-    AsyncStorage.setItem('id', payload.id)
-    return {shouldRedirect: true, ...payload};
+    return {...payload,
+        shouldRedirectSignIn: true,
+        shouldRedirectSignUp: false,
+        warning: ''
+      };
   }
 }
 
@@ -35,8 +40,10 @@ function signUp(payload) {
   } else {
     console.log("xxx");
     AsyncStorage.setItem('token', payload.token)
-    AsyncStorage.setItem('id', payload.id)
-    return {shouldRedirect: true, ...payload};
+    return {...payload,
+        shouldRedirectSignUp: true,
+        shouldRedirectSignIn: false
+      };
   }
 }
 
