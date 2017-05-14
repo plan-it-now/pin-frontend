@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import {
   Text,
   View,
-  BackHandler
+  BackHandler,
+  StatusBar
 } from 'react-native';
 import { connect } from 'react-redux';
-import { Container, Picker, Button, Form, Item as Stay, Input, Label, Header, Body, Title } from 'native-base';
+import { Container, Picker, Button, Form, Item as Stay, Input, Label, Header, Body, Title, Icon } from 'native-base';
 
 import { fetchPlaces } from '../../actions';
 const Item = Picker.Item;
@@ -58,7 +59,8 @@ class inputQuery extends Component {
   render() {
     return(
       <Container style={{flex:1, backgroundColor:'#B39DDB'}}>
-      <Header style={{backgroundColor:'#5E35B1'}}>
+      <StatusBar hidden={true}/>
+      <Header style={{backgroundColor:'#311B92'}}>
         <Body>
           <Title>Inquiry</Title>
         </Body>
@@ -66,7 +68,7 @@ class inputQuery extends Component {
         <View style={{flex:1, justifyContent:'center', flexDirection:'row', marginTop:50}}>
           <View style={{width: 300, flexDirection:'column'}}>
             <Picker
-              style={{marginBottom: 50}}
+              style={{marginBottom: 30}}
                 supportedOrientations={['portrait']}
                 mode="dropdown"
                 selectedValue={this.state.city}
@@ -76,10 +78,10 @@ class inputQuery extends Component {
                 <Item label="Yogyakarta" value="Yogyakarta" />
                 <Item label="Bali" value="Bali" />
             </Picker>
-            <Form>
-              <Stay floatingLabel>
+            <Form style={{paddingRight:20}}>
+              <Stay floatingLabel >
                 <Label>Length of Stay</Label>
-                <Input onChangeText={(days) => this.setState({days})}/>
+                <Input onChangeText={(days) => this.setState({days})} />
               </Stay>
             </Form>
             <View style={{flex:1,justifyContent:'center', marginTop:50, flexDirection:'row'}}>
@@ -87,9 +89,13 @@ class inputQuery extends Component {
               style={{
                 marginTop: 20,
                 alignItems: 'center',
-                backgroundColor: '#5E35B1'
+                backgroundColor: '#5E35B1',
+                width:100,
+                height:100,
+                borderRadius:100
               }}>
-                 <Text style={{color: '#fff'}}>Lets Go!</Text>
+
+                 <Icon name="md-paper-plane" style={{color: '#fff', fontSize:50}}/>
              </Button>
            </View>
            <View style={{flex:1, justifyContent:'center', flexDirection:'row'}}>

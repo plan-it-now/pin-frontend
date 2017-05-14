@@ -1,30 +1,7 @@
 import React from 'react';
 
-import {
-  View,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Modal,
-  TouchableHighlight,
-  Dimensions,
-  Alert
-} from 'react-native';
-import {
-  Container,
-  Icon,
-  DeckSwiper,
-  Card,
-  CardItem,
-  Thumbnail,
-  Text,
-  Left,
-  Body,
-  Button,
-  Content,
-  Header,
-  Title
- } from 'native-base';
+import { View, Image, ScrollView, StyleSheet, Modal, TouchableHighlight, Dimensions, Alert, StatusBar} from 'react-native';
+import { Container, Icon, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Button, Content, Header, Title } from 'native-base';
 
 import { connect } from 'react-redux';
 
@@ -46,8 +23,6 @@ exports.examples = [
     },
   }
 ];
-
-
 
 class Recomedation extends React.Component {
   constructor(props) {
@@ -87,27 +62,28 @@ class Recomedation extends React.Component {
   };
 
   setModalVisible(visible, card) {
-    this.setState({mapData: card,
-                modalVisible: visible})
+    this.setState({mapData: card, modalVisible: visible})
   }
 
   renderCard = card => {
     return (
       <View>
-      <Button style={{backgroundColor:"#5E35B1"}} block onPress={()=> {this.setModalVisible(true, card)}}>
-          <Text>Info</Text>
-      </Button>
-        <View style={styles.card}>
-          <Text style={{ marginTop: 20 }}>{card.name}</Text>
-          <Image
-           style = {{ height: '50%', width: '90%'}}
-           source = {{ uri : card.photos}}
-          />
-          <Text style={{ fontSize: 12, padding: 20, textAlign: 'justify' }} >{card.description}</Text>
-
-        </View>
-
-
+        <Button
+          block
+          style={{backgroundColor:"#5E35B1", marginTop:70, borderTopLeftRadius:10, borderTopRightRadius:10}} onPress={()=> {this.setModalVisible(true, card)}}>
+          <Icon name='md-pin' />
+            <Text> Show Location</Text>
+        </Button>
+          <View style={styles.card}>
+            <Text style={{ marginTop: 8, marginBottom: 8 }}>{card.name}</Text>
+            <Image
+             style = {{ height: 200, width: '90%'}}
+             source = {{ uri : card.photos}}
+            />
+            <Text
+              style={{
+                fontSize: 12, paddingLeft: 20, paddingRight: 20, paddingTop: 10, paddingBottom:20, textAlign: 'justify' }}>{card.description}</Text>
+          </View>
       </View>
     );
   };
@@ -133,7 +109,6 @@ class Recomedation extends React.Component {
         this.forceUpdate();
         console.log('after approved => ' , this.state.approved);
       }
-
 
       this.setIsSwipingBack(true, () => {
         this.swiper.swipeBack(() => {
@@ -192,64 +167,68 @@ class Recomedation extends React.Component {
   render () {
     return (
       <View style={styles.container}>
-
-        <Swiper
-          ref={swiper => {
-            this.swiper = swiper;
-          }}
-          childrenOnTop={true}
-          backgroundColor = '#B39DDB'
-          onSwiped={(cardIndex) => {console.log(cardIndex)}}
-          cards={this.state.cards}
-          verticalSwipe={false}
-          onSwipedLeft={(cardIndex) => this.swipeLeft(cardIndex)}
-          onSwipedRight={(cardIndex) => this.swipeRight(cardIndex)}
-          cardIndex={this.state.cardIndex}
-          renderCard={this.renderCard}
-          onSwipedAll={() => this.displayAlert()}
-
-        >
-          <View style={{
-            width:deviceWidth,
-            flexDirection:'row',
-            justifyContent:'space-between'}}
+        <StatusBar hidden={true}/>
+        <Header style={{backgroundColor:'#311B92'}}>
+          <Body>
+            <Title>Step 1 of 4 - Place Selection</Title>
+          </Body>
+        </Header>
+          <Swiper
+            ref={swiper => {
+              this.swiper = swiper;
+            }}
+            childrenOnTop={true}
+            backgroundColor = '#B39DDB'
+            onSwiped={(cardIndex) => {console.log(cardIndex)}}
+            cards={this.state.cards}
+            verticalSwipe={false}
+            onSwipedLeft={(cardIndex) => this.swipeLeft(cardIndex)}
+            onSwipedRight={(cardIndex) => this.swipeRight(cardIndex)}
+            cardIndex={this.state.cardIndex}
+            renderCard={this.renderCard}
+            onSwipedAll={() => this.displayAlert()}
           >
-            {
-              this.state.swipe.length !== 0 ?
-              <Button style={{backgroundColor:"#5E35B1",margin: 10, alignSelf: 'flex-end'}} rounded onPress={this.swipeBack}>
-                  <Icon name="md-sync" color="white" size={22}/>
+            <View style={{
+              width:deviceWidth,
+              flexDirection:'row',
+              justifyContent:'space-between',
+              marginTop: 60}}
+            >
+              {
+                this.state.swipe.length !== 0 ?
+                <Button style={{backgroundColor:"#5E35B1",margin: 10, alignSelf: 'flex-end'}} rounded onPress={this.swipeBack}>
+                    <Icon name="md-sync" color="white"/>
+                </Button>
+                :
+                <View />
+              }
+              <Button
+                  rounded
+                  onPress={()=>this.handleSubmitPlaces()}
+                  style={{
+                    backgroundColor: '#5E35B1',
+                    margin: 10,
+                    alignSelf: 'flex-end'
+                  }}>
+                  <Icon name="md-send" color="white"/>
               </Button>
-              :
-              <View />
-            }
-            <Button
-                rounded
-                onPress={()=>this.handleSubmitPlaces()}
-                style={{
-                  backgroundColor: '#5E35B1',
-                  margin: 10,
-                  alignSelf: 'flex-end'
-                }}>
-                <Icon name="md-send" color="white"/>
+            </View>
+          </Swiper>
+
+          <Modal
+           animationType={"slide"}
+           transparent={true}
+           visible={this.state.modalVisible}
+           onRequestClose={() => {console.log('modal closed');}}
+          >
+            <View style={styles.mapcontainer}>
+              <MapDetail card={this.state.mapData} />
+            </View>
+
+            <Button style={{backgroundColor:"#5E35B1"}} block onPress={()=> {this.setModalVisible(false, null)}}>
+                <Text>back!</Text>
             </Button>
-          </View>
-
-        </Swiper>
-
-        <Modal
-         animationType={"slide"}
-         transparent={true}
-         visible={this.state.modalVisible}
-         onRequestClose={() => {console.log('modal closed');}}
-        >
-          <View style={styles.mapcontainer}>
-            <MapDetail card={this.state.mapData} />
-          </View>
-
-          <Button style={{backgroundColor:"#5E35B1"}} block onPress={()=> {this.setModalVisible(false, null)}}>
-              <Text>back!</Text>
-          </Button>
-        </Modal>
+          </Modal>
       </View>
     )
   }
@@ -261,17 +240,16 @@ const deviceHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#B39DDB',
+    backgroundColor: '#B39DDB'
   },
   card: {
-    borderRadius: 8,
+    borderBottomRightRadius: 10,
+    borderBottomLeftRadius: 10,
     borderWidth: 2,
     borderColor: '#E8E8E8',
-    justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: 'white',
-    height: deviceHeight*0.7,
-    marginTop:0,
+    height: deviceHeight * 0.59
   },
   map: {
     position: 'absolute',
