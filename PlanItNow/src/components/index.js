@@ -10,6 +10,8 @@ import ItineraryStepOne from './ItineraryStepOne';
 import ItineraryStepThree from './ItineraryStepThree';
 import step2 from './step2';
 import Profile from './Profile';
+import SpinnerLogin from './SpinnerLogin';
+import PopupLogin from './PopupLogin';
 
 const App = StackNavigator({
   // Profile: {screen : Profile}
@@ -19,6 +21,8 @@ const App = StackNavigator({
   Recomendation: {screen: Recomendation},
   Step1: {screen: ItineraryStepOne},
   step2: {screen: step2},
+  SpinnerLogin: {screen: SpinnerLogin},
+  PopupLogin: {screen: PopupLogin},
   // ItineraryStepThree: {screen: ItineraryStepThree},
 }, {
   headerMode: 'none'

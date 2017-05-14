@@ -44,7 +44,8 @@ class Login extends React.Component {
 
   loginSuccess() {
     const { navigate } = this.props.navigation
-    navigate('inputQuery')
+    // navigate('inputQuery')
+    navigate('SpinnerLogin')
   }
 
   componentDidUpdate(prevProps, prevState) {
