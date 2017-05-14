@@ -86,7 +86,9 @@ class MyComponent extends React.Component {
     this.props.processStep2({
       approvedPlaces: newArrPlaces,
     })
-    
+
+    const { navigate } = this.props.navigation;
+    navigate('Step3');
     // console.log("hasil nih bro--- ", newArrPlaces );
   }
 
