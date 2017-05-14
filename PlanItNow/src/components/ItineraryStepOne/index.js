@@ -92,27 +92,6 @@ class ItineraryStepOne extends React.Component {
                     marginBottom: 10,
                     marginTop: 10
                   }}
-<<<<<<< HEAD
-                >Pulau Dewata </Text>
-              </View>
-              <View style={{
-                  width: 120,
-                  paddingRight: 10
-                }}
-              >
-                <Picker
-                  supportedOrientations={['portrait','landscape']}
-                  iosHeader="Select one"
-                  mode="dropdown"
-                  selectedValue={this.state.selected1}
-                  onValueChange={this.onValueChange.bind(this)}>
-                    {
-                      arrPlaces.map(x => )
-                    }
-                </Picker>
-              </View>
-            </View>
-=======
                 >
                   <View
                     style={{
@@ -149,7 +128,6 @@ class ItineraryStepOne extends React.Component {
                 </View>
               ))
             }
->>>>>>> 58672052b1bb577cd87afc4045ec31468a09a76f
 
           </Content>
         </ScrollView>

@@ -36,21 +36,15 @@ class Login extends React.Component {
     // if(AsyncStorage.getItem('token')){
     //   this.loginSuccess();
     // }
-    // this.props.login({
-    //   email: 'a',
-    //   password: 'a'
-    // })
+    this.props.login({
+      email: 'a',
+      password: 'a'
+    })
   }
 
   loginSuccess() {
     const { navigate } = this.props.navigation
     navigate('inputQuery')
-  }
-
-  componentWillMount() {
-    if(AsyncStorage.getItem('token')) {
-      this.loginSuccess();
-    }
   }
 
   componentDidUpdate(prevProps, prevState) {
