@@ -30,6 +30,12 @@ class Login extends React.Component {
     navigate('inputQuery')
   }
 
+  componentWillMount() {
+    if(AsyncStorage.getItem('token')) {
+      this.loginSuccess();
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
     // console.log('prev', prevProps.logindata);
     // console.log('next',this.props.logindata);

@@ -25,24 +25,38 @@ class ItineraryStepOne extends React.Component {
     super(props)
     this.state = {
       selectedItem: undefined,
-      selected1: 'key1',
+      selectedDay: [],
       results: {
         items: []
       }
     }
   }
 
-  onValueChange ( value: String ) {
+  componentDidMount(){
+    let arraySelected = new Array(this.props.places.approvedPlaces.length);
+    for(let i=0;i<arraySelected.length;i++){
+      arraySelected[i] = 1;
+    }
     this.setState({
-      selected1: value
+      selectedDay: arraySelected
+    })
+  }
+
+  onValueChange (value: Number, index) {
+    // console.log('v',value);
+    // console.log('idx', index);
+    // console.log('s', this.state.selectedDay);
+    let arrTmp = this.state.selectedDay;
+    arrTmp[index] = value;
+    this.setState({
+      selectedDay: arrTmp
     })
   }
 
   render () {
-    const { places } = this.props
-    const arrPlaces = new Array(places.days);
-    for (let i = 1; i <= arr.length; i++) {
-      arr[i] = i;
+    const tmp = new Array(this.props.places.days);
+    for(let i=1;i<=tmp.length;i++){
+      tmp[i-1] = 'Day '+ i;
     }
     return (
       <Container
@@ -52,29 +66,20 @@ class ItineraryStepOne extends React.Component {
           <Content
             padder
           >
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                backgroundColor: 'white',
-                height: 80,
-                marginBottom: 10,
-                marginTop: 10
-              }}
-            >
-              <View
-                style={{
-                  width: 200,
-                  paddingLeft: 10
-                }}
-              >
-                <Text
+            {
+              this.props.places.approvedPlaces.map( (place,idx) => (
+                <View key={idx}
                   style={{
-                    color: '#000',
-                    fontSize: 18
+                    flex: 1,
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    backgroundColor: 'white',
+                    height: 80,
+                    marginBottom: 10,
+                    marginTop: 10
                   }}
+<<<<<<< HEAD
                 >Pulau Dewata </Text>
               </View>
               <View style={{
@@ -94,6 +99,44 @@ class ItineraryStepOne extends React.Component {
                 </Picker>
               </View>
             </View>
+=======
+                >
+                  <View
+                    style={{
+                      width: 200,
+                      paddingLeft: 10
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: '#000',
+                        fontSize: 18
+                      }}
+                    >{place.name} </Text>
+                  </View>
+                  <View style={{
+                      width: 120,
+                      paddingRight: 10
+                    }}
+                  >
+                    <Picker
+                      supportedOrientations={['portrait','landscape']}
+                      iosHeader="Select one"
+                      mode="dropdown"
+                      selectedValue={this.state.selectedDay[idx]}
+                      onValueChange={(value)=>this.onValueChange(value,idx)}>
+                      {
+                        tmp.map((day,index)=>(
+                          <Item key={index} label={day} value={index+1} />
+                        ))
+                      }
+
+                    </Picker>
+                  </View>
+                </View>
+              ))
+            }
+>>>>>>> 58672052b1bb577cd87afc4045ec31468a09a76f
 
           </Content>
         </ScrollView>
