@@ -39,6 +39,11 @@ class ItineraryStepOne extends React.Component {
   }
 
   render () {
+    const { places } = this.props
+    const arrPlaces = new Array(places.days);
+    for (let i = 1; i <= arr.length; i++) {
+      arr[i] = i;
+    }
     return (
       <Container
         style={{ backgroundColor: '#B39DDB' }}
@@ -83,10 +88,9 @@ class ItineraryStepOne extends React.Component {
                   mode="dropdown"
                   selectedValue={this.state.selected1}
                   onValueChange={this.onValueChange.bind(this)}>
-                    <Item label="Day 1" value="key0" />
-                    <Item label="Day 2" value="key1" />
-                    <Item label="Day 3" value="key2" />
-                    <Item label="Day 4" value="key3" />
+                    {
+                      arrPlaces.map(x => )
+                    }
                 </Picker>
               </View>
             </View>

@@ -171,7 +171,6 @@ class Recomedation extends React.Component {
   }
 
   handleSubmitPlaces() {
-  console.log('lalalala',this.state.rejected);
     this.props.submitPlaces(this.state.rejected,this.state.approved);
     const { navigate } = this.props.navigation;
     navigate('Step1');
