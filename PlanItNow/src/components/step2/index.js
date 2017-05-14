@@ -9,7 +9,7 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-import { Container, Header, Body, Title } from 'native-base'
+import { Container, Header, Body, Title, Button } from 'native-base'
 import { connect } from 'react-redux';
 
 import SortableListView from 'react-native-sortable-listview';
@@ -55,7 +55,7 @@ class MyComponent extends React.Component {
     }
 
 
-    console.log(arrPlaces);
+    console.log('---',arrOrder);
     this.setState({
       dataAll: arrPlaces,
       orderAll: arrOrder, //Array of keys
@@ -67,6 +67,10 @@ class MyComponent extends React.Component {
     this.setState({data: this.state.dataAll[index],
                   order: this.state.orderAll[index]});
     this.setState({modalVisible: true});
+  }
+
+  handleSubmitOrder() {
+    console.log("xxx--- ", this.state.orderAll );
   }
 
   render() {
@@ -111,6 +115,9 @@ class MyComponent extends React.Component {
               </Text>
             </TouchableHighlight>
           ))}
+          <Button onPress={()=> this.handleSubmitOrder()}>
+            <Text> BUTTON </Text>
+          </Button>
 
 
       </Container>
