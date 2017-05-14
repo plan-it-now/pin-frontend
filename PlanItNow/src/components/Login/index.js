@@ -40,7 +40,6 @@ class Login extends React.Component {
     //   email: 'a',
     //   password: 'a'
     // })
-
   }
 
   loginSuccess() {
@@ -61,8 +60,12 @@ class Login extends React.Component {
   }
 
   loginHandler() {
-    this.props.login({email:this.state.email, password:this.state.password})
-    console.log(this.props.logindata)
+    if(this.state.email === '' || this.state.password === ''){
+      this.setState({warning: 'Please input all fields'})
+    } else {
+      this.setState({warning: ''})
+      this.props.login({email:this.state.email, password:this.state.password})
+    }
   }
 
   navigateToRegister() {
@@ -182,6 +185,7 @@ class Login extends React.Component {
                 </Button>
                 <Text>{this.state.warning}</Text>
                 <View style={{flex:1, justifyContent:'center', flexDirection:'row'}}>
+                  <Text style={{fontSize:15, color:'#fff', marginTop:40}}>{this.state.warning}</Text>
                   <Text style={{fontSize:15, color:'#fff', marginTop:40}}>{this.props.logindata.warning}</Text>
                 </View>
           </View>
