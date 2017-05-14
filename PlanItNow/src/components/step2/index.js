@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import { Container, Header, Body, Title } from 'native-base'
+import { connect } from 'react-redux';
 
 import SortableListView from 'react-native-sortable-listview';
 
@@ -27,7 +28,7 @@ class RowComponent extends React.Component {
         style={{padding: 15, backgroundColor: "#B39DDB", borderBottomWidth:2, borderColor: '#eee'}}
         {...this.props.sortHandlers}
       >
-        <Text>{this.props.data}</Text>
+        <Text>{this.props.data.place.name}</Text>
       </TouchableHighlight>
     );
   }
@@ -38,23 +39,33 @@ class MyComponent extends React.Component {
     super(props)
     this.state = {
       modalVisible: false,
-      data1: [['Place 1','Place 2','Place 3','Place 4','Place 5','Place 6'],['Place 4','Place 5','Place 6']],
-      order1: [], //Array of keys
+      dataAll: [],
+      orderAll: [], //Array of keys
       data: [],
       order: {}
     }
   }
 
   componentDidMount(){
+    let arrPlaces = new Array(this.props.places.days);
+    let arrOrder = [];
+    for(let i=0;i<arrPlaces.length;i++){
+      arrPlaces[i] = this.props.places.approvedPlaces.filter(p => (p.day === i+1));
+      arrOrder.push(Object.keys(arrPlaces[i]));
+    }
+
+
+    console.log(arrPlaces);
     this.setState({
-      order1: [Object.keys(this.state.data1[0]),Object.keys(this.state.data1[1])], //Array of keys
+      dataAll: arrPlaces,
+      orderAll: arrOrder, //Array of keys
 
     })
   }
 
   setModalVisible(index) {
-    this.setState({data: this.state.data1[index],
-                  order: this.state.order1[index]});
+    this.setState({data: this.state.dataAll[index],
+                  order: this.state.orderAll[index]});
     this.setState({modalVisible: true});
   }
 
@@ -91,21 +102,17 @@ class MyComponent extends React.Component {
                     renderRow={row => <RowComponent data={row} />}/>
           </Modal>
 
-        <TouchableHighlight onPress={() => {
-          this.setModalVisible(0)
-        }}>
-          <Text style={{fontSize:20, marginLeft:10, marginTop:10}}>
-            DAY - 1
-          </Text>
-        </TouchableHighlight>
+          {this.state.dataAll.map((day,index) => (
+            <TouchableHighlight key={index} onPress={() => {
+              this.setModalVisible(index)
+            }}>
+              <Text style={{fontSize:20, marginLeft:10, marginTop:10}}>
+                DAY - {index+1}
+              </Text>
+            </TouchableHighlight>
+          ))}
 
-        <TouchableHighlight onPress={() => {
-          this.setModalVisible(1)
-        }}>
-          <Text style={{fontSize:20, marginLeft:10, marginTop:10}}>
-            DAY - 2
-          </Text>
-        </TouchableHighlight>
+
       </Container>
 
 
@@ -113,4 +120,8 @@ class MyComponent extends React.Component {
   }
 }
 
-export default MyComponent;
+const mapStateToProps = state => ({
+  places: state.places
+})
+
+export default connect(mapStateToProps, null)(MyComponent);
