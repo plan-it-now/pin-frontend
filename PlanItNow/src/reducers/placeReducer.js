@@ -1,8 +1,9 @@
-import { FETCH_PLACES, PROCESS_PLACES } from '../actions/constants';
+import { FETCH_PLACES, PROCESS_PLACES, PROCESS_STEP1 } from '../actions/constants';
 
 const initialState = {
   days: 0,
   rejectedPlaces: [],
+  //approvedPlaces example : {place: {}, day: 1, orderIndex: 0, schedule: ''}
   approvedPlaces: [],
   recomendationPlaces: [
     {
@@ -21,6 +22,12 @@ const placeReducer = (state = initialState, action) => {
       }
     }
     case PROCESS_PLACES: {
+      return {
+        ...state,
+        ...action.payload
+      }
+    }
+    case PROCESS_STEP1: {
       return {
         ...state,
         ...action.payload

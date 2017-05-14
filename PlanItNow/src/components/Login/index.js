@@ -23,8 +23,19 @@ class Login extends React.Component {
     }
   }
 
+
   componentDidMount(){
     this.setState({warning: this.props.logindata.warning})
+
+  componentWillMount(){
+    // if(AsyncStorage.getItem('token')){
+    //   this.loginSuccess();
+    // }
+    this.props.login({
+      email: 'a',
+      password: 'a'
+    })
+
   }
 
   loginSuccess() {
