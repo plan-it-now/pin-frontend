@@ -9,6 +9,33 @@ import SortableListView from 'react-native-sortable-listview';
 
 import { processStep2 } from '../../actions';
 
+import StepIndicator from 'react-native-step-indicator';
+
+const labels = ["Inquiry","Choose","Assign","Ordering","Schedule"];
+const customStyles = {
+  stepIndicatorSize: 25,
+  currentStepIndicatorSize:30,
+  separatorStrokeWidth: 2,
+  currentStepStrokeWidth: 3,
+  stepStrokeCurrentColor: '#5E35B1',
+  stepStrokeWidth: 3,
+  stepStrokeFinishedColor: '#5E35B1',
+  stepStrokeUnFinishedColor: '#757575',
+  separatorFinishedColor: '#5E35B1',
+  separatorUnFinishedColor: '#757575',
+  stepIndicatorFinishedColor: '#5E35B1',
+  stepIndicatorUnFinishedColor: '#ffffff',
+  stepIndicatorCurrentColor: '#FF7043',
+  stepIndicatorLabelFontSize: 13,
+  currentStepIndicatorLabelFontSize: 13,
+  stepIndicatorLabelCurrentColor: '#5E35B1',
+  stepIndicatorLabelFinishedColor: '#ffffff',
+  stepIndicatorLabelUnFinishedColor: '#757575',
+  labelColor: '#000',
+  labelSize: 13,
+  currentStepLabelColor: '#5E35B1'
+}
+
 class RowComponent extends React.Component {
   render () {
     return (
@@ -32,7 +59,8 @@ class MyComponent extends React.Component {
       dataAll: [],
       orderAll: [], //Array of keys
       data: [],
-      order: {}
+      order: {},
+      currentPosition: 3
     }
   }
 
@@ -76,20 +104,20 @@ class MyComponent extends React.Component {
 
     const { navigate } = this.props.navigation;
     navigate('Step3');
-    // console.log("hasil nih bro--- ", newArrPlaces );
   }
 
 
   render() {
     return (
       <Container style={{backgroundColor: '#B39DDB'}}>
-        <StatusBar hidden={true}/>
-          <Header style={{backgroundColor:'#311B92'}}>
-            <Body>
-              <Title>Step 3 of 4 - Arrange Order</Title>
-            </Body>
-          </Header>
 
+          <View style={{marginTop:20, marginBottom:20}}>
+            <StepIndicator
+               customStyles={customStyles}
+               currentPosition={this.state.currentPosition}
+               labels={labels}
+            />
+          </View>
             <Modal
               animationType={"slide"}
               transparent={false}
