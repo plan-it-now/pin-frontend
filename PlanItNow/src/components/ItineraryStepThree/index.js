@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
 
 import ScheduleDetail from './scheduleDetail';
-import { updateUser } from '../../actions';
+import { updateUser,postItinerary } from '../../actions';
 
 import StepIndicator from 'react-native-step-indicator';
 
@@ -81,8 +81,23 @@ class ItineraryStepThree extends React.Component {
   }
 
   finalConfirm() {
-    const { updateUser,user, places } = this.props
+    const { updateUser,user, places, postItinerary, navigation } = this.props
+    const { structuredPlaces } = this.state
+    let newArrOfPlaces = []
+    for (let i = 0 ; i < structuredPlaces.length; i++) {
+      for (let j = 0; j < structuredPlaces[i].length; j++) {
+        let newObjPlace = {
+          place: structuredPlaces[i][j].place._id,
+          day: structuredPlaces[i][j].day,
+          orderIndex: structuredPlaces[i][j].orderIndex,
+          schedule: structuredPlaces[i][j].schedule
+        }
+        newArrOfPlaces.push(newObjPlace);
+      }
+    }
     updateUser(user,places);
+    postItinerary(user.userdata._id,newArrOfPlaces);
+    navigation.navigate('Profile');
   }
 
   render () {
@@ -143,7 +158,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   updateUser: (user,places) => dispatch(updateUser(user,places)),
-  postItinerary: (itin) => dispatch(postItinerary(itin))
+  postItinerary: (userid,arrayPlaces) => dispatch(postItinerary(userid,arrayPlaces))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(ItineraryStepThree);

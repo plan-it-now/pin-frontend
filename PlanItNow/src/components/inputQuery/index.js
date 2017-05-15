@@ -61,7 +61,7 @@ class inputQuery extends Component {
       const { pref, fetchPlaces } = this.props;
       fetchPlaces(pref,'Semarang', 2);
         this.props.navigation.navigate('Recomendation');
-    }, 2000)
+    }, 1000)
   }
 
   componentWillUnmount() {
