@@ -11,34 +11,6 @@ import MapDetail from '../MapDetail';
 
 import { processPlaces } from '../../actions';
 
-import StepIndicator from 'react-native-step-indicator';
-
-const labels = ["Step1","Step2","Step3","Step4","Step5"];
-const customStyles = {
-  stepIndicatorSize: 25,
-  currentStepIndicatorSize:30,
-  separatorStrokeWidth: 2,
-  currentStepStrokeWidth: 3,
-  stepStrokeCurrentColor: '#fe7013',
-  stepStrokeWidth: 3,
-  stepStrokeFinishedColor: '#fe7013',
-  stepStrokeUnFinishedColor: '#aaaaaa',
-  separatorFinishedColor: '#fe7013',
-  separatorUnFinishedColor: '#aaaaaa',
-  stepIndicatorFinishedColor: '#fe7013',
-  stepIndicatorUnFinishedColor: '#ffffff',
-  stepIndicatorCurrentColor: '#ffffff',
-  stepIndicatorLabelFontSize: 13,
-  currentStepIndicatorLabelFontSize: 13,
-  stepIndicatorLabelCurrentColor: '#fe7013',
-  stepIndicatorLabelFinishedColor: '#ffffff',
-  stepIndicatorLabelUnFinishedColor: '#aaaaaa',
-  labelColor: '#999999',
-  labelSize: 13,
-  currentStepLabelColor: '#fe7013'
-}
-
-
 exports.framework = 'React';
 exports.title = 'Geolocation';
 exports.description = 'Examples of using the Geolocation API.';
@@ -209,11 +181,11 @@ class Recomedation extends React.Component {
     return (
       <View style={styles.container}>
         <StatusBar hidden={true}/>
-        <StepIndicator
-           customStyles={customStyles}
-           currentPosition={this.state.currentPosition}
-           labels={labels}
-      />
+        <Header style={{backgroundColor:'#311B92'}}>
+          <Body>
+            <Title>Step 1 of 4 - Place Selection</Title>
+          </Body>
+        </Header>
           <Swiper
             ref={swiper => {
               this.swiper = swiper;

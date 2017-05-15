@@ -15,7 +15,7 @@ import StepIndicator from 'react-native-step-indicator';
 import { fetchPlaces } from '../../actions';
 const Item = Picker.Item;
 
-const labels = ["Step1","Step2","Step3","Step4","Step5"];
+const labels = ["Input Query","Step2","Step3","Step4","Step5"];
 const customStyles = {
   stepIndicatorSize: 25,
   currentStepIndicatorSize:30,
@@ -35,7 +35,7 @@ const customStyles = {
   stepIndicatorLabelCurrentColor: '#fe7013',
   stepIndicatorLabelFinishedColor: '#ffffff',
   stepIndicatorLabelUnFinishedColor: '#aaaaaa',
-  labelColor: '#999999',
+  labelColor: '#000',
   labelSize: 13,
   currentStepLabelColor: '#fe7013'
 }
@@ -49,7 +49,7 @@ class inputQuery extends Component {
       warning: '',
       isDatePickerVisible: false,
       date: '',
-      currentPosition: 0
+      currentPosition: 3
     }
     this.submitQuery = this.submitQuery.bind(this);
   }
