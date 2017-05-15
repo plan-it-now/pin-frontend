@@ -14,6 +14,7 @@ import SpinnerLogin from './SpinnerLogin';
 import PopupLogin from './PopupLogin';
 import StepIndicators from './StepIndicators';
 import EditPassword from './EditPassword';
+import DrawerProfile from './Drawer';
 
 const App = StackNavigator({
   // Profile: {screen : Profile}
@@ -26,7 +27,7 @@ const App = StackNavigator({
   // SpinnerLogin: {screen: SpinnerLogin},
   // PopupLogin: {screen: PopupLogin},
   // StepIndicators: {screen: StepIndicators},
-  EditPassword: {screen: EditPassword},
+  DrawerProfile: {screen: DrawerProfile},
   // ItineraryStepThree: {screen: ItineraryStepThree},
 }, {
   headerMode: 'none'
