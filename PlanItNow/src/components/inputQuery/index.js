@@ -9,10 +9,36 @@ import {
 import { connect } from 'react-redux';
 import { Container, Picker, Button, Form, Item as Stay, Input, Label, Header, Body, Title, Icon } from 'native-base';
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import StepIndicator from 'react-native-step-indicator';
 
 
 import { fetchPlaces } from '../../actions';
 const Item = Picker.Item;
+
+const labels = ["Step1","Step2","Step3","Step4","Step5"];
+const customStyles = {
+  stepIndicatorSize: 25,
+  currentStepIndicatorSize:30,
+  separatorStrokeWidth: 2,
+  currentStepStrokeWidth: 3,
+  stepStrokeCurrentColor: '#fe7013',
+  stepStrokeWidth: 3,
+  stepStrokeFinishedColor: '#fe7013',
+  stepStrokeUnFinishedColor: '#aaaaaa',
+  separatorFinishedColor: '#fe7013',
+  separatorUnFinishedColor: '#aaaaaa',
+  stepIndicatorFinishedColor: '#fe7013',
+  stepIndicatorUnFinishedColor: '#ffffff',
+  stepIndicatorCurrentColor: '#ffffff',
+  stepIndicatorLabelFontSize: 13,
+  currentStepIndicatorLabelFontSize: 13,
+  stepIndicatorLabelCurrentColor: '#fe7013',
+  stepIndicatorLabelFinishedColor: '#ffffff',
+  stepIndicatorLabelUnFinishedColor: '#aaaaaa',
+  labelColor: '#999999',
+  labelSize: 13,
+  currentStepLabelColor: '#fe7013'
+}
 
 class inputQuery extends Component {
   constructor(props){
@@ -22,7 +48,8 @@ class inputQuery extends Component {
       days:'',
       warning: '',
       isDatePickerVisible: false,
-      date: ''
+      date: '',
+      currentPosition: 0
     }
     this.submitQuery = this.submitQuery.bind(this);
   }
@@ -48,7 +75,7 @@ class inputQuery extends Component {
       const { pref, fetchPlaces } = this.props;
       fetchPlaces(pref,'Semarang', 2);
         this.props.navigation.navigate('Recomendation');
-    }, 1000)
+    }, 2000)
   }
 
   componentWillUnmount() {
@@ -84,11 +111,11 @@ class inputQuery extends Component {
     return(
       <Container style={{flex:1, backgroundColor:'#B39DDB'}}>
       <StatusBar hidden={true}/>
-      <Header style={{backgroundColor:'#311B92'}}>
-        <Body>
-          <Title>Inquiry</Title>
-        </Body>
-      </Header>
+      <StepIndicator
+         customStyles={customStyles}
+         currentPosition={this.state.currentPosition}
+         labels={labels}
+    />
 
 
 
