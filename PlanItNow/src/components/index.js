@@ -15,7 +15,6 @@ import DrawerProfile from './DrawerProfile';
 
 const App = StackNavigator({
 
-  // EditPassword: {screen: EditPassword},
   Login: {screen : Login},
   inputQuery: {screen: inputQuery},
   Register: {screen: Register},
@@ -25,6 +24,7 @@ const App = StackNavigator({
   Step3: {screen: ItineraryStepThree},
   Profile: {screen : Profile},
   // ItineraryStepThree: {screen: ItineraryStepThree},
+  Profile: {screen : Profile}
 }, {
   headerMode: 'none'
 })
