@@ -9,7 +9,7 @@ const initialState = {
     {
       name: 'Loading...',
       description: '',
-      photos: ''
+      photo: ''
     }
   ]
 }

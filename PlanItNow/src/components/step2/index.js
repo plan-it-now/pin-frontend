@@ -79,9 +79,6 @@ class MyComponent extends React.Component {
     // console.log("hasil nih bro--- ", newArrPlaces );
   }
 
-  lanjutCuy() {
-    console.log("lanjut cuyyy");
-  }
 
   render() {
     return (
@@ -139,7 +136,7 @@ class MyComponent extends React.Component {
                 <Button
                   style={{ backgroundColor: '#5E35B1'}}
                   block
-                  onPress={()=>this.lanjutCuy()}>
+                  onPress={()=>this.handleSubmitOrder()}>
                   <Text style={{ color: '#fff', fontWeight: 'bold' }}>Proceed to Step 4</Text>
                 </Button>
               </FooterTab>

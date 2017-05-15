@@ -40,7 +40,7 @@ class Recomedation extends React.Component {
       cards: [{
         name:'',
         description:'',
-        photos:'a',
+        photo:'a',
       }]
     };
   }
@@ -75,10 +75,10 @@ class Recomedation extends React.Component {
             <Text> {card.name}</Text>
         </Button>
           <View style={styles.card}>
-            <Text style={{ marginTop: 8, marginBottom: 8, fontStyle:'italic', fontSize:13, color: '#5E35B1', alignSelf:'flex-end', paddingRight:17 }}>{card.tags}</Text>
+            <Text style={{ marginTop: 8, marginBottom: 8, fontStyle:'italic', fontSize:13, color: '#5E35B1', alignSelf:'flex-end', paddingRight:17 }}>{card.tag}</Text>
             <Image
              style = {{ height: 200, width: '90%'}}
-             source = {{ uri : card.photos}}
+             source = {{ uri : card.photo}}
             />
             <Text
               style={{
