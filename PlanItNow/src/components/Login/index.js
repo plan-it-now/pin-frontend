@@ -39,14 +39,14 @@ class Login extends React.Component {
     // }
     // for development purpose only
     this.props.login({
-      email: 'aa',
-      password: 'aa'
+      email: 'a',
+      password: 'a'
     })
   }
 
   loginSuccess() {
     const { navigate } = this.props.navigation
-    navigate('inputQuery')
+    navigate('Profile')
     // navigate('SpinnerLogin')
   }
 

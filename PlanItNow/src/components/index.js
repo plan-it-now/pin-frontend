@@ -16,14 +16,13 @@ import DrawerProfile from './DrawerProfile';
 const App = StackNavigator({
 
   Login: {screen : Login},
+  Profile: {screen : Profile},
   inputQuery: {screen: inputQuery},
   Register: {screen: Register},
   Recomendation: {screen: Recomendation},
   Step1: {screen: ItineraryStepOne},
   Step2: {screen: step2},
   Step3: {screen: ItineraryStepThree},
-  Profile: {screen : Profile},
-  StepIndicators: {screen: StepIndicators},
   // ItineraryStepThree: {screen: ItineraryStepThree},
 }, {
   headerMode: 'none'

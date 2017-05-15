@@ -57,19 +57,12 @@ class inputQuery extends Component {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton)
 
     //for development use only
-    setTimeout(()=>{
-      const { pref, fetchPlaces } = this.props;
-<<<<<<< HEAD
-      fetchPlaces(pref,'Semarang'.toLowerCase(), 2);
-        this.props.navigation.navigate('Recomendation');
-      }, 1000);
-
-
-=======
-      fetchPlaces(pref,'Semarang', 2);
-        this.props.navigation.navigate('Recomendation');
-    }, 1000)
->>>>>>> e4a45dd0a030c36800ecf5cc55559e4d10fdd7d1
+    // setTimeout(()=>{
+    //   const { pref, fetchPlaces } = this.props;
+    //
+    //   fetchPlaces(pref,'Semarang', 2);
+    //     this.props.navigation.navigate('Recomendation');
+    // }, 1000)
   }
 
   componentWillUnmount() {

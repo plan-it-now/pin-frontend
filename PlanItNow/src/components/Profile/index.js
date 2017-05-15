@@ -47,13 +47,10 @@ import {
   Drawer,
 
 } from 'native-base';
-
-
-
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { connect } from 'react-redux';
 
-
-
+import { fetchItin } from '../../actions';
 
 
 class Profile extends React.Component {
@@ -64,12 +61,17 @@ class Profile extends React.Component {
 
   }
 
-    closeDrawer() {
-      this.drawer._root.close()
-    };
-    openDrawer() {
-      this.drawer._root.open()
-    };
+  closeDrawer() {
+    this.drawer._root.close()
+  };
+  openDrawer() {
+    this.drawer._root.open()
+  };
+
+  componentDidMount() {
+    const { fetchItin , user } = this.props
+    fetchItin(user.userdata._id);
+  }
 
 
 
@@ -127,224 +129,94 @@ class Profile extends React.Component {
         drawerPosition={DrawerLayoutAndroid.positions.Left}
         renderNavigationView={() => navigationView}>
       <Container style={{ backgroundColor: '#B39DDB' }}>
-
         <Header style={{ backgroundColor: '#5E35B1' }}>
-
           <Left>
-
             <Button
               onPress={ ()=> this.drawer.openDrawer()}
               style={{
-
               backgroundColor: '#5E35B1',
-
-
             }}>
-
               <Icon name="menu" color="white" size={22}
-
               />
-
             </Button>
-
           </Left>
-
           <Body>
-
             <Title>
-
               Your Name
-
             </Title>
-
           </Body>
-
         </Header>
 
-
-
         <Content padder>
-
-          <Card>
-
-            <View>
-
-              <TouchableHighlight onPress={this._onPressButtoon}>
-
-                <Image
-
-                  style={{
-
-                    flex: 1,
-
-                    flexDirection: 'column',
-
-                    justifyContent: 'flex-end',
-
-                    width: '100%',
-
-                    height: 200,
-
-                    backgroundColor: 'rgba(52, 52, 52, 0.8)' }}
-
-                  source={{ uri : 'http://alindstransport.com/wp-content/uploads/2016/09/Tugu-Jogja-Yogyakarta-jogja.jpg' }}>
-
-                  <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', backgroundColor: 'rgba(52, 52, 52, 0.4)' }}>
-
-                    <Text style={{
-
-                        color: '#fff', fontWeight: 'bold', margin: 5, flexWrap: 'wrap'
-
-                      }}>Yogyakarta Trip</Text>
-
-                    <Text style={{ color: '#fff', margin: 5}}>
-
-                      12 Mei 2017
-
-                    </Text>
-
-                  </View>
-
-                </Image>
-
-              </TouchableHighlight>
-
-              <CardItem>
-
-                <Body>
-
-                  <Text>
-
-                    Tugu, Yogyakarta
-
-                  </Text>
-
-                  <Text note>
-
-                    2 days ago
-
-                  </Text>
-
-                </Body>
-
-              </CardItem>
-
-            </View>
-
-
-
-            <View>
-
-              <Image
-
-                style={{
-
-                  flex: 1,
-
-                  flexDirection: 'column',
-
-                  justifyContent: 'flex-end',
-
-                  width: '100%',
-
-                  height: 200,
-
-                  backgroundColor: 'rgba(52, 52, 52, 0.8)' }}
-
-                source={{ uri : 'https://4.bp.blogspot.com/-4X3c0CA9Qp4/V-t1RvcGgII/AAAAAAAAAWY/CM_VOv8vjeYRpfnn6FJeIoZP44jQx6gSACLcB/s1600/600.PNG' }}>
-
-                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', backgroundColor: 'rgba(52, 52, 52, 0.4)' }}>
-
-                  <Text style={{
-
-                      color: '#fff', fontWeight: 'bold', margin: 5, flexWrap: 'wrap'
-
-                    }}>Bali Trip</Text>
-
-                  <Text style={{ color: '#fff', margin: 5}}>
-
-                    12 Mei 2017
-
-                  </Text>
-
+          {
+            this.props.itineraries.map( itinerary => (
+              <Card>
+                <View>
+                  <TouchableHighlight>
+                    <Image
+                      style={{
+                        flex: 1,
+                        flexDirection: 'column',
+                        justifyContent: 'flex-end',
+                        width: '100%',
+                        height: 200,
+                        backgroundColor: 'rgba(52, 52, 52, 0.8)' }}
+                      source={{ uri : itinerary.places[0].place.photo }}>
+                      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', backgroundColor: 'rgba(52, 52, 52, 0.4)' }}>
+                        <Text style={{
+                            color: '#fff', fontWeight: 'bold', margin: 5, flexWrap: 'wrap'
+                          }}>{itinerary.places[0].place.city} Trip</Text>
+                        <Text style={{ color: '#fff', margin: 5}}>
+                          {(new Date(itinerary.createdAt)).toLocaleString()}
+                        </Text>
+                      </View>
+                    </Image>
+                  </TouchableHighlight>
+                  <CardItem>
+                    <Body>
+                      <Text>
+                        {itinerary.places[0].place.name}
+                      </Text>
+                      <Text note>
+                        2 days ago
+                      </Text>
+                    </Body>
+                  </CardItem>
                 </View>
-
-              </Image>
-
-              <CardItem>
-
-                <Body>
-
-                  <Text>
-
-                    Tugu, Yogyakarta
-
-                  </Text>
-
-                  <Text note>
-
-                    2 days ago
-
-                  </Text>
-
-                </Body>
-
-              </CardItem>
-
-            </View>
-
-
-
-          </Card>
-
+              </Card>
+            ))
+          }
         </Content>
 
-
-
         <Button
-
+          onPress={() => this.props.navigation.navigate('inputQuery')}
           style={{
-
             justifyContent: 'center',
-
             width: 60,
-
             height: 60,
-
             backgroundColor: '#5E35B1',
-
             position: 'absolute',
-
             bottom: 10,
-
             right: 20,
-
             borderRadius: 100
-
           }}>
-
           <Icon name="plus" color="white" size={26} style={{
-
             textAlign: 'center',
-
             }}/>
-
         </Button>
-
-
-
       </Container>
     </DrawerLayoutAndroid>
-
-
     )
-
   }
-
-
-
 }
 
+const mapStateToProps = state => ({
+  user: state.logindata,
+  itineraries: state.itineraries
+})
+const mapDispatchToProps = dispatch => ({
+  fetchItin: (userid) => dispatch(fetchItin(userid)),
+})
 
 
-export default Profile;
+export default connect(mapStateToProps,mapDispatchToProps)(Profile);

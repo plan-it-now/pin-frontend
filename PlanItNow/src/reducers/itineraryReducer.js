@@ -1,4 +1,4 @@
-import { POST_ITIN } from '../actions/constants';
+import { POST_ITIN, FETCH_ITIN } from '../actions/constants';
 
 const itineraryReducer = (state = [], action) => {
   switch (action.type) {
@@ -9,6 +9,9 @@ const itineraryReducer = (state = [], action) => {
       newArr.push(action.payload)
       return newArr;
 
+    }
+    case FETCH_ITIN:{
+      return action.payload;
     }
     default: return state;
 
