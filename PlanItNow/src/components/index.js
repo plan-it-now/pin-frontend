@@ -14,6 +14,8 @@ import EditPassword from './EditPassword';
 import DrawerProfile from './DrawerProfile';
 
 const App = StackNavigator({
+
+  // EditPassword: {screen: EditPassword},
   Login: {screen : Login},
   inputQuery: {screen: inputQuery},
   Register: {screen: Register},
