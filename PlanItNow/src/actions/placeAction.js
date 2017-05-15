@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { FETCH_PLACES, PROCESS_PLACES, PROCESS_STEP1 } from './constants';
+import { FETCH_PLACES, PROCESS_PLACES, PROCESS_STEP1, PROCESS_STEP2 } from './constants';
 
 const mockingjayAlgorithm = (pref,data) => {
   let arrayPlaces = data;
@@ -69,6 +69,11 @@ const mockingjayAlgorithm = (pref,data) => {
 export const processStep1 = (data) => ({
     type: PROCESS_STEP1,
     payload: data
+})
+
+export const processStep2 = (data) => ({
+  type: PROCESS_STEP2,
+  payload: data
 })
 
 const fetchPlacesSucces = (pref,data,days) => ({

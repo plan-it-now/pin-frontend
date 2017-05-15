@@ -50,8 +50,13 @@ class EditPassword extends React.Component {
         </View>
         <View>
           <Item>
-            <Icon name='lock' style={{fontSize: 20, color: 'white'}} />
-            <Input />
+            <Icon name='mail' style={{fontSize: 20, color: 'white'}} />
+            <Input
+              placeholder = "Email"
+              placeholderTextColor = "#fff"
+              onChangeText = {(text) => this.setState({email:text})}
+              style={{color: '#fff'}}
+            />
           </Item>
           <Item>
             <Icon name='lock' style={{fontSize: 20, color: 'white'}} />
