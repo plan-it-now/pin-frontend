@@ -1,18 +1,7 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  ScrollView
-} from 'react-native'
+import { View, Text, ScrollView, StatusBar } from 'react-native'
 
-import {
-  Container,
-  Content,
-  Item,
-  Input,
-  Fab,
-  Button
-} from 'native-base'
+import { Container, Content, Item, Input, Fab, Button } from 'native-base'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
@@ -48,7 +37,6 @@ class ItineraryStepThree extends React.Component {
   }
 
   render () {
-
     return (
       <Container style={{ backgroundColor: '#B39DDB' }}>
         <Content
@@ -80,6 +68,7 @@ class ItineraryStepThree extends React.Component {
               fontWeight: 'bold'
             }}>Submit</Text>
         </Button>
+
       </Container>
     )
   }
