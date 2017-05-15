@@ -10,15 +10,20 @@ import ItineraryStepOne from './ItineraryStepOne';
 import ItineraryStepThree from './ItineraryStepThree';
 import step2 from './step2';
 import Profile from './Profile';
+import EditPassword from './EditPassword';
+import DrawerProfile from './DrawerProfile';
 
 const App = StackNavigator({
-  // Profile: {screen : Profile}
+
   Login: {screen : Login},
   inputQuery: {screen: inputQuery},
   Register: {screen: Register},
   Recomendation: {screen: Recomendation},
   Step1: {screen: ItineraryStepOne},
-  step2: {screen: step2},
+  Step2: {screen: step2},
+  Step3: {screen: ItineraryStepThree},
+  Profile: {screen : Profile},
+  StepIndicators: {screen: StepIndicators},
   // ItineraryStepThree: {screen: ItineraryStepThree},
 }, {
   headerMode: 'none'

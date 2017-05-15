@@ -1,26 +1,41 @@
 import React from 'react';
 
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView
-} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, StatusBar } from 'react-native';
 
-import {
-  Container,
-  Footer,
-  FooterTab,
-  Button,
-  Content,
-  Picker,
-} from 'native-base';
+import { Container, Footer, FooterTab, Button, Content, Picker, Header, Body, Title } from 'native-base';
 
 import { connect } from 'react-redux';
 
 import { processStep1 } from '../../actions';
 
+import StepIndicator from 'react-native-step-indicator';
+
 const Item = Picker.Item;
+
+const labels = ["Inquiry","Choose","Assign","Ordering","Schedule"];
+const customStyles = {
+  stepIndicatorSize: 25,
+  currentStepIndicatorSize:30,
+  separatorStrokeWidth: 2,
+  currentStepStrokeWidth: 3,
+  stepStrokeCurrentColor: '#5E35B1',
+  stepStrokeWidth: 3,
+  stepStrokeFinishedColor: '#5E35B1',
+  stepStrokeUnFinishedColor: '#757575',
+  separatorFinishedColor: '#5E35B1',
+  separatorUnFinishedColor: '#757575',
+  stepIndicatorFinishedColor: '#5E35B1',
+  stepIndicatorUnFinishedColor: '#ffffff',
+  stepIndicatorCurrentColor: '#FF7043',
+  stepIndicatorLabelFontSize: 13,
+  currentStepIndicatorLabelFontSize: 13,
+  stepIndicatorLabelCurrentColor: '#5E35B1',
+  stepIndicatorLabelFinishedColor: '#ffffff',
+  stepIndicatorLabelUnFinishedColor: '#757575',
+  labelColor: '#000',
+  labelSize: 13,
+  currentStepLabelColor: '#5E35B1'
+}
 
 class ItineraryStepOne extends React.Component {
   constructor(props) {
@@ -30,7 +45,8 @@ class ItineraryStepOne extends React.Component {
       selectedDay: [],
       results: {
         items: []
-      }
+      },
+      currentPosition: 2
     }
   }
 
@@ -45,9 +61,6 @@ class ItineraryStepOne extends React.Component {
   }
 
   onValueChange (value: Number, index) {
-    // console.log('v',value);
-    // console.log('idx', index);
-    // console.log('s', this.state.selectedDay);
     let arrTmp = this.state.selectedDay;
     arrTmp[index] = value;
     this.setState({
@@ -63,7 +76,7 @@ class ItineraryStepOne extends React.Component {
   };
     this.props.processStep1(approvedList);
     const { navigate } = this.props.navigation;
-    navigate('step2');
+    navigate('Step2');
   }
 
   render () {
@@ -72,77 +85,68 @@ class ItineraryStepOne extends React.Component {
       tmp[i-1] = 'Day '+ i;
     }
     return (
-      <Container
-        style={{ backgroundColor: '#B39DDB' }}
-      >
-        <ScrollView>
-          <Content
-            padder
-          >
-            {
-              this.props.places.approvedPlaces.map( (appPlace,idx) => (
-                <View key={idx}
-                  style={{
-                    flex: 1,
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    backgroundColor: 'white',
-                    height: 80,
-                    marginBottom: 10,
-                    marginTop: 10
-                  }}
-                >
-                  <View
-                    style={{
-                      width: 200,
-                      paddingLeft: 10
-                    }}
-                  >
-                    <Text
+      <Container style={{ backgroundColor: '#B39DDB' }}>
+
+          <View style={{marginTop:20, marginBottom:20}}>
+            <StepIndicator
+               customStyles={customStyles}
+               currentPosition={this.state.currentPosition}
+               labels={labels}
+            />
+          </View>
+            <ScrollView>
+              <Content
+                padder
+              >
+                {
+                  this.props.places.approvedPlaces.map( (appPlace,idx) => (
+                    <View key={idx}
                       style={{
-                        color: '#000',
-                        fontSize: 18
+                        flex: 1,
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        backgroundColor: '#fff',
+                        height: 80,
+                        marginBottom: 10,
+                        marginTop: 10,
+                        borderRadius:10
                       }}
-                    >{appPlace.place.name} </Text>
-                  </View>
-                  <View style={{
-                      width: 120,
-                      paddingRight: 10
-                    }}
-                  >
-                    <Picker
-                      supportedOrientations={['portrait','landscape']}
-                      iosHeader="Select one"
-                      mode="dropdown"
-                      selectedValue={this.state.selectedDay[idx]}
-                      onValueChange={(value)=>this.onValueChange(value,idx)}>
-                      {
-                        tmp.map((day,index)=>(
-                          <Item key={index} label={day} value={index+1} />
-                        ))
-                      }
+                    >
+                      <View style={{ width: 200, paddingLeft: 10 }}>
+                        <Text style={{ color: '#000', fontSize: 18}}>{appPlace.place.name} </Text>
+                      </View>
 
-                    </Picker>
-                  </View>
-                </View>
-              ))
-            }
+                      <View style={{ width: 120, paddingRight: 10 }}>
+                        <Picker
+                          supportedOrientations={['portrait','landscape']}
+                          iosHeader="Select one"
+                          mode="dropdown"
+                          selectedValue={this.state.selectedDay[idx]}
+                          onValueChange={(value)=>this.onValueChange(value,idx)}>
+                          {
+                            tmp.map((day,index)=>(
+                              <Item key={index} label={day} value={index+1} />
+                            ))
+                          }
+                        </Picker>
+                      </View>
+                    </View>
+                  ))
+                }
+              </Content>
+            </ScrollView>
 
-          </Content>
-        </ScrollView>
-
-
-        <Footer>
-          <FooterTab>
-            <Button
-              style={{ backgroundColor: '#5E35B1'}}
-              block
-              onPress={()=>this.handleSave()}>
-              <Text style={{ color: '#fff', fontWeight: 'bold' }}>Save</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
+            <Footer>
+              <FooterTab>
+                <Button
+                  style={{ backgroundColor: '#5E35B1'}}
+                  block
+                  onPress={()=>this.handleSave()}>
+                  <Text style={{ color: '#fff', fontWeight: 'bold' }}>Proceed to Step 4</Text>
+                </Button>
+              </FooterTab>
+            </Footer>
       </Container>
     )
   }

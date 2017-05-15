@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Text, StyleSheet, Image, AsyncStorage } from 'react-native';
+import { View, Text, StyleSheet, Image, AsyncStorage, StatusBar } from 'react-native';
 
 import { Container, Content, Form, Item, Input, Label, Button, Icon } from 'native-base';
-import { login } from '../../actions'
+import { login, loginfb } from '../../actions'
 
 import LoginFb from '../FacebookLogin'
 const FBSDK = require('react-native-fbsdk');
@@ -20,7 +20,8 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      warning: ''
+      warning: '',
+      name: '',
     }
   }
 
@@ -36,15 +37,17 @@ class Login extends React.Component {
     // if(AsyncStorage.getItem('token')){
     //   this.loginSuccess();
     // }
+    // for development purpose only
     this.props.login({
-      email: 'a',
-      password: 'a'
+      email: 'aa',
+      password: 'aa'
     })
   }
 
   loginSuccess() {
     const { navigate } = this.props.navigation
     navigate('inputQuery')
+    // navigate('SpinnerLogin')
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -74,15 +77,18 @@ class Login extends React.Component {
         if (result.isCancelled) {
           alert('Login cancelled');
         } else {
-          console.log('masuk sini',result.accessToken);
-          var app = self
+          // console.log('masuk sini',result.accessToken);
+          // var app = self
           AccessToken.getCurrentAccessToken()
                      .then((accessTokenData) => {
                        console.log('accessTokenData --------', accessTokenData.accessToken);
                        fetch('https://graph.facebook.com/v2.5/me?fields=email,name,friends&access_token=' + accessTokenData.accessToken)
                          .then((response) => response.json())
                          .then((json) => {
-                           console.log('response json ------',json);
+                           console.log('response json ------',json.name);
+                           self.setState({name: json.name})
+                           self.setState({email: json.email})
+                           self.props.loginfb({ email: self.state.email, name: self.state.name })
                            var user = {}
                            // Some user object has been set up somewhere, build that user here
                            user.name = json.name
@@ -92,7 +98,7 @@ class Login extends React.Component {
                            user.username = json.name
                            user.loading = false
                            user.loggedIn = true
-                           app._requestLoginFacebook(user)
+                          //  self._requestLoginFacebook(user)
                          })
                          .catch((error) => {
                            console.log(error);
@@ -113,6 +119,7 @@ class Login extends React.Component {
       <View
         style={styles.containerLogin}
       >
+      <StatusBar hidden={true}/>
         <Image
           style={styles.backgroundImage}
           source={{ uri : 'https://s-media-cache-ak0.pinimg.com/originals/d7/99/d9/d799d98dac43a2e49d71eac78d632b79.jpg' }}
@@ -219,7 +226,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  login: (user) => dispatch(login(user))
+  login: (user) => dispatch(login(user)),
+  loginfb: (user) => dispatch(loginfb(user))
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
