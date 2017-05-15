@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, ScrollView, StatusBar } from 'react-native'
 
-import { Container, Header, Body, Title, Content, Item, Input, Fab, Button } from 'native-base'
+import { Container, Header, Body, Title, Content, Item, Input, Fab, Button, Footer, FooterTab } from 'native-base'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
@@ -70,14 +70,10 @@ class ItineraryStepThree extends React.Component {
     }, () => {
       console.log('ini structured places',this.state.structuredPlaces);
     })
-
-    // console.log(orderedPlaces);
   }
 
   componentDidMount() {
     this.structuringPlaces();
-
-
   }
 
   finalConfirm() {
@@ -129,22 +125,16 @@ class ItineraryStepThree extends React.Component {
           </ScrollView>
         </Content>
 
-        <Button
-          rounded
-          onPress={() => this.finalConfirm()}
-          style={{
-            backgroundColor: '#37b578',
-            position: 'absolute',
-            bottom: 10,
-            left: 10
-          }}>
-          <Icon name="check" color="white" size={22}/>
-          <Text style={{
-              paddingLeft: 5,
-              color: '#fff',
-              fontWeight: 'bold'
-            }}>Submit</Text>
-        </Button>
+        <Footer>
+          <FooterTab>
+            <Button
+              style={{ backgroundColor: '#5E35B1'}}
+              block
+              onPress={()=>this.finalConfirm()}>
+              <Text style={{ color: '#fff', fontWeight: 'bold' }}>Generate Itinerary</Text>
+            </Button>
+          </FooterTab>
+        </Footer>
       </Container>
     )
   }

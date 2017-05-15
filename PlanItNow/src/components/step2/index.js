@@ -165,7 +165,7 @@ class MyComponent extends React.Component {
                   style={{ backgroundColor: '#5E35B1'}}
                   block
                   onPress={()=>this.handleSubmitOrder()}>
-                  <Text style={{ color: '#fff', fontWeight: 'bold' }}>Proceed to Step 4</Text>
+                  <Text style={{ color: '#fff', fontWeight: 'bold' }}>Proceed to Step 5</Text>
                 </Button>
               </FooterTab>
             </Footer>

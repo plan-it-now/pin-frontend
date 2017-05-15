@@ -143,7 +143,7 @@ class ItineraryStepOne extends React.Component {
                   style={{ backgroundColor: '#5E35B1'}}
                   block
                   onPress={()=>this.handleSave()}>
-                  <Text style={{ color: '#fff', fontWeight: 'bold' }}>Proceed to Step 3</Text>
+                  <Text style={{ color: '#fff', fontWeight: 'bold' }}>Proceed to Step 4</Text>
                 </Button>
               </FooterTab>
             </Footer>
