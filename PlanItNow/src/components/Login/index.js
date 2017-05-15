@@ -88,7 +88,7 @@ class Login extends React.Component {
                            console.log('response json ------',json.name);
                            self.setState({name: json.name})
                            self.setState({email: json.email})
-                           self.props.loginfb({ email: json.email, name: json.name })
+                           self.props.loginfb({ email: self.state.email, name: self.state.name })
                            var user = {}
                            // Some user object has been set up somewhere, build that user here
                            user.name = json.name
