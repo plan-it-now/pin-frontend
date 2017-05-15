@@ -35,10 +35,11 @@ export const loginfbSuccess = (data) => ({
 })
 
 export const loginfb = (datauser) => (
-    dispatch => (
-      axios.post('http://localhost:3000/login-fb', datauser)
-      .then((res) => dispatch(loginfbSuccess(res.data)))
+  dispatch => (
+    axios.post('http://ec2-52-221-233-16.ap-southeast-1.compute.amazonaws.com/login-fb',datauser)
+    .then((res) => (dispatch(loginfbSuccess(res.data)))
     )
+  )
 )
 
 //tambahkan urusan logout
