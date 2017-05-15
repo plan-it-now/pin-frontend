@@ -1,15 +1,15 @@
 import axios from 'axios';
 
-import { FETCH_PLACES, PROCESS_PLACES, PROCESS_STEP1 } from './constants';
+import { FETCH_PLACES, PROCESS_PLACES, PROCESS_STEP1, PROCESS_STEP2 } from './constants';
 
 const mockingjayAlgorithm = (pref,data) => {
   let arrayPlaces = data;
 
-  let history = arrayPlaces.filter(place => place.tags.toLowerCase() === 'history');
-  let nature = arrayPlaces.filter(place => place.tags.toLowerCase() === 'nature');
-  let shopping = arrayPlaces.filter(place => place.tags.toLowerCase() === 'shopping');
-  let architecture = arrayPlaces.filter(place => place.tags.toLowerCase() === 'architecture');
-  let art = arrayPlaces.filter(place => place.tags.toLowerCase() === 'art');
+  let history = arrayPlaces.filter(place => place.tag.toLowerCase() === 'history');
+  let nature = arrayPlaces.filter(place => place.tag.toLowerCase() === 'nature');
+  let shopping = arrayPlaces.filter(place => place.tag.toLowerCase() === 'shopping');
+  let architecture = arrayPlaces.filter(place => place.tag.toLowerCase() === 'architecture');
+  let art = arrayPlaces.filter(place => place.tag.toLowerCase() === 'art');
 
   let urutan = [];
 
@@ -29,7 +29,7 @@ const mockingjayAlgorithm = (pref,data) => {
     if(pref.art >=40 && art.length != 0) {
       urutan.push(art.shift());
     }
-      if(pref.history >=60 && history.length != 0) {
+    if(pref.history >=60 && history.length != 0) {
       urutan.push(history.shift());
     }
     if(pref.nature >=60 && nature.length != 0) {
@@ -71,6 +71,11 @@ export const processStep1 = (data) => ({
     payload: data
 })
 
+export const processStep2 = (data) => ({
+  type: PROCESS_STEP2,
+  payload: data
+})
+
 const fetchPlacesSucces = (pref,data,days) => ({
   type: FETCH_PLACES,
   payload: {
@@ -93,7 +98,7 @@ export const processPlaces = (rejectedList, approvedList) => {
     place,
     day: 1,
     orderIndex: 0,
-    schedule: ''
+    schedule: '00:00'
   }));
   return {
     type: PROCESS_PLACES,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Text, StyleSheet, Image, AsyncStorage } from 'react-native';
+import { View, Text, StyleSheet, Image, AsyncStorage, StatusBar } from 'react-native';
 
 import { Container, Content, Form, Item, Input, Label, Button, Icon } from 'native-base';
 import { login } from '../../actions'
@@ -36,16 +36,17 @@ class Login extends React.Component {
     // if(AsyncStorage.getItem('token')){
     //   this.loginSuccess();
     // }
-    // this.props.login({
-    //   email: 'a',
-    //   password: 'a'
-    // })
+
+    // for development purpose only
+    this.props.login({
+      email: 'aa',
+      password: 'aa'
+    })
   }
 
   loginSuccess() {
     const { navigate } = this.props.navigation
-    // navigate('inputQuery')
-    navigate('SpinnerLogin')
+    navigate('inputQuery')
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -114,6 +115,7 @@ class Login extends React.Component {
       <View
         style={styles.containerLogin}
       >
+      <StatusBar hidden={true}/>
         <Image
           style={styles.backgroundImage}
           source={{ uri : 'https://s-media-cache-ak0.pinimg.com/originals/d7/99/d9/d799d98dac43a2e49d71eac78d632b79.jpg' }}

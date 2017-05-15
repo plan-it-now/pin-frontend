@@ -10,25 +10,18 @@ import ItineraryStepOne from './ItineraryStepOne';
 import ItineraryStepThree from './ItineraryStepThree';
 import step2 from './step2';
 import Profile from './Profile';
-import SpinnerLogin from './SpinnerLogin';
-import PopupLogin from './PopupLogin';
-import StepIndicators from './StepIndicators';
 import EditPassword from './EditPassword';
 import DrawerProfile from './DrawerProfile';
 
 const App = StackNavigator({
+  Login: {screen : Login},
+  inputQuery: {screen: inputQuery},
+  Register: {screen: Register},
+  Recomendation: {screen: Recomendation},
+  Step1: {screen: ItineraryStepOne},
+  Step2: {screen: step2},
+  Step3: {screen: ItineraryStepThree},
   Profile: {screen : Profile}
-  // Login: {screen : Login},
-  // inputQuery: {screen: inputQuery},
-  // Register: {screen: Register},
-  // Recomendation: {screen: Recomendation},
-  // Step1: {screen: ItineraryStepOne},
-  // step2: {screen: step2},
-  // SpinnerLogin: {screen: SpinnerLogin},
-  // PopupLogin: {screen: PopupLogin},
-  // StepIndicators: {screen: StepIndicators},
-  // DrawerProfile: {screen: DrawerProfile},
-  // ItineraryStepThree: {screen: ItineraryStepThree},
 }, {
   headerMode: 'none'
 })

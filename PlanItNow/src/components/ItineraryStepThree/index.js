@@ -1,154 +1,154 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  ScrollView
-} from 'react-native'
+import { View, Text, ScrollView, StatusBar } from 'react-native'
 
-import {
-  Container,
-  Content,
-  Item,
-  Input,
-  Fab,
-  Button
-} from 'native-base'
+import { Container, Header, Body, Title, Content, Item, Input, Fab, Button, Footer, FooterTab } from 'native-base'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { connect } from 'react-redux';
+
+import ScheduleDetail from './scheduleDetail';
+import { updateUser,postItinerary } from '../../actions';
+
+import StepIndicator from 'react-native-step-indicator';
+
+const labels = ["Inquiry","Choose","Assign","Ordering","Schedule"];
+const customStyles = {
+  stepIndicatorSize: 25,
+  currentStepIndicatorSize:30,
+  separatorStrokeWidth: 2,
+  currentStepStrokeWidth: 3,
+  stepStrokeCurrentColor: '#5E35B1',
+  stepStrokeWidth: 3,
+  stepStrokeFinishedColor: '#5E35B1',
+  stepStrokeUnFinishedColor: '#757575',
+  separatorFinishedColor: '#5E35B1',
+  separatorUnFinishedColor: '#757575',
+  stepIndicatorFinishedColor: '#5E35B1',
+  stepIndicatorUnFinishedColor: '#ffffff',
+  stepIndicatorCurrentColor: '#FF7043',
+  stepIndicatorLabelFontSize: 13,
+  currentStepIndicatorLabelFontSize: 13,
+  stepIndicatorLabelCurrentColor: '#5E35B1',
+  stepIndicatorLabelFinishedColor: '#ffffff',
+  stepIndicatorLabelUnFinishedColor: '#757575',
+  labelColor: '#000',
+  labelSize: 13,
+  currentStepLabelColor: '#5E35B1'
+}
 
 class ItineraryStepThree extends React.Component {
   constructor(props) {
     super(props)
       this.state = {
-        active: true
+        active: true,
+        structuredPlaces: [],
+        time: [],
+        currentPosition: 4
       }
+      this.setTimeSchedule = this.setTimeSchedule.bind(this);
+  }
+
+  setTimeSchedule(timeChild,idx) {
+    let tmp = this.state.structuredPlaces;
+    tmp[idx] = timeChild;
+    this.setState({
+      structuringPlaces: tmp
+    }, () => {
+      console.log(this.state.structuredPlaces);
+    })
+  }
+
+  structuringPlaces() {
+    const { approvedPlaces,days } = this.props.places
+    const orderedPlaces = [];
+    for (let i = 1; i <= days; i++) {
+      orderedPlaces.push(approvedPlaces.filter(place => place.day == i))
+    }
+
+    this.setState({
+      structuredPlaces: orderedPlaces
+    }, () => {
+      console.log('ini structured places',this.state.structuredPlaces);
+    })
+  }
+
+  componentDidMount() {
+    this.structuringPlaces();
+  }
+
+  finalConfirm() {
+    const { updateUser,user, places, postItinerary, navigation } = this.props
+    const { structuredPlaces } = this.state
+    let newArrOfPlaces = []
+    for (let i = 0 ; i < structuredPlaces.length; i++) {
+      for (let j = 0; j < structuredPlaces[i].length; j++) {
+        let newObjPlace = {
+          place: structuredPlaces[i][j].place._id,
+          day: structuredPlaces[i][j].day,
+          orderIndex: structuredPlaces[i][j].orderIndex,
+          schedule: structuredPlaces[i][j].schedule
+        }
+        newArrOfPlaces.push(newObjPlace);
+      }
+    }
+    updateUser(user,places);
+    postItinerary(user.userdata._id,newArrOfPlaces);
+    navigation.navigate('Profile');
   }
 
   render () {
+
     return (
       <Container style={{ backgroundColor: '#B39DDB' }}>
+        <View style={{marginTop:20, marginBottom:20}}>
+          <StepIndicator
+             customStyles={customStyles}
+             currentPosition={this.state.currentPosition}
+             labels={labels}
+          />
+        </View>
+
         <Content
           padder>
 
           <ScrollView>
-            <View style={{
-                backgroundColor: '#EDE7F6',
-                borderColor: '#000',
-                padding: 10,
-                margin: 10}}>
-
-              <View style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginTop: 10,
-                  marginBottom: 10,
-                }}>
-                <View style={{ width: 130 }}>
-                  <Item rounded>
-                    <Input
-                      style={{
-                         borderColor: '#000', borderWidth: 1, borderRadius: 50, paddingLeft: 20
-                      }}
-                    />
-                  </Item>
+            {
+              this.state.structuredPlaces.map((places,idx) => (
+                <View key={idx}>
+                  <View style={{paddingLeft:10}}>
+                    <Text style={{fontSize:20}}>Day - {idx+1} </Text>
+                  </View>
+                  <ScheduleDetail places={places} bossIdx={idx} setTimeSchedule={this.setTimeSchedule}/>
                 </View>
-
-                <View
-                  style={{ width: 300, paddingLeft: 15 }}
-                >
-                  <Text style={{
-                    color: '#000',
-                    fontSize: 18
-                  }}>Candi Borobudur</Text>
-                </View>
-
-              </View>
-
-              <View style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginTop: 10,
-                  marginBottom: 10
-                }}>
-
-                <View style={{ width: 130 }}>
-                  <Item rounded>
-                    <Input
-                      style={{
-                         borderColor: '#000',
-                         borderWidth: 1,
-                         borderRadius: 50,
-                         paddingLeft: 20
-                      }}
-                    />
-                  </Item>
-                </View>
-
-                <View
-                  style={{ width: 300, paddingLeft: 15 }}
-                >
-                  <Text style={{
-                    color: '#000',
-                    fontSize: 18
-                  }}>Candi Borobudur</Text>
-                </View>
-
-              </View>
-
-              <View style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginTop: 10,
-                  marginBottom: 10
-                }}>
-                <View style={{ width: 130 }}>
-                  <Item rounded red>
-                    <Input style={{
-                        borderColor: '#000',
-                        borderWidth: 1,
-                        borderRadius: 50,
-                        paddingLeft: 20}}/>
-                  </Item>
-                </View>
-
-                <View
-                  style={{ width: 300, paddingLeft: 15 }}
-                >
-                  <Text style={{
-                    color: '#000',
-                    fontSize: 18
-                  }}>Candi Borobudur</Text>
-                </View>
-
-              </View>
-            </View>
+              ))
+            }
           </ScrollView>
         </Content>
-        <Button
-          rounded
-          style={{
-            backgroundColor: '#37b578',
-            position: 'absolute',
-            bottom: 10,
-            left: 10
-          }}>
-          <Icon name="check" color="white" size={22}/>
-          <Text style={{
-              paddingLeft: 5,
-              color: '#fff',
-              fontWeight: 'bold'
-            }}>Submit</Text>
-        </Button>
+
+        <Footer>
+          <FooterTab>
+            <Button
+              style={{ backgroundColor: '#5E35B1'}}
+              block
+              onPress={()=>this.finalConfirm()}>
+              <Text style={{ color: '#fff', fontWeight: 'bold' }}>Generate Itinerary</Text>
+            </Button>
+          </FooterTab>
+        </Footer>
       </Container>
     )
   }
 
 }
 
-export default ItineraryStepThree;
+const mapStateToProps = state => ({
+  places: state.places,
+  user: state.logindata
+})
+
+const mapDispatchToProps = dispatch => ({
+  updateUser: (user,places) => dispatch(updateUser(user,places)),
+  postItinerary: (userid,arrayPlaces) => dispatch(postItinerary(userid,arrayPlaces))
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(ItineraryStepThree);

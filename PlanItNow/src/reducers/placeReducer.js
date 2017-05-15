@@ -1,4 +1,4 @@
-import { FETCH_PLACES, PROCESS_PLACES, PROCESS_STEP1 } from '../actions/constants';
+import { FETCH_PLACES, PROCESS_PLACES, PROCESS_STEP1, PROCESS_STEP2} from '../actions/constants';
 
 const initialState = {
   days: 0,
@@ -9,7 +9,7 @@ const initialState = {
     {
       name: 'Loading...',
       description: '',
-      photos: ''
+      photo: ''
     }
   ]
 }
@@ -28,6 +28,12 @@ const placeReducer = (state = initialState, action) => {
       }
     }
     case PROCESS_STEP1: {
+      return {
+        ...state,
+        ...action.payload
+      }
+    }
+    case PROCESS_STEP2: {
       return {
         ...state,
         ...action.payload
