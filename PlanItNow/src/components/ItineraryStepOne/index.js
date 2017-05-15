@@ -8,7 +8,34 @@ import { connect } from 'react-redux';
 
 import { processStep1 } from '../../actions';
 
+import StepIndicator from 'react-native-step-indicator';
+
 const Item = Picker.Item;
+
+const labels = ["Inquiry","Choose","Assign","Ordering","Schedule"];
+const customStyles = {
+  stepIndicatorSize: 25,
+  currentStepIndicatorSize:30,
+  separatorStrokeWidth: 2,
+  currentStepStrokeWidth: 3,
+  stepStrokeCurrentColor: '#5E35B1',
+  stepStrokeWidth: 3,
+  stepStrokeFinishedColor: '#5E35B1',
+  stepStrokeUnFinishedColor: '#757575',
+  separatorFinishedColor: '#5E35B1',
+  separatorUnFinishedColor: '#757575',
+  stepIndicatorFinishedColor: '#5E35B1',
+  stepIndicatorUnFinishedColor: '#ffffff',
+  stepIndicatorCurrentColor: '#FF7043',
+  stepIndicatorLabelFontSize: 13,
+  currentStepIndicatorLabelFontSize: 13,
+  stepIndicatorLabelCurrentColor: '#5E35B1',
+  stepIndicatorLabelFinishedColor: '#ffffff',
+  stepIndicatorLabelUnFinishedColor: '#757575',
+  labelColor: '#000',
+  labelSize: 13,
+  currentStepLabelColor: '#5E35B1'
+}
 
 class ItineraryStepOne extends React.Component {
   constructor(props) {
@@ -18,7 +45,8 @@ class ItineraryStepOne extends React.Component {
       selectedDay: [],
       results: {
         items: []
-      }
+      },
+      currentPosition: 2
     }
   }
 
@@ -33,9 +61,6 @@ class ItineraryStepOne extends React.Component {
   }
 
   onValueChange (value: Number, index) {
-    // console.log('v',value);
-    // console.log('idx', index);
-    // console.log('s', this.state.selectedDay);
     let arrTmp = this.state.selectedDay;
     arrTmp[index] = value;
     this.setState({
@@ -61,12 +86,14 @@ class ItineraryStepOne extends React.Component {
     }
     return (
       <Container style={{ backgroundColor: '#B39DDB' }}>
-        <StatusBar hidden={true}/>
-          <Header style={{backgroundColor:'#311B92'}}>
-            <Body>
-              <Title>Step 2 of 4 - Assign Day</Title>
-            </Body>
-          </Header>
+
+          <View style={{marginTop:20, marginBottom:20}}>
+            <StepIndicator
+               customStyles={customStyles}
+               currentPosition={this.state.currentPosition}
+               labels={labels}
+            />
+          </View>
             <ScrollView>
               <Content
                 padder
@@ -116,7 +143,7 @@ class ItineraryStepOne extends React.Component {
                   style={{ backgroundColor: '#5E35B1'}}
                   block
                   onPress={()=>this.handleSave()}>
-                  <Text style={{ color: '#fff', fontWeight: 'bold' }}>Proceed to Step 3</Text>
+                  <Text style={{ color: '#fff', fontWeight: 'bold' }}>Proceed to Step 4</Text>
                 </Button>
               </FooterTab>
             </Footer>

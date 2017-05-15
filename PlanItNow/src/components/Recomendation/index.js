@@ -11,6 +11,33 @@ import MapDetail from '../MapDetail';
 
 import { processPlaces } from '../../actions';
 
+import StepIndicator from 'react-native-step-indicator';
+
+const labels = ["Inquiry","Choose","Assign","Ordering","Schedule"];
+const customStyles = {
+  stepIndicatorSize: 25,
+  currentStepIndicatorSize:30,
+  separatorStrokeWidth: 2,
+  currentStepStrokeWidth: 3,
+  stepStrokeCurrentColor: '#5E35B1',
+  stepStrokeWidth: 3,
+  stepStrokeFinishedColor: '#5E35B1',
+  stepStrokeUnFinishedColor: '#757575',
+  separatorFinishedColor: '#5E35B1',
+  separatorUnFinishedColor: '#757575',
+  stepIndicatorFinishedColor: '#5E35B1',
+  stepIndicatorUnFinishedColor: '#ffffff',
+  stepIndicatorCurrentColor: '#FF7043',
+  stepIndicatorLabelFontSize: 13,
+  currentStepIndicatorLabelFontSize: 13,
+  stepIndicatorLabelCurrentColor: '#5E35B1',
+  stepIndicatorLabelFinishedColor: '#ffffff',
+  stepIndicatorLabelUnFinishedColor: '#757575',
+  labelColor: '#000',
+  labelSize: 13,
+  currentStepLabelColor: '#5E35B1'
+}
+
 exports.framework = 'React';
 exports.title = 'Geolocation';
 exports.description = 'Examples of using the Geolocation API.';
@@ -41,7 +68,8 @@ class Recomedation extends React.Component {
         name:'',
         description:'',
         photo:'a',
-      }]
+      }],
+      currentPosition: 1
     };
   }
 
@@ -67,10 +95,10 @@ class Recomedation extends React.Component {
 
   renderCard = card => {
     return (
-      <View>
+      <View style={{marginTop:10}}>
         <Button
           block
-          style={{backgroundColor:"#5E35B1", marginTop:70, borderTopLeftRadius:10, borderTopRightRadius:10}} onPress={()=> {this.setModalVisible(true, card)}}>
+          style={{backgroundColor:"#5E35B1", marginTop:0, borderTopLeftRadius:10, borderTopRightRadius:10}} onPress={()=> {this.setModalVisible(true, card)}}>
           <Icon name='md-pin' />
             <Text> {card.name}</Text>
         </Button>
@@ -175,73 +203,78 @@ class Recomedation extends React.Component {
     )
   }
 
-
   render () {
     return (
-      <View style={styles.container}>
-        <StatusBar hidden={true}/>
-        <Header style={{backgroundColor:'#311B92'}}>
-          <Body>
-            <Title>Step 1 of 4 - Place Selection</Title>
-          </Body>
-        </Header>
-          <Swiper
-            ref={swiper => {
-              this.swiper = swiper;
-            }}
-            childrenOnTop={true}
-            backgroundColor = '#B39DDB'
-            onSwiped={(cardIndex) => {console.log(cardIndex)}}
-            cards={this.state.cards}
-            verticalSwipe={false}
-            onSwipedLeft={(cardIndex) => this.swipeLeft(cardIndex)}
-            onSwipedRight={(cardIndex) => this.swipeRight(cardIndex)}
-            cardIndex={this.state.cardIndex}
-            renderCard={this.renderCard}
-            onSwipedAll={() => this.displayAlert()}
-          >
-            <View style={{
-              width:deviceWidth,
-              flexDirection:'row',
-              justifyContent:'space-between',
-              marginTop: 60}}
+      <View>
+        <View style={{paddingTop:20, paddingBottom:10, backgroundColor:'#B39DDB'}}>
+          <StepIndicator
+             customStyles={customStyles}
+             currentPosition={this.state.currentPosition}
+             labels={labels}
+          />
+        </View>
+        
+        <View style={styles.container}>
+            <Swiper
+              ref={swiper => {
+                this.swiper = swiper;
+              }}
+              childrenOnTop={true}
+              backgroundColor = '#B39DDB'
+              onSwiped={(cardIndex) => {console.log(cardIndex)}}
+              cards={this.state.cards}
+              verticalSwipe={false}
+              onSwipedLeft={(cardIndex) => this.swipeLeft(cardIndex)}
+              onSwipedRight={(cardIndex) => this.swipeRight(cardIndex)}
+              cardIndex={this.state.cardIndex}
+              renderCard={this.renderCard}
+              onSwipedAll={() => this.displayAlert()}
             >
-              {
-                this.state.swipe.length !== 0 ?
-                <Button style={{backgroundColor:"#5E35B1",margin: 10, alignSelf: 'flex-end'}} rounded onPress={this.swipeBack}>
-                    <Icon name="md-sync" color="white"/>
+              <View style={{
+                width:deviceWidth,
+                flexDirection:'row',
+                justifyContent:'space-between',
+              }}
+              >
+                {
+                  this.state.swipe.length !== 0 ?
+                  <Button style={{backgroundColor:"#5E35B1",margin: 10, alignSelf: 'flex-end'}} rounded onPress={this.swipeBack}>
+                      <Icon name="md-sync" color="white"/>
+                  </Button>
+                  :
+                  <View />
+                }
+                <Button
+                    rounded
+                    onPress={()=>this.handleSubmitPlaces()}
+                    style={{
+                      backgroundColor: '#5E35B1',
+                      margin: 10,
+                      alignSelf: 'flex-end'
+                    }}>
+                    <Icon name="md-send" color="white"/>
                 </Button>
-                :
-                <View />
-              }
-              <Button
-                  rounded
-                  onPress={()=>this.handleSubmitPlaces()}
-                  style={{
-                    backgroundColor: '#5E35B1',
-                    margin: 10,
-                    alignSelf: 'flex-end'
-                  }}>
-                  <Icon name="md-send" color="white"/>
+              </View>
+            </Swiper>
+
+            <Modal
+             animationType={"slide"}
+             transparent={true}
+             visible={this.state.modalVisible}
+             onRequestClose={() => {console.log('modal closed');}}
+            >
+
+              <View style={styles.mapcontainer}>
+                <MapDetail card={this.state.mapData} />
+              </View>
+
+              <Button style={{backgroundColor:"#5E35B1"}} block onPress={()=> {this.setModalVisible(false, null)}}>
+                  <Text>back!</Text>
               </Button>
-            </View>
-          </Swiper>
-
-          <Modal
-           animationType={"slide"}
-           transparent={true}
-           visible={this.state.modalVisible}
-           onRequestClose={() => {console.log('modal closed');}}
-          >
-            <View style={styles.mapcontainer}>
-              <MapDetail card={this.state.mapData} />
-            </View>
-
-            <Button style={{backgroundColor:"#5E35B1"}} block onPress={()=> {this.setModalVisible(false, null)}}>
-                <Text>back!</Text>
-            </Button>
-          </Modal>
+            </Modal>
+        </View>
       </View>
+
     )
   }
 }
@@ -251,8 +284,9 @@ const deviceHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#B39DDB'
+    backgroundColor: '#B39DDB',
+    height: deviceHeight,
+    paddingTop:0
   },
   card: {
     borderBottomRightRadius: 10,
