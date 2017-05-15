@@ -14,7 +14,13 @@ class Register extends React.Component {
       name: '',
       email: '',
       password: '',
-      isRedirect: false
+      warningMessage: '',
+      warning1: '',
+      warning2: '',
+      warning3: '',
+      checkName: false,
+      checkEmail: false,
+      checkPassword: false
     }
   }
 
@@ -32,14 +38,44 @@ class Register extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(this.props.logindata.shouldRedirect && !this.state.isRedirect){
-      this.setState({isRedirect: true})
+    if(this.props.logindata.shouldRedirectSignUp && !prevProps.logindata.shouldRedirectSignUp){
       this.loginSuccess()
     }
   }
 
   signupHandler() {
-    this.props.signup(this.state)
+    const regexName = /^[a-zA-Z ]{6,30}$/;
+    if(regexName.test(this.state.name)){
+      this.setState({checkName: true})
+      this.setState({warning1: ''})
+    } else {
+      this.setState({warningMessage: 'SignUp Error :', warning1: '• Wrong Name format'})
+      this.setState({checkName: false})
+    }
+
+    const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    if(regexEmail.test(this.state.email)){
+      this.setState({checkEmail: true})
+      this.setState({warning2: ''})
+    } else {
+      this.setState({warningMessage: 'SignUp Error :', warning2: '• Wrong Email format'})
+      this.setState({checkEmail: false})
+    }
+
+    const regexPassword = /^[a-zA-Z0-9!@#$%^&*]{6,20}$/;
+    if(regexPassword.test(this.state.password)){
+      this.setState({checkPassword: true})
+      this.setState({warning3: ''})
+    } else {
+      this.setState({warningMessage: 'SignUp Error :', warning3: '• Password length min 6, max 20 char'})
+      this.setState({checkPassword: false})
+    }
+
+    if(this.state.checkName && this.state.checkEmail && this.state.checkPassword) {
+      this.props.signup({name: this.state.name, email: this.state.email, password: this.state.password})
+      this.setState({warning1: '', warning2: '', warning3: '', warningMessage: ''})
+    }
+
   }
 
   render () {
@@ -47,50 +83,50 @@ class Register extends React.Component {
       <View
         style={styles.containerLogin}
       >
-        <Image
-          style={styles.backgroundImage}
-          source={{ uri : 'http://4.bp.blogspot.com/-dXMb3OIPqiw/UV5pkcbDQhI/AAAAAAAACPw/HnPIlLoEbj0/s1600/3.jpg' }}
-
-        >
-          <View
+      <Image
+        style={styles.backgroundImage}
+        source={{ uri : 'https://s-media-cache-ak0.pinimg.com/originals/d7/99/d9/d799d98dac43a2e49d71eac78d632b79.jpg' }}
+      >
+        <View
+          style={{
+            width: '70%',
+            height: '80%',
+          }}>
+          <Image
             style={{
-              width: '70%',
-              height: '60%',
-            }}>
-            <Image
-              style={{
-                width: 80,
-                height: 80,
-                alignSelf: 'center',
-              }}
-              source={{ uri : 'http://www.freeiconspng.com/uploads/orange-location-icon-png-18.png'}}
-            />
-
-            <Item floatingLabel>
+              width: 150,
+              height: 150,
+              alignSelf: 'center',
+            }}
+            source={require('../../assets/pin-logo-transparent.png')}/>
+            <Item>
               <Icon name='person' style={{fontSize: 20, color: 'white'}} />
-              <Label
-                style={{color: '#fff'}}
-              >Name</Label>
+
               <Input
-               onChangeText = {(text) => this.setState({name:text})}/>
+                placeholder = "Name"
+                placeholderTextColor = "#fff"
+                onChangeText = {(text) => this.setState({name:text})}
+                style={{color: '#fff'}}/>
             </Item>
 
-            <Item floatingLabel>
+            <Item>
               <Icon name='mail' style={{fontSize: 20, color: 'white'}} />
-              <Label
-                style={{color: '#fff'}}
-              >Email</Label>
+
               <Input
-               onChangeText = {(text) => this.setState({email:text})}/>/>
+                placeholder = "Email"
+                placeholderTextColor = "#fff"
+                onChangeText = {(text) => this.setState({email:text})}
+                style={{color: '#fff'}}/>
             </Item>
 
-            <Item floatingLabel>
+            <Item>
               <Icon name='lock' style={{fontSize: 20, color: 'white'}} />
-              <Label
-                style={{color: '#fff'}}
-              >Password</Label>
+
               <Input
-               onChangeText = {(text) => this.setState({password:text})}/>/>
+                placeholder = "Password"
+                placeholderTextColor = "#fff"
+                onChangeText = {(text) => this.setState({password:text})}
+                style={{color: '#fff'}}/>
             </Item>
 
 
@@ -99,15 +135,22 @@ class Register extends React.Component {
                 style={{
                   marginTop: 20,
                   alignItems: 'center',
-                  backgroundColor: '#FFEB3B'
+                  backgroundColor: '#5E35B1'
                 }}
                 >
                 <Text
-                  style={{color: '#000'}}
+                  style={{color: '#fff'}}
                   >Submit</Text>
               </Button>
+              <View style={{flex:1, justifyContent:'center', flexDirection:'column'}}>
+              <Text style={{fontSize:18, color:'#fff', marginTop:10}}>{this.state.warningMessage}</Text>
+              <Text style={{fontSize:13, color:'#fff'}}>{this.state.warning1}</Text>
+              <Text style={{fontSize:13, color:'#fff'}}>{this.state.warning2}</Text>
+              <Text style={{fontSize:13, color:'#fff'}}>{this.state.warning3}</Text>
+              </View>
           </View>
         </Image>
+
     </View>
     )
   }
