@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { LOGIN_USER, SIGNUP_USER } from './constants';
+import { LOGIN_USER, SIGNUP_USER, UPDATE_USER } from './constants';
 
 //loginkey = token dan ID
 export const loginSuccess = (loginkey) => ({
@@ -28,5 +28,50 @@ export const signup = (datauser) => (
     )
   )
 )
+
+const updateSuccess = (data) => ({
+  type: UPDATE_USER,
+  payload: data,
+})
+
+export const updateUser = (user,places) => {
+  let newUser = user;
+  for (let i = 0; i < places.approvedPlaces.length; i++) {
+    if (places.approvedPlaces[i].place.tag == 'Art' && newUser.userdata.pref.art <= 95) {
+      newUser.userdata.pref.art += 5;
+    } else if (places.approvedPlaces[i].place.tag == 'Architecture' && newUser.userdata.pref.architecture <= 95){
+      newUser.userdata.pref.architecture += 5;
+    } else if (places.approvedPlaces[i].place.tag == 'History' && newUser.userdata.pref.history <= 95){
+      newUser.userdata.pref.history += 5;
+    } else if (places.approvedPlaces[i].place.tag == 'Shopping' && newUser.userdata.pref.shopping <= 95){
+      newUser.userdata.pref.shopping += 5;
+    } else if (places.approvedPlaces[i].place.tag == 'Nature' && newUser.userdata.pref.nature <= 95){
+      newUser.userdata.pref.nature += 5;
+    }
+  }
+
+  for (let i = 0; i < places.rejectedPlaces.length; i++ ) {
+    if (places.rejectedPlaces[i].tag == 'Art' && newUser.userdata.pref.art > 0) {
+      newUser.userdata.pref.art -= 5;
+    } else if (places.rejectedPlaces[i].tag == 'Architecture' && newUser.userdata.pref.architecture > 0){
+      newUser.userdata.pref.architecture -= 5;
+    } else if (places.rejectedPlaces[i].tag == 'History' && newUser.userdata.pref.history > 0){
+      newUser.userdata.pref.history -= 5;
+    } else if (places.rejectedPlaces[i].tag == 'Shopping' && newUser.userdata.pref.shopping > 0){
+      newUser.userdata.pref.shopping -= 5;
+    } else if (places.rejectedPlaces[i].tag == 'Nature' && newUser.userdata.pref.nature > 0){
+      newUser.userdata.pref.nature -= 5;
+    }
+  }
+
+  return (
+    dispatch => (
+      axios.put(`http://ec2-52-221-233-16.ap-southeast-1.compute.amazonaws.com/users/${newUser.userdata._id}`, {
+        pref: newUser.userdata.pref
+      })
+      .then((res) => (dispatch(updateSuccess(res.data))))
+    )
+  )
+}
 
 //tambahkan urusan logout
