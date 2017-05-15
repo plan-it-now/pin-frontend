@@ -8,11 +8,36 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Picker, Button, Form, Item as Stay, Input, Label, Header, Body, Title, Icon } from 'native-base';
-import DateTimePicker from 'react-native-modal-datetime-picker';
 
+import StepIndicator from 'react-native-step-indicator';
 
 import { fetchPlaces } from '../../actions';
 const Item = Picker.Item;
+
+const labels = ["Inquiry","Choose","Assign","Ordering","Schedule"];
+const customStyles = {
+  stepIndicatorSize: 25,
+  currentStepIndicatorSize:30,
+  separatorStrokeWidth: 2,
+  currentStepStrokeWidth: 3,
+  stepStrokeCurrentColor: '#5E35B1',
+  stepStrokeWidth: 3,
+  stepStrokeFinishedColor: '#5E35B1',
+  stepStrokeUnFinishedColor: '#757575',
+  separatorFinishedColor: '#5E35B1',
+  separatorUnFinishedColor: '#757575',
+  stepIndicatorFinishedColor: '#5E35B1',
+  stepIndicatorUnFinishedColor: '#ffffff',
+  stepIndicatorCurrentColor: '#FF7043',
+  stepIndicatorLabelFontSize: 13,
+  currentStepIndicatorLabelFontSize: 13,
+  stepIndicatorLabelCurrentColor: '#5E35B1',
+  stepIndicatorLabelFinishedColor: '#ffffff',
+  stepIndicatorLabelUnFinishedColor: '#757575',
+  labelColor: '#000',
+  labelSize: 13,
+  currentStepLabelColor: '#5E35B1'
+}
 
 class inputQuery extends Component {
   constructor(props){
@@ -22,23 +47,11 @@ class inputQuery extends Component {
       days:'',
       warning: '',
       isDatePickerVisible: false,
-      date: ''
+      date: '',
+      currentPosition: 0
     }
     this.submitQuery = this.submitQuery.bind(this);
   }
-
-  _showDatePicker = () => this.setState({ isDatePickerVisible: true });
-
-  _hideDatePicker = () => this.setState({ isDatePickerVisible: false });
-
-  _handleDatePicked = (date) => {
-    var string = date.toString()
-    hari = string.slice(4,15)
-    console.log(hari);
-    console.log(hari.length);
-    this._hideTimePicker();
-    this.setState({date:hari})
-  };
 
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton)
@@ -48,7 +61,7 @@ class inputQuery extends Component {
       const { pref, fetchPlaces } = this.props;
       fetchPlaces(pref,'Semarang', 2);
         this.props.navigation.navigate('Recomendation');
-    }, 1000)
+    }, 2000)
   }
 
   componentWillUnmount() {
@@ -83,71 +96,53 @@ class inputQuery extends Component {
   render() {
     return(
       <Container style={{flex:1, backgroundColor:'#B39DDB'}}>
-      <StatusBar hidden={true}/>
-      <Header style={{backgroundColor:'#311B92'}}>
-        <Body>
-          <Title>Inquiry</Title>
-        </Body>
-      </Header>
-
-
-
-      <View>
-       <TouchableOpacity onPress={this._showDatePicker}>
-         <Text>Date Picker</Text>
-         <Text>{this.state.date}</Text>
-         <Text> </Text>
-       </TouchableOpacity>
-       <DateTimePicker
-         mode='date'
-         isVisible={this.state.isDatePickerVisible}
-         onConfirm={this._handleDatePicked}
-         onCancel={this._hideDatePicker}
-       />
-      </View>
-
-
-        <View style={{flex:1, justifyContent:'center', flexDirection:'row', marginTop:50}}>
-          <View style={{width: 300, flexDirection:'column'}}>
-            <Picker
-              style={{marginBottom: 30}}
-                supportedOrientations={['portrait']}
-                mode="dropdown"
-                selectedValue={this.state.city}
-                onValueChange={this.onValueChange.bind(this)}>
-                <Item label="Location" value="key0" />
-                <Item label="Semarang" value="Semarang" />
-                <Item label="Yogyakarta" value="Yogyakarta" />
-                <Item label="Bali" value="Bali" />
-            </Picker>
-            <Form style={{paddingRight:20}}>
-              <Stay floatingLabel >
-                <Label>Length of Stay</Label>
-                <Input onChangeText={(days) => this.setState({days})} />
-              </Stay>
-            </Form>
-            <View style={{flex:1,justifyContent:'center', marginTop:50, flexDirection:'row'}}>
-              <Button block warning onPress={() => {(this.state.days !== '' && this.state.city !== 'key0') ? this.submitQuery() : this.setState({warning:'Please input all fields'})}}
-              style={{
-                marginTop: 20,
-                alignItems: 'center',
-                backgroundColor: '#5E35B1',
-                width:100,
-                height:100,
-                borderRadius:100
-              }}>
-
-                 <Icon name="md-paper-plane" style={{color: '#fff', fontSize:50}}/>
-             </Button>
-           </View>
-           <View style={{flex:1, justifyContent:'center', flexDirection:'row'}}>
-           <Text style={{fontSize:15, color:'red'}}>{this.state.warning}</Text>
-           </View>
+        <StatusBar hidden={true}/>
+          <View style={{marginTop:20, marginBottom:20}}>
+            <StepIndicator
+               customStyles={customStyles}
+               currentPosition={this.state.currentPosition}
+               labels={labels}
+            />
           </View>
-        </View>
 
+          <View style={{flex:1, justifyContent:'center', flexDirection:'row', marginTop:50}}>
+            <View style={{width: 300, flexDirection:'column'}}>
+              <Picker
+                style={{marginBottom: 30}}
+                  supportedOrientations={['portrait']}
+                  mode="dropdown"
+                  selectedValue={this.state.city}
+                  onValueChange={this.onValueChange.bind(this)}>
+                  <Item label="Location" value="key0" />
+                  <Item label="Semarang" value="Semarang" />
+                  <Item label="Yogyakarta" value="Yogyakarta" />
+                  <Item label="Bali" value="Bali" />
+              </Picker>
+              <Form style={{paddingRight:20}}>
+                <Stay floatingLabel >
+                  <Label>Length of Stay</Label>
+                  <Input onChangeText={(days) => this.setState({days})} />
+                </Stay>
+              </Form>
+              <View style={{flex:1,justifyContent:'center', marginTop:50, flexDirection:'row'}}>
+                <Button block warning onPress={() => {(this.state.days !== '' && this.state.city !== 'key0') ? this.submitQuery() : this.setState({warning:'Please input all fields'})}}
+                style={{
+                  marginTop: 20,
+                  alignItems: 'center',
+                  backgroundColor: '#5E35B1',
+                  width:100,
+                  height:100,
+                  borderRadius:100
+                }}>
 
-
+                   <Icon name="md-paper-plane" style={{color: '#fff', fontSize:50}}/>
+               </Button>
+             </View>
+             <View style={{flex:1, justifyContent:'center', flexDirection:'row'}}>
+             <Text style={{fontSize:15, color:'red'}}>{this.state.warning}</Text>
+             </View>
+            </View>
+          </View>
       </Container>
     )
   }
