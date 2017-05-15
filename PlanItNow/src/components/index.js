@@ -17,7 +17,6 @@ import EditPassword from './EditPassword';
 
 const App = StackNavigator({
   // Profile: {screen : Profile}
-<<<<<<< HEAD
   // Login: {screen : Login},
   // inputQuery: {screen: inputQuery},
   // Register: {screen: Register},
@@ -27,9 +26,8 @@ const App = StackNavigator({
   // SpinnerLogin: {screen: SpinnerLogin},
   // PopupLogin: {screen: PopupLogin},
   // StepIndicators: {screen: StepIndicators},
-  EditPassword: {screen: EditPassword},
+  // EditPassword: {screen: EditPassword},
   // ItineraryStepThree: {screen: ItineraryStepThree},
-=======
   Login: {screen : Login},
   inputQuery: {screen: inputQuery},
   Register: {screen: Register},
@@ -37,7 +35,8 @@ const App = StackNavigator({
   Step1: {screen: ItineraryStepOne},
   Step2: {screen: step2},
   Step3: {screen: ItineraryStepThree},
->>>>>>> 6623af763c548bb9d5ae1e486257cfb52eca200f
+  StepIndicators: {screen: StepIndicators},
+  // ItineraryStepThree: {screen: ItineraryStepThree},
 }, {
   headerMode: 'none'
 })

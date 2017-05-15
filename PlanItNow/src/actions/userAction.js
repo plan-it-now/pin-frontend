@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { LOGIN_USER, SIGNUP_USER } from './constants';
+import { LOGIN_USER, SIGNUP_USER, LOGIN_FB } from './constants';
 
 //loginkey = token dan ID
 export const loginSuccess = (loginkey) => ({
@@ -27,6 +27,18 @@ export const signup = (datauser) => (
     .then((res) => (dispatch(signupSuccess(res.data)))
     )
   )
+)
+
+export const loginfbSuccess = (data) => ({
+  type: LOGIN_FB,
+  payload: data
+})
+
+export const loginfb = (datauser) => (
+    dispatch => (
+      axios.post('http://localhost:3000/login-fb', datauser)
+      .then((res) => dispatch(loginfbSuccess(res.data)))
+    )
 )
 
 //tambahkan urusan logout
