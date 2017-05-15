@@ -4,12 +4,16 @@ import {
   View,
   Text,
   TextInput,
+  Button
 } from 'react-native';
 
 import {
   Item,
   Icon,
-  Input
+  Input,
+  Content,
+  Form,
+  Container
 } from 'native-base';
 
 const styles = {
@@ -33,7 +37,7 @@ class EditPassword extends React.Component {
           flex: 1,
           flexDirection: 'column',
           justifyContent: 'flex-start',
-          backgroundColor: '#fff',
+          backgroundColor: '#EDE7F6',
         }}>
         <View style={{
             flexDirection: 'row',
@@ -44,21 +48,46 @@ class EditPassword extends React.Component {
             borderBottomWidth: 0.5,
             borderBottomColor: '#000'
           }}>
-          <Text style={styles.fontText}>Cancel</Text>
+
+        <Text
+          style={styles.fontText}
+          onPress={() => {}}
+        >Cancel</Text>
         <Text style={styles.fontText}>Password</Text>
           <Text style={styles.fontText}>Done</Text>
         </View>
-        <View>
-          <Item>
-            <Icon name='lock' style={{fontSize: 20, color: 'white'}} />
-            <Input />
-          </Item>
-          <Item>
-            <Icon name='lock' style={{fontSize: 20, color: 'white'}} />
-            <Input />
-          </Item>
+        <Container style={{
 
-        </View>
+          }}>
+          <Content>
+            <Item style={{
+                paddingLeft: 20,
+                paddingRight: 20,
+                backgroundColor: '#fff',
+                marginTop: 20,
+                marginBottom: 20
+              }}>
+                <Icon name='lock' style={{fontSize: 20, color: '#ccc'}} />
+              <Input
+                placeholder="New Password"
+                style={{ backgroundColor: '#fff'}}/>
+            </Item>
+            <Item style={{
+                paddingLeft: 20,
+                paddingRight: 20,
+                backgroundColor: '#fff',
+              }}>
+              <Icon name='lock' style={{fontSize: 20, color: '#ccc'}} />
+            <Input placeholder="New Password Again" />
+            </Item>
+            <Item style={{
+                paddingLeft: 20,
+                paddingRight: 20,
+                backgroundColor: '#fff',
+              }}>
+            </Item>
+        </Content>
+        </Container>
       </View>
     )
 
