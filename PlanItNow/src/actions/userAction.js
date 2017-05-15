@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { LOGIN_USER, SIGNUP_USER, UPDATE_USER } from './constants';
+import { LOGIN_USER, SIGNUP_USER, UPDATE_USER, LOGIN_FB } from './constants';
 
 //loginkey = token dan ID
 export const loginSuccess = (loginkey) => ({
@@ -73,5 +73,18 @@ export const updateUser = (user,places) => {
     )
   )
 }
+
+export const loginfbSuccess = (data) => ({
+  type: LOGIN_FB,
+  payload: data
+})
+
+export const loginfb = (datauser) => (
+  dispatch => (
+    axios.post('http://ec2-52-221-233-16.ap-southeast-1.compute.amazonaws.com/login-fb',datauser)
+    .then((res) => (dispatch(loginfbSuccess(res.data)))
+    )
+  )
+)
 
 //tambahkan urusan logout
