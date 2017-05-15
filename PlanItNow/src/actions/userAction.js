@@ -73,6 +73,7 @@ export const updateUser = (user,places) => {
     )
   )
 }
+
 export const loginfbSuccess = (data) => ({
   type: LOGIN_FB,
   payload: data

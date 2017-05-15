@@ -1,4 +1,5 @@
 import { LOGIN_USER, SIGNUP_USER, UPDATE_USER, LOGIN_FB } from '../actions/constants';
+
 import { AsyncStorage } from 'react-native';
 
 const initialState = {
