@@ -98,7 +98,7 @@ class Recomedation extends React.Component {
       <View style={{marginTop:10}}>
         <Button
           block
-          style={{backgroundColor:"#5E35B1", marginTop:70, borderTopLeftRadius:10, borderTopRightRadius:10}} onPress={()=> {this.setModalVisible(true, card)}}>
+          style={{backgroundColor:"#5E35B1", marginTop:0, borderTopLeftRadius:10, borderTopRightRadius:10}} onPress={()=> {this.setModalVisible(true, card)}}>
           <Icon name='md-pin' />
             <Text> {card.name}</Text>
         </Button>
@@ -205,16 +205,15 @@ class Recomedation extends React.Component {
 
   render () {
     return (
+      <View>
+      <View style={{paddingTop:20, paddingBottom:10, backgroundColor:'#B39DDB'}}>
+        <StepIndicator
+           customStyles={customStyles}
+           currentPosition={this.state.currentPosition}
+           labels={labels}
+        />
+      </View>
       <View style={styles.container}>
-
-          <View style={{marginTop:20, marginBottom:10, zIndex:1000}}>
-            <StepIndicator
-               customStyles={customStyles}
-               currentPosition={this.state.currentPosition}
-               labels={labels}
-            />
-          </View>
-
           <Swiper
             ref={swiper => {
               this.swiper = swiper;
@@ -234,7 +233,7 @@ class Recomedation extends React.Component {
               width:deviceWidth,
               flexDirection:'row',
               justifyContent:'space-between',
-              marginTop: 75}}
+            }}
             >
               {
                 this.state.swipe.length !== 0 ?
@@ -273,6 +272,7 @@ class Recomedation extends React.Component {
             </Button>
           </Modal>
       </View>
+      </View>
 
     )
   }
@@ -283,8 +283,9 @@ const deviceHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#B39DDB'
+    backgroundColor: '#B39DDB',
+    height: deviceHeight,
+    paddingTop:0
   },
   card: {
     borderBottomRightRadius: 10,
