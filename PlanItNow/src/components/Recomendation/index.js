@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { View, Image, ScrollView, StyleSheet, Modal, TouchableHighlight, Dimensions, Alert, StatusBar} from 'react-native';
-import { Container, Icon, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Button, Content, Header, Title } from 'native-base';
+import { Container, Icon, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Button, Content, Header, Title, Toast } from 'native-base';
 
 import { connect } from 'react-redux';
 
@@ -72,10 +72,10 @@ class Recomedation extends React.Component {
           block
           style={{backgroundColor:"#5E35B1", marginTop:70, borderTopLeftRadius:10, borderTopRightRadius:10}} onPress={()=> {this.setModalVisible(true, card)}}>
           <Icon name='md-pin' />
-            <Text> Show Location</Text>
+            <Text> {card.name}</Text>
         </Button>
           <View style={styles.card}>
-            <Text style={{ marginTop: 8, marginBottom: 8 }}>{card.name}</Text>
+            <Text style={{ marginTop: 8, marginBottom: 8, fontStyle:'italic', fontSize:13, color: '#5E35B1', alignSelf:'flex-end', paddingRight:17 }}>{card.tags}</Text>
             <Image
              style = {{ height: 200, width: '90%'}}
              source = {{ uri : card.photos}}
@@ -116,6 +116,12 @@ class Recomedation extends React.Component {
         });
       });
     }
+    Toast.show({
+              type: 'warning',
+              duration: 1500,
+              text: 'Succesfully Undo last decision!',
+              position: 'bottom'
+            })
   };
 
   setIsSwipingBack = (isSwipingBack, cb) => {
@@ -143,6 +149,12 @@ class Recomedation extends React.Component {
       approved: [...this.state.approved, this.props.places.recomendationPlaces[cardIndex]],
       swipe: [...this.state.swipe, 'right']
     })
+    Toast.show({
+              type: 'success',
+              duration: 1500,
+              text: 'Decision made!',
+              position: 'bottom'
+            })
   }
 
   handleSubmitPlaces() {
