@@ -23,6 +23,15 @@ class inputQuery extends Component {
 
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton)
+
+    //for development use only
+    setTimeout(()=>{
+      const { pref, fetchPlaces } = this.props;
+      fetchPlaces(pref,'Semarang'.toLowerCase(), 2);
+        this.props.navigation.navigate('Recomendation');
+      }, 1000);
+
+
   }
 
   componentWillUnmount() {
