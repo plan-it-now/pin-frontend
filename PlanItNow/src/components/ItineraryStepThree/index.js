@@ -15,119 +15,54 @@ import {
 } from 'native-base'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { connect } from 'react-redux';
+
+import ScheduleDetail from './scheduleDetail';
 
 class ItineraryStepThree extends React.Component {
   constructor(props) {
     super(props)
       this.state = {
-        active: true
+        active: true,
+        structuredPlaces: []
       }
   }
 
+  structuringPlaces() {
+    const { approvedPlaces,days } = this.props.places
+    const orderedPlaces = [];
+    for (let i = 1; i <= days; i++) {
+      orderedPlaces.push(approvedPlaces.filter(place => place.day == i))
+    }
+
+    this.setState({
+      structuredPlaces: orderedPlaces
+    })
+
+    console.log(orderedPlaces);
+  }
+
+  componentDidMount() {
+    this.structuringPlaces();
+
+  }
+
   render () {
+
     return (
       <Container style={{ backgroundColor: '#B39DDB' }}>
         <Content
           padder>
 
           <ScrollView>
-            <View style={{
-                backgroundColor: '#EDE7F6',
-                borderColor: '#000',
-                padding: 10,
-                margin: 10}}>
-
-              <View style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginTop: 10,
-                  marginBottom: 10,
-                }}>
-                <View style={{ width: 130 }}>
-                  <Item rounded>
-                    <Input
-                      style={{
-                         borderColor: '#000', borderWidth: 1, borderRadius: 50, paddingLeft: 20
-                      }}
-                    />
-                  </Item>
+            {
+              this.state.structuredPlaces.map((places,idx) => (
+                <View>
+                  <Text>  Day - {idx+1} </Text>
+                  <ScheduleDetail places={places}/>
                 </View>
-
-                <View
-                  style={{ width: 300, paddingLeft: 15 }}
-                >
-                  <Text style={{
-                    color: '#000',
-                    fontSize: 18
-                  }}>Candi Borobudur</Text>
-                </View>
-
-              </View>
-
-              <View style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginTop: 10,
-                  marginBottom: 10
-                }}>
-
-                <View style={{ width: 130 }}>
-                  <Item rounded>
-                    <Input
-                      style={{
-                         borderColor: '#000',
-                         borderWidth: 1,
-                         borderRadius: 50,
-                         paddingLeft: 20
-                      }}
-                    />
-                  </Item>
-                </View>
-
-                <View
-                  style={{ width: 300, paddingLeft: 15 }}
-                >
-                  <Text style={{
-                    color: '#000',
-                    fontSize: 18
-                  }}>Candi Borobudur</Text>
-                </View>
-
-              </View>
-
-              <View style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginTop: 10,
-                  marginBottom: 10
-                }}>
-                <View style={{ width: 130 }}>
-                  <Item rounded red>
-                    <Input style={{
-                        borderColor: '#000',
-                        borderWidth: 1,
-                        borderRadius: 50,
-                        paddingLeft: 20}}/>
-                  </Item>
-                </View>
-
-                <View
-                  style={{ width: 300, paddingLeft: 15 }}
-                >
-                  <Text style={{
-                    color: '#000',
-                    fontSize: 18
-                  }}>Candi Borobudur</Text>
-                </View>
-
-              </View>
-            </View>
+              ))
+            }
           </ScrollView>
         </Content>
         <Button
@@ -151,4 +86,8 @@ class ItineraryStepThree extends React.Component {
 
 }
 
-export default ItineraryStepThree;
+const mapStateToProps = state => ({
+  places: state.places
+})
+
+export default connect(mapStateToProps,null)(ItineraryStepThree);
