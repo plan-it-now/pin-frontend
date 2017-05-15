@@ -1,6 +1,6 @@
 import React from 'react';
 
-
+import DrawerProfile from '../DrawerProfile';
 
 import {
 
@@ -8,7 +8,9 @@ import {
 
   Image,
 
-  TouchableHighlight
+  TouchableHighlight,
+
+  DrawerLayoutAndroid
 
 } from 'react-native';
 
@@ -42,6 +44,8 @@ import {
 
   Text,
 
+  Drawer,
+
 } from 'native-base';
 
 
@@ -58,26 +62,81 @@ class Profile extends React.Component {
 
     super(props)
 
-
-
   }
+
+    closeDrawer() {
+      this.drawer._root.close()
+    };
+    openDrawer() {
+      this.drawer._root.open()
+    };
 
 
 
   render () {
+    var navigationView = (
+      <View style={{
+          flex: 1,
+          backgroundColor: '#E8EAF6',
+          justifyContent: 'flex-start',
+        }}>
+        <View style={{
+            height: 100,
+            backgroundColor: '#fff',
+            alignItems: 'center'}}>
+          <Image
+            style={{
+              width: 100,
+              height: 100,
+              alignItems: 'center',
+             }}
+            source={require('../../assets/pin.png')}
+          ></Image>
+        </View>
+        <View>
+          <View style={{
+              height: 40,
+              paddingTop: 10,
+              paddingLeft: 10,
+            }}>
+            <Text>Profile</Text>
+          </View>
+          <View style={{
+              height: 40,
+              paddingTop: 10,
+              paddingLeft: 10,
+            }}>
+            <Text>Settings</Text>
+          </View>
+          <View style={{
+              height: 40,
+              paddingTop: 10,
+              paddingLeft: 10,
+            }}>
+            <Text>Log out</Text>
+          </View>
+        </View>
+      </View>
+    );
+
 
     return (
-
+      <DrawerLayoutAndroid
+        ref={c => this.drawer = c}
+        drawerWidth={300}
+        drawerPosition={DrawerLayoutAndroid.positions.Left}
+        renderNavigationView={() => navigationView}>
       <Container style={{ backgroundColor: '#B39DDB' }}>
 
         <Header style={{ backgroundColor: '#5E35B1' }}>
 
           <Left>
 
-            <Button style={{
+            <Button
+              onPress={ ()=> this.drawer.openDrawer()}
+              style={{
 
               backgroundColor: '#5E35B1',
-
 
 
             }}>
@@ -275,6 +334,8 @@ class Profile extends React.Component {
 
 
       </Container>
+    </DrawerLayoutAndroid>
+
 
     )
 

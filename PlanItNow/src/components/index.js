@@ -14,10 +14,10 @@ import SpinnerLogin from './SpinnerLogin';
 import PopupLogin from './PopupLogin';
 import StepIndicators from './StepIndicators';
 import EditPassword from './EditPassword';
-import DrawerProfile from './Drawer';
+import DrawerProfile from './DrawerProfile';
 
 const App = StackNavigator({
-  // Profile: {screen : Profile}
+  Profile: {screen : Profile}
   // Login: {screen : Login},
   // inputQuery: {screen: inputQuery},
   // Register: {screen: Register},
@@ -27,7 +27,7 @@ const App = StackNavigator({
   // SpinnerLogin: {screen: SpinnerLogin},
   // PopupLogin: {screen: PopupLogin},
   // StepIndicators: {screen: StepIndicators},
-  DrawerProfile: {screen: DrawerProfile},
+  // DrawerProfile: {screen: DrawerProfile},
   // ItineraryStepThree: {screen: ItineraryStepThree},
 }, {
   headerMode: 'none'

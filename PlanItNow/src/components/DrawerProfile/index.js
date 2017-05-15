@@ -23,17 +23,18 @@ class DrawerProfile extends React.Component {
         this.drawer._root.open()
       };
         return (
-          <Drawer
-            ref={(ref) => { this.drawer = ref; }}
-            content={
-              <View navigator={this.navigator}>
-                <Text>Profile</Text>
-                <Text>Setings</Text>
-              </View>
-            }
-            onClose={() => this.closeDrawer()} >
-          // Main View
-        </Drawer>
+          <View>
+            <Drawer
+              ref={(ref) => { this.drawer = ref; }}
+              content={
+                <View navigator={this.navigator}>
+                  <Text>Profile</Text>
+                  <Text>Setings</Text>
+                </View>
+              }
+              onClose={() => this.closeDrawer()} >
+          </Drawer>
+          </View>
         );
     }
 }
