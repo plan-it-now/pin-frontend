@@ -21,7 +21,8 @@ const App = StackNavigator({
   Step1: {screen: ItineraryStepOne},
   Step2: {screen: step2},
   Step3: {screen: ItineraryStepThree},
-  Profile: {screen : Profile}
+  Profile: {screen : Profile},
+  // ItineraryStepThree: {screen: ItineraryStepThree},
 }, {
   headerMode: 'none'
 })
