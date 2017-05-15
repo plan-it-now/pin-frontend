@@ -18,8 +18,8 @@ const App = StackNavigator({
   Register: {screen: Register},
   Recomendation: {screen: Recomendation},
   Step1: {screen: ItineraryStepOne},
-  step2: {screen: step2},
-  // ItineraryStepThree: {screen: ItineraryStepThree},
+  Step2: {screen: step2},
+  Step3: {screen: ItineraryStepThree},
 }, {
   headerMode: 'none'
 })

@@ -51,7 +51,7 @@ class ItineraryStepOne extends React.Component {
   };
     this.props.processStep1(approvedList);
     const { navigate } = this.props.navigation;
-    navigate('step2');
+    navigate('Step2');
   }
 
   render () {
