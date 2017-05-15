@@ -8,8 +8,8 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Picker, Button, Form, Item as Stay, Input, Label, Header, Body, Title, Icon } from 'native-base';
-
 import DateTimePicker from 'react-native-modal-datetime-picker';
+
 
 import { fetchPlaces } from '../../actions';
 const Item = Picker.Item;
@@ -21,26 +21,11 @@ class inputQuery extends Component {
       city: 'key0',
       days:'',
       warning: '',
-      isTimePickerVisible: false,
       isDatePickerVisible: false,
-      time: '',
       date: ''
     }
     this.submitQuery = this.submitQuery.bind(this);
   }
-
-  _showTimePicker = () => this.setState({ isTimePickerVisible: true });
-
-  _hideTimePicker = () => this.setState({ isTimePickerVisible: false });
-
-  _handleTimePicked = (date) => {
-    var string = date.toString()
-    waktu = string.slice(16,21)
-    console.log(waktu);
-    console.log(waktu.length);
-    this._hideTimePicker();
-    this.setState({time:waktu})
-  };
 
   _showDatePicker = () => this.setState({ isDatePickerVisible: true });
 
@@ -57,6 +42,13 @@ class inputQuery extends Component {
 
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton)
+
+    //for development use only
+    setTimeout(()=>{
+      const { pref, fetchPlaces } = this.props;
+      fetchPlaces(pref,'Semarang', 2);
+        this.props.navigation.navigate('Recomendation');
+    }, 1000)
   }
 
   componentWillUnmount() {
@@ -80,7 +72,7 @@ class inputQuery extends Component {
   submitQuery() {
     this.setState({warning:''})
     const { pref, fetchPlaces } = this.props;
-    fetchPlaces(pref,this.state.city.toLowerCase(), +(this.state.days));
+    fetchPlaces(pref,this.state.city , +(this.state.days));
     const regex = new RegExp('^(?=.*[0-9])')
     if(regex.test(this.state.days)){
       this.props.navigation.navigate('Recomendation');
@@ -98,19 +90,7 @@ class inputQuery extends Component {
         </Body>
       </Header>
 
-      <View>
-        <TouchableOpacity onPress={this._showTimePicker}>
-          <Text>Time Picker</Text>
-          <Text>{this.state.time}</Text>
-          <Text> </Text>
-        </TouchableOpacity>
-        <DateTimePicker
-          mode='time'
-          isVisible={this.state.isTimePickerVisible}
-          onConfirm={this._handleTimePicked}
-          onCancel={this._hideTimePicker}
-        />
-      </View>
+
 
       <View>
        <TouchableOpacity onPress={this._showDatePicker}>
