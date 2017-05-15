@@ -88,7 +88,6 @@ class inputQuery extends Component {
       this.setState({warning: 'Length of Stay field can only accept number.'})
   }
 
-
   render() {
     return(
       <Container style={{flex:1, backgroundColor:'#B39DDB'}}>
