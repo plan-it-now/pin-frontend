@@ -9,3 +9,4 @@ export const PROCESS_STEP2 = 'PROCESS_STEP2';
 export const UPDATE_USER = 'UPDATE_USER';
 export const POST_ITIN = 'POST_ITIN';
 export const FETCH_ITIN = 'FETCH_ITIN';
+export const DECODE_USER = 'DECODE_USER';
