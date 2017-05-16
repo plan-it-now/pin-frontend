@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View, Text, StyleSheet, Image, AsyncStorage, StatusBar } from 'react-native';
 
-import { Container, Content, Form, Item, Input, Label, Button, Icon } from 'native-base';
+import { Container, Content, Footer, FooterTab, Form, Item, Input, Label, Button, Icon } from 'native-base';
 import { login, loginfb } from '../../actions'
 
 import LoginFb from '../FacebookLogin'
@@ -116,6 +116,7 @@ class Login extends React.Component {
 
   render () {
     return (
+      <Container>
       <View
         style={styles.containerLogin}
       >
@@ -126,7 +127,7 @@ class Login extends React.Component {
         >
           <View
             style={{
-              marginTop: 30,
+              marginTop: 50,
               width: '70%',
               height: '80%',
             }}>
@@ -168,18 +169,7 @@ class Login extends React.Component {
                   style={{color: '#fff'}}
                   >Sign In</Text>
               </Button>
-              <Button onPress={() => this.navigateToRegister()}
-                  block
-                  style={{
-                    marginTop: 20,
-                    alignItems: 'center',
-                    backgroundColor: '#5E35B1'
-                  }}
-                  >
-                  <Text
-                    style={{color: '#fff'}}
-                    >Sign Up</Text>
-                </Button>
+
               <Button onPress={() => this.authfacebooksdk()}
                 block
                 style={{
@@ -189,7 +179,7 @@ class Login extends React.Component {
                 }}
               >
                  <Icon name='logo-facebook' />
-                  <Text style={{color:'#fff'}}> Continue with Facebook</Text>
+                  <Text style={{color:'#fff'}}> Sign In with Facebook</Text>
                 </Button>
           </View>
           <View style={{flex:1, justifyContent:'center', flexDirection:'row'}}>
@@ -198,6 +188,21 @@ class Login extends React.Component {
           </View>
         </Image>
     </View>
+
+    <Footer>
+      <FooterTab>
+        <Button
+          style={{ backgroundColor: '#000'}}
+          full
+          onPress={()=>this.navigateToRegister()}>
+          <View style={{flexDirection:'row'}}>
+          <Text style={{ color: '#fff'}}>Don't have account? </Text>
+          <Text style={{ color: '#fff', fontWeight:'bold'}}> Sign Up. </Text>
+          </View>
+        </Button>
+      </FooterTab>
+    </Footer>
+    </Container>
     )
   }
 

@@ -34,7 +34,7 @@ class Register extends React.Component {
 
   loginSuccess() {
     const { navigate } = this.props.navigation
-    navigate('inputQuery')
+    navigate('Profile')
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -80,13 +80,21 @@ class Register extends React.Component {
 
   render () {
     return (
-      <View style={styles.containerLogin}>
-        <StatusBar hidden={true}/>
+      <Container>
+      <View
+        style={styles.containerLogin}
+      >
+      <StatusBar hidden={true}/>
         <Image
           style={styles.backgroundImage}
           source={{ uri : 'https://s-media-cache-ak0.pinimg.com/originals/d7/99/d9/d799d98dac43a2e49d71eac78d632b79.jpg' }}
-        />
-          <View style={{ width: '70%', height: '80%' }}>
+        >
+          <View
+            style={{
+              marginTop: 50,
+              width: '70%',
+              height: '80%',
+            }}>
             <Image
               style={{
                 width: 150,
@@ -94,53 +102,58 @@ class Register extends React.Component {
                 alignSelf: 'center',
               }}
               source={require('../../assets/pin-logo-transparent.png')}/>
-              <Item>
-                <Icon name='person' style={{fontSize: 20, color: 'white'}} />
-                <Input
-                  placeholder = "Name"
-                  placeholderTextColor = "#fff"
-                  onChangeText = {(text) => this.setState({name:text})}
-                  style={{color: '#fff'}}/>
-              </Item>
-
-              <Item>
-                <Icon name='mail' style={{fontSize: 20, color: 'white'}} />
-                <Input
-                  placeholder = "Email"
-                  placeholderTextColor = "#fff"
-                  onChangeText = {(text) => this.setState({email:text})}
-                  style={{color: '#fff'}}/>
-              </Item>
-
-              <Item>
-                <Icon name='lock' style={{fontSize: 20, color: 'white'}} />
-                <Input
-                  placeholder = "Password"
-                  placeholderTextColor = "#fff"
-                  onChangeText = {(text) => this.setState({password:text})}
-                  style={{color: '#fff'}}/>
-              </Item>
-
-              <Button onPress={() => this.signupHandler()}
-                  block warning
-                  style={{
-                    marginTop: 20,
-                    alignItems: 'center',
-                    backgroundColor: '#5E35B1'
-                  }}
-                  >
-                  <Text
-                    style={{color: '#fff'}}
-                    >Submit</Text>
+            <Item>
+              <Icon name='person' style={{fontSize: 20, color: 'white'}} />
+              <Input
+                placeholder = "Name"
+                placeholderTextColor = "#fff"
+                secureTextEntry = {true}
+                onChangeText = {(text) => this.setState({name:text})}
+                style={{color: '#fff'}}
+              />
+            </Item>
+            <Item>
+              <Icon name='mail' style={{fontSize: 20, color: 'white'}} />
+              <Input
+                placeholder = "Email"
+                placeholderTextColor = "#fff"
+                onChangeText = {(text) => this.setState({email:text})}
+                style={{color: '#fff'}}
+              />
+            </Item>
+            <Item>
+              <Icon name='lock' style={{fontSize: 20, color: 'white'}} />
+              <Input
+                placeholder = "Password"
+                placeholderTextColor = "#fff"
+                secureTextEntry = {true}
+                onChangeText = {(text) => this.setState({password:text})}
+                style={{color: '#fff'}}
+              />
+            </Item>
+            <Button onPress={() => this.signupHandler()}
+                block
+                style={{
+                  marginTop: 20,
+                  alignItems: 'center',
+                  backgroundColor: '#5E35B1'
+                }}
+                >
+                <Text
+                  style={{color: '#fff'}}
+                  >Register</Text>
               </Button>
-                <View style={{flex:1, justifyContent:'center', flexDirection:'column'}}>
-                  <Text style={{fontSize:18, color:'#fff', marginTop:10}}>{this.state.warningMessage}</Text>
-                  <Text style={{fontSize:13, color:'#fff'}}>{this.state.warning1}</Text>
-                  <Text style={{fontSize:13, color:'#fff'}}>{this.state.warning2}</Text>
-                  <Text style={{fontSize:13, color:'#fff'}}>{this.state.warning3}</Text>
-                </View>
-            </View>
+          </View>
+          <View style={{flex:1, justifyContent:'center', flexDirection:'column', marginTop:-130}}>
+            <Text style={{fontSize:18, color:'#fff', marginTop:10}}>{this.state.warningMessage}</Text>
+            <Text style={{fontSize:15, color:'#fff'}}>{this.state.warning1}</Text>
+            <Text style={{fontSize:15, color:'#fff'}}>{this.state.warning2}</Text>
+            <Text style={{fontSize:15, color:'#fff'}}>{this.state.warning3}</Text>
+          </View>
+        </Image>
     </View>
+
+    </Container>
     )
   }
 
@@ -154,11 +167,13 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    zIndex: 100,
-    resizeMode: 'cover',
+    zIndex:100,
+    width: '100%',
+    height: '100%',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    position: 'relative'
   }
 });
 
