@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { View, Image, ScrollView, StyleSheet, Modal, TouchableHighlight, Dimensions, Alert, StatusBar} from 'react-native';
+import { View, Image, ScrollView, StyleSheet, Modal, TouchableHighlight, Dimensions, Alert, StatusBar, BackHandler } from 'react-native';
 import { Container, Icon, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Button, Content, Header, Title, Footer, FooterTab } from 'native-base';
 
 import { connect } from 'react-redux';
@@ -73,7 +73,12 @@ class Recomedation extends React.Component {
     };
   }
 
+  handleBackButton() {
+    return true
+  }
+
   componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton)
     Alert.alert(
       'Instructions',
       '\n              Swipe Left to Discard\n\n              Swipe Right to Decide\n',
@@ -82,6 +87,10 @@ class Recomedation extends React.Component {
       ],
       { cancelable: false }
     )
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -302,7 +311,7 @@ const deviceHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#B39DDB',
-    height: deviceHeight* 0.847,
+    height: deviceHeight* 0.9,
     paddingTop:0,
     marginTop:-50
   },

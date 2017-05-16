@@ -2,9 +2,7 @@ import React from 'react';
 
 import DrawerProfile from '../DrawerProfile';
 
-
-
-import { View, Image, TouchableOpacity, DrawerLayoutAndroid } from 'react-native'
+import { View, Image, TouchableOpacity, DrawerLayoutAndroid, BackHandler } from 'react-native'
 
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Card, CardItem, Text, Drawer,
 } from 'native-base';
@@ -35,6 +33,18 @@ class Profile extends React.Component {
     this.props.logout();
     const { navigate } = this.props.navigation;
     navigate('Login');
+  }
+
+  handleBackButton() {
+    return true
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton)
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton)
   }
 
   render () {
