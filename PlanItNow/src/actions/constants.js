@@ -1,5 +1,6 @@
 export const LOGIN_FB = 'LOGIN_FB';
 export const LOGIN_USER = 'LOGIN_USER';
+export const LOGOUT_USER = 'LOGOUT_USER';
 export const SIGNUP_USER = 'SIGNUP_USER';
 export const UPDATE_REDIRECT = 'UPDATE_REDIRECT';
 export const FETCH_PLACES = 'FETCH_PLACES';

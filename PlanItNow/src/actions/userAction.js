@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-import { LOGIN_USER, SIGNUP_USER, UPDATE_USER, LOGIN_FB, UPDATE_REDIRECT, DECODE_USER } from './constants';
+import { LOGIN_USER, SIGNUP_USER, LOGOUT_USER, UPDATE_USER, LOGIN_FB, UPDATE_REDIRECT, DECODE_USER } from './constants';
+
 
 //loginkey = token dan ID
 export const loginSuccess = (loginkey) => ({
@@ -23,6 +24,10 @@ export const signupSuccess = (data) => ({
 
 export const updateRedirectFalse = () => ({
   type: UPDATE_REDIRECT
+})
+
+export const logout = () => ({
+  type: LOGOUT_USER
 })
 
 export const signup = (datauser) => (

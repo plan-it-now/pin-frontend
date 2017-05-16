@@ -12,7 +12,7 @@ import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Rig
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
 
-import { fetchItin } from '../../actions';
+import { fetchItin, logout } from '../../actions';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -29,6 +29,12 @@ class Profile extends React.Component {
   componentWillMount() {
     const { fetchItin , user } = this.props
     fetchItin(user.userdata._id);
+  }
+
+  handleLogout() {
+    this.props.logout();
+    const { navigate } = this.props.navigation;
+    navigate('Login');
   }
 
   render () {
@@ -59,7 +65,7 @@ class Profile extends React.Component {
         <View>
           <View style={{
             }}>
-            <Button outline light bordered style={{ alignSelf:'center'  }}>
+            <Button outline light bordered style={{ alignSelf:'center'  }} onPress={()=>this.handleLogout()}>
                 <Text style={{ color: '#fff', fontSize: 15, fontWeight: 'bold' }}>Logout</Text>
             </Button>
           </View>
@@ -97,9 +103,9 @@ class Profile extends React.Component {
         /> :
         <Content padder>
           {
-            this.props.itineraries.map( itinerary => (
+            this.props.itineraries.map( (itinerary,index) => (
               <View style={{marginBottom:20}}>
-              <Card>
+              <Card key={index}>
                   <TouchableOpacity onPress={() => this.props.navigation.navigate('Detail', {_itinerary:itinerary })}>
                     <Image
                       style={{
@@ -166,6 +172,7 @@ const mapStateToProps = state => ({
 })
 const mapDispatchToProps = dispatch => ({
   fetchItin: (userid) => dispatch(fetchItin(userid)),
+  logout: () => dispatch(logout())
 })
 
 

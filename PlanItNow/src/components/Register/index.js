@@ -18,6 +18,7 @@ class Register extends React.Component {
       warning1: '',
       warning2: '',
       warning3: '',
+      shouldRedirect: false,
     }
   }
 
@@ -30,13 +31,16 @@ class Register extends React.Component {
   };
 
   loginSuccess() {
-    const { navigate } = this.props.navigation
-    navigate('Profile')
+    const { navigate } = this.props.navigation;
+    navigate('Profile');
+    this.props.updateRedirectFalse();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(this.props.logindata.shouldRedirectSignUp && !prevProps.logindata.shouldRedirectSignUp){
-      this.loginSuccess()
+    if(this.props.logindata.shouldRedirectSignUp && this.state.shouldRedirect){
+      this.setState({shouldRedirect: false}, ()=> {
+        this.loginSuccess()
+      })
     }
   }
 
@@ -69,7 +73,7 @@ class Register extends React.Component {
     }
 
     if(checkName && checkEmail && checkPassword) {
-      this.setState({warning1: '', warning2: '', warning3: '', warningMessage: ''})
+      this.setState({warning1: '', warning2: '', warning3: '', warningMessage: '', shouldRedirect: true})
       this.props.signup({name: this.state.name, email: this.state.email, password: this.state.password})
     }
   }

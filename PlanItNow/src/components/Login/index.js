@@ -22,6 +22,7 @@ class Login extends React.Component {
       password: '',
       warning: '',
       name: '',
+      shouldRedirect: false,
     }
   }
 
@@ -49,16 +50,16 @@ class Login extends React.Component {
   }
 
   loginSuccess() {
-    const { navigate } = this.props.navigation
-    navigate('Profile')
+    const { navigate } = this.props.navigation;
+    navigate('Profile');
     this.props.updateRedirectFalse();
-    // navigate('SpinnerLogin')
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(this.props.logindata.shouldRedirectSignIn && !prevProps.logindata.shouldRedirectSignIn){
-      console.log('Harusnya login');
-      this.loginSuccess()
+    if(this.props.logindata.shouldRedirectSignIn && this.state.shouldRedirect){
+      this.setState({shouldRedirect: false}, ()=> {
+        this.loginSuccess()
+      })
     }
   }
 
@@ -66,7 +67,8 @@ class Login extends React.Component {
     if(this.state.email === '' || this.state.password === ''){
       this.setState({warning: 'Please input all fields'})
     } else {
-      this.setState({warning: ''})
+      this.setState({warning: '',
+                    shouldRedirect: true})
       this.props.login({email:this.state.email, password:this.state.password})
     }
   }
