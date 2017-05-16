@@ -37,17 +37,21 @@ class Profile extends React.Component {
           justifyContent: 'flex-start',
         }}>
         <View style={{
-            height: 100,
+            height: 140,
             backgroundColor: '#fff',
             alignItems: 'center'}}>
+
           <Image
             style={{
-              width: 100,
+              marginTop:20,
+              width: 60,
               height: 100,
               alignItems: 'center',
+              resizeMode: 'contain'
              }}
             source={require('../../assets/pin.png')}
-          ></Image>
+          />
+
         </View>
         <View>
           <View style={{
