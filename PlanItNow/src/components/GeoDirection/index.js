@@ -5,9 +5,11 @@ import {
   StyleSheet,
   Text,
   View,
-  Button
+  TouchableOpacity
 } from 'react-native';
-
+import {
+  Icon
+} from 'native-base';
 
 
 class GeoDirection extends React.Component {
@@ -58,8 +60,8 @@ class GeoDirection extends React.Component {
         longitude: this.state.lastPosition.longitude
       },
       destination: {
-        latitude: myDestination.latitude,
-        longitude: myDestination.longitude
+        latitude: +(myDestination.latitude),
+        longitude: +(myDestination.longitude)
       },
       params: [
         {
@@ -75,7 +77,9 @@ class GeoDirection extends React.Component {
   render() {
     return (
         <View>
-          <Button onPress={() => this.handleGetDirections()} title="Get Directions" />
+          <TouchableOpacity onPress={() => this.handleGetDirections()}>
+            <Icon name="md-pin" size={22} style={{color: '#5E35B1'}}/>
+          </TouchableOpacity>
         </View>
     );
   }

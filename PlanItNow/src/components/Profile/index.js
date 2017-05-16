@@ -70,7 +70,7 @@ class Profile extends React.Component {
     return (
       <DrawerLayoutAndroid
         ref={c => this.drawer = c}
-        drawerWidth={300}
+        drawerWidth={200}
         drawerPosition={DrawerLayoutAndroid.positions.Left}
         renderNavigationView={() => navigationView}>
       <Container style={{ backgroundColor: '#B39DDB' }}>
