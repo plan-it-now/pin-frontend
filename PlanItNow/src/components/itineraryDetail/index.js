@@ -20,6 +20,7 @@ import {
   Right
 } from 'native-base'
 
+import GeoDirection from '../GeoDirection';
 
 
 class ItineraryDetail extends React.Component {
@@ -103,9 +104,10 @@ class ItineraryDetail extends React.Component {
                           }}>{x.place.name}</Text>
 
                         </View>
-                        <View>
-                           <Icon name="md-pin" size={22} style={{color: '#5E35B1'}}/>
-                        </View>
+
+                        <GeoDirection myDestination={{latitude: x.place.latitude,
+                                                    longitude: x.place.longitude}} />
+
 
                       </View>
                     ))

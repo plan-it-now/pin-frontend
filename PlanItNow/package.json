@@ -15,6 +15,7 @@
     "react-native-config": "^0.4.2",
     "react-native-deck-swiper": "^1.1.6",
     "react-native-fbsdk": "^0.5.0",
+    "react-native-google-maps-directions": "^1.1.0",
     "react-native-maps": "^0.13.0",
     "react-native-modal-datetime-picker": "^4.6.0",
     "react-native-sortable-listview": "^0.2.2",

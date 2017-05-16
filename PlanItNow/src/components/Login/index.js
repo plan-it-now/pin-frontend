@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { View, Text, StyleSheet, Image, AsyncStorage, StatusBar } from 'react-native';
 
 import { Container, Content, Footer, FooterTab, Form, Item, Input, Label, Button, Icon } from 'native-base';
-import { login, loginfb } from '../../actions'
+import { login, loginfb, updateRedirectFalse } from '../../actions'
 
 import LoginFb from '../FacebookLogin'
 const FBSDK = require('react-native-fbsdk');
@@ -47,6 +47,7 @@ class Login extends React.Component {
   loginSuccess() {
     const { navigate } = this.props.navigation
     navigate('Profile')
+    this.props.updateRedirectFalse();
     // navigate('SpinnerLogin')
   }
 
@@ -232,8 +233,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => ({
   login: (user) => dispatch(login(user)),
-  loginfb: (user) => dispatch(loginfb(user))
-
+  loginfb: (user) => dispatch(loginfb(user)),
+  updateRedirectFalse: () => dispatch(updateRedirectFalse())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
