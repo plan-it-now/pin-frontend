@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View, Text, StyleSheet, Image, AsyncStorage, StatusBar } from 'react-native';
 
-import { Container, Content, Form, Item, Input, Label, Button, Icon } from 'native-base';
-import { login, loginfb } from '../../actions'
+import { Container, Content, Footer, FooterTab, Form, Item, Input, Label, Button, Icon } from 'native-base';
+import { login, loginfb, updateRedirectFalse } from '../../actions'
 
 import LoginFb from '../FacebookLogin'
 const FBSDK = require('react-native-fbsdk');
@@ -38,15 +38,16 @@ class Login extends React.Component {
     //   this.loginSuccess();
     // }
     // for development purpose only
-    this.props.login({
-      email: 'anthony@juan.com',
-      password: '12345'
-    })
+    // this.props.login({
+    //   email: 'a',
+    //   password: 'a'
+    // })
   }
 
   loginSuccess() {
     const { navigate } = this.props.navigation
     navigate('Profile')
+    this.props.updateRedirectFalse();
     // navigate('SpinnerLogin')
   }
 
@@ -116,6 +117,7 @@ class Login extends React.Component {
 
   render () {
     return (
+      <Container>
       <View
         style={styles.containerLogin}
       >
@@ -126,7 +128,7 @@ class Login extends React.Component {
         >
           <View
             style={{
-              marginTop: 30,
+              marginTop: 50,
               width: '70%',
               height: '80%',
             }}>
@@ -149,7 +151,7 @@ class Login extends React.Component {
             <Item>
               <Icon name='lock' style={{fontSize: 20, color: 'white'}} />
               <Input
-                placeholder = "Password"
+                placeholder = " Password"
                 placeholderTextColor = "#fff"
                 secureTextEntry = {true}
                 onChangeText = {(text) => this.setState({password:text})}
@@ -168,18 +170,7 @@ class Login extends React.Component {
                   style={{color: '#fff'}}
                   >Sign In</Text>
               </Button>
-              <Button onPress={() => this.navigateToRegister()}
-                  block
-                  style={{
-                    marginTop: 20,
-                    alignItems: 'center',
-                    backgroundColor: '#5E35B1'
-                  }}
-                  >
-                  <Text
-                    style={{color: '#fff'}}
-                    >Sign Up</Text>
-                </Button>
+
               <Button onPress={() => this.authfacebooksdk()}
                 block
                 style={{
@@ -189,7 +180,7 @@ class Login extends React.Component {
                 }}
               >
                  <Icon name='logo-facebook' />
-                  <Text style={{color:'#fff'}}> Continue with Facebook</Text>
+                  <Text style={{color:'#fff'}}> Sign In with Facebook</Text>
                 </Button>
           </View>
           <View style={{flex:1, justifyContent:'center', flexDirection:'row'}}>
@@ -198,6 +189,21 @@ class Login extends React.Component {
           </View>
         </Image>
     </View>
+
+    <Footer>
+      <FooterTab>
+        <Button
+          style={{ backgroundColor: '#000'}}
+          full
+          onPress={()=>this.navigateToRegister()}>
+          <View style={{flexDirection:'row'}}>
+          <Text style={{ color: '#fff'}}>Don't have account? </Text>
+          <Text style={{ color: '#fff', fontWeight:'bold'}}> Sign Up. </Text>
+          </View>
+        </Button>
+      </FooterTab>
+    </Footer>
+    </Container>
     )
   }
 
@@ -227,8 +233,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => ({
   login: (user) => dispatch(login(user)),
-  loginfb: (user) => dispatch(loginfb(user))
-
+  loginfb: (user) => dispatch(loginfb(user)),
+  updateRedirectFalse: () => dispatch(updateRedirectFalse())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

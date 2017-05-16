@@ -84,14 +84,15 @@ class inputQuery extends Component {
   }
 
   submitQuery() {
-    this.setState({warning:''})
-    const { pref, fetchPlaces } = this.props;
-    fetchPlaces(pref,this.state.city , +(this.state.days));
     const regex = new RegExp('^(?=.*[0-9])')
     if(regex.test(this.state.days)){
+      this.setState({warning:''})
+      const { pref, fetchPlaces } = this.props;
+      fetchPlaces(pref,this.state.city , +(this.state.days));
       this.props.navigation.navigate('Recomendation');
-    }
+    } else {
       this.setState({warning: 'Length of Stay field can only accept number.'})
+    }
   }
 
   render() {

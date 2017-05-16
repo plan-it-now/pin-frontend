@@ -13,6 +13,7 @@ import Profile from './Profile';
 import EditPassword from './EditPassword';
 import DrawerProfile from './DrawerProfile';
 import ItineraryDetail from './itineraryDetail';
+import GeoDirection from './GeoDirection';
 
 const App = StackNavigator({
 
@@ -25,7 +26,7 @@ const App = StackNavigator({
   Step2: {screen: step2},
   Step3: {screen: ItineraryStepThree},
   Detail: {screen: ItineraryDetail},
-  // ItineraryStepThree: {screen: ItineraryStepThree},
+  GeoDirection: {screen : GeoDirection},
 }, {
   headerMode: 'none'
 })

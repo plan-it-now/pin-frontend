@@ -1,4 +1,4 @@
-import { LOGIN_USER, SIGNUP_USER, UPDATE_USER, LOGIN_FB } from '../actions/constants';
+import { LOGIN_USER, SIGNUP_USER, UPDATE_USER, LOGIN_FB, UPDATE_REDIRECT } from '../actions/constants';
 
 import { AsyncStorage } from 'react-native';
 
@@ -24,6 +24,7 @@ function loginSuccess(payload) {
       };
   }
 }
+
 
 function logout(){
   AsyncStorage.removeItem('token', (error)=> {
@@ -70,6 +71,11 @@ const userReducer = (state = initialState, action) => {
       userdata: action.payload
     }
     case LOGIN_FB: return loginFb(action.payload)
+    case UPDATE_REDIRECT: return {
+      ...state,
+      shouldRedirectSignIn: false,
+      shouldRedirectSignUp: false
+    }
     default: return state;
   }
 }

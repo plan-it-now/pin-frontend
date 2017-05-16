@@ -26,7 +26,7 @@ class Profile extends React.Component {
     this.drawer._root.open()
   };
 
-  componentDidMount() {
+  componentWillMount() {
     const { fetchItin , user } = this.props
     fetchItin(user.userdata._id);
   }
@@ -35,43 +35,33 @@ class Profile extends React.Component {
     var navigationView = (
       <View style={{
           flex: 1,
-          backgroundColor: '#E8EAF6',
-          justifyContent: 'flex-start',
+          backgroundColor: '#5E35B1',
+          justifyContent: 'center',
+          marginTop: -40
         }}>
         <View style={{
-            height: 100,
-            backgroundColor: '#fff',
+            height: 140,
+            backgroundColor: '#5E35B1',
             alignItems: 'center'}}>
+
           <Image
             style={{
+              marginTop:0,
               width: 100,
-              height: 100,
+              height: 140,
               alignItems: 'center',
+              resizeMode: 'contain'
              }}
-            source={require('../../assets/pin.png')}
-          ></Image>
+            source={require('../../assets/pin-logo-transparent.png')}
+          />
+
         </View>
         <View>
           <View style={{
-              height: 40,
-              paddingTop: 10,
-              paddingLeft: 10,
             }}>
-            <Text>Profile</Text>
-          </View>
-          <View style={{
-              height: 40,
-              paddingTop: 10,
-              paddingLeft: 10,
-            }}>
-            <Text>Settings</Text>
-          </View>
-          <View style={{
-              height: 40,
-              paddingTop: 10,
-              paddingLeft: 10,
-            }}>
-            <Text>Log out</Text>
+            <Button outline light bordered style={{ alignSelf:'center'  }}>
+                <Text style={{ color: '#fff', fontSize: 15, fontWeight: 'bold' }}>Logout</Text>
+            </Button>
           </View>
         </View>
       </View>
@@ -80,13 +70,13 @@ class Profile extends React.Component {
     return (
       <DrawerLayoutAndroid
         ref={c => this.drawer = c}
-        drawerWidth={300}
+        drawerWidth={200}
         drawerPosition={DrawerLayoutAndroid.positions.Left}
         renderNavigationView={() => navigationView}>
       <Container style={{ backgroundColor: '#B39DDB' }}>
         <Header style={{ backgroundColor: '#5E35B1' }}>
           <Left>
-            <Button
+            <Button transparent
               onPress={ ()=> this.drawer.openDrawer()}
               style={{
               backgroundColor: '#5E35B1',
@@ -101,7 +91,10 @@ class Profile extends React.Component {
             </Title>
           </Body>
         </Header>
-
+        {this.props.itineraries.length === 0 ? <Image
+          style={{width:'100%', height:'100%', marginTop: -30}}
+          source={{ uri : 'http://i.imgur.com/xyH2gr7.png' }}
+        /> :
         <Content padder>
           {
             this.props.itineraries.map( itinerary => (
@@ -118,7 +111,7 @@ class Profile extends React.Component {
                       source={{ uri : itinerary.places[0].place.photo }}>
                       <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', backgroundColor: 'rgba(52, 52, 52, 0.4)' }}>
                         <Text style={{
-                            color: '#fff', fontWeight: 'bold', padding: 20
+                            color: '#fff', fontWeight: 'bold', padding: 16, fontSize: 20
                           }}>{itinerary.places[0].place.city} {itinerary.days} Days Trip</Text>
                       </View>
                     </Image>
@@ -126,13 +119,12 @@ class Profile extends React.Component {
                   <CardItem>
                     <Body>
                       <Text>
-                        Posted at : {(new Date(itinerary.createdAt)).toLocaleString()}
+                        Posted at : {(new Date(itinerary.createdAt)).toLocaleDateString()}
                       </Text>
-                      <View style={{ flexDirection: 'row', padding:0}}>
-                        <Text note>Tags :</Text>
+                      <View style={{ flexDirection: 'row', flexWrap: 'wrap'}}>
                         {
                           itinerary.places.map((x,idx) => (
-                              <Text note key={idx}>#{x.place.tag}</Text>
+                              <Text style={{ paddingRight: 20, paddingTop: 5, color: '#5E35B1', fontWeight: 'bold' }} key={idx}>#{x.place.tag}</Text>
                           ))
                         }
                       </View>
@@ -143,7 +135,7 @@ class Profile extends React.Component {
             ))
           }
         </Content>
-
+      }
         <Button
           onPress={() => this.props.navigation.navigate('inputQuery')}
           style={{
