@@ -12,7 +12,12 @@ import {
   Input,
   Fab,
   Button,
-  Icon
+  Icon,
+  Header,
+  Body,
+  Title,
+  Left,
+  Right
 } from 'native-base'
 
 
@@ -47,48 +52,59 @@ class ItineraryDetail extends React.Component {
   render() {
     const { navigation }  = this.props;
     return (
-      <View>
+      <View style={{ backgroundColor: '#B39DDB', width: '100%', height: '100%' }}>
+        <Header style={{ backgroundColor: '#5E35B1' }}>
+          <Left><Icon
+            onPress={() => this.props.navigation.goBack() }
+            name="md-arrow-back" style={{ color: '#fff'}}/>
+          </Left>
+            <Body>
+                <Title>Itinerary Details</Title>
+            </Body>
+        </Header>
         <ScrollView>
         {
           this.state.structuredPlaces.map((places,idx) => (
             <View key={idx}>
-              <View style={{paddingLeft:10}}>
-                <Text style={{fontSize:20}}>Day - {idx+1} </Text>
+              <View style={{paddingLeft: 15, marginTop: 10}}>
+                <Text style={{fontSize:20, color: '#212121', fontWeight: 'bold'}}>Day - {idx+1} </Text>
               </View>
               <View style={{
+                borderWidth: 1,
+                borderColor: '#5E35B1',
                   backgroundColor: '#EDE7F6',
-                  borderColor: '#000',
-                  padding: 10,
                   margin: 10,
-                  borderRadius: 10,
-                  marginBottom: 25 }}>
+                  marginBottom: 15 }}>
                   {
                     places.map((x,i) => (
                       <View key={i}
                         style={{
                           flex: 1,
                           flexDirection: 'row',
-                          justifyContent: 'space-between',
+                          justifyContent: 'space-around',
                           alignItems: 'center',
                           marginTop: 10,
                           marginBottom: 10,
+                          paddingLeft: 25,
+                          paddingRight: 25
+
 
                         }}>
                         <View>
-                          <Text>{x.schedule}</Text>
+                          <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#EF6C00' }}>{x.schedule}</Text>
                         </View>
 
                         <View
-                          style={{ width: 300, paddingLeft: 15 }}
+                          style={{ width: 300, paddingLeft: 35, flexWrap: 'wrap' }}
                         >
                           <Text style={{
                             color: '#000',
-                            fontSize: 18
+                            fontSize: 15
                           }}>{x.place.name}</Text>
 
                         </View>
                         <View>
-                           <Icon name="md-trending-up" style={{color: '#5E35B1', fontSize:35}}/>
+                           <Icon name="md-pin" size={22} style={{color: '#5E35B1'}}/>
                         </View>
 
                       </View>
