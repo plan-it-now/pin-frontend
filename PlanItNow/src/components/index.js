@@ -18,12 +18,12 @@ const App = StackNavigator({
 
   Login: {screen : Login},
   Profile: {screen : Profile},
-  inputQuery: {screen: inputQuery},
+  // inputQuery: {screen: inputQuery},
   Register: {screen: Register},
   Recomendation: {screen: Recomendation},
-  Step1: {screen: ItineraryStepOne},
-  Step2: {screen: step2},
-  Step3: {screen: ItineraryStepThree},
+  // Step1: {screen: ItineraryStepOne},
+  // Step2: {screen: step2},
+  // Step3: {screen: ItineraryStepThree},
   Detail: {screen: ItineraryDetail},
   // ItineraryStepThree: {screen: ItineraryStepThree},
 }, {
