@@ -39,8 +39,8 @@ class Login extends React.Component {
     // }
     // for development purpose only
     this.props.login({
-      email: 'a',
-      password: 'a'
+      email: 'anthony@juan.com',
+      password: '12345'
     })
   }
 

@@ -79,7 +79,10 @@ class ItineraryStepThree extends React.Component {
   finalConfirm() {
     const { updateUser,user, places, postItinerary, navigation } = this.props
     const { structuredPlaces } = this.state
-    let newArrOfPlaces = []
+    let newArrOfPlaces = {
+      days: places.days,
+      places: []
+    }
     for (let i = 0 ; i < structuredPlaces.length; i++) {
       for (let j = 0; j < structuredPlaces[i].length; j++) {
         let newObjPlace = {
@@ -88,11 +91,13 @@ class ItineraryStepThree extends React.Component {
           orderIndex: structuredPlaces[i][j].orderIndex,
           schedule: structuredPlaces[i][j].schedule
         }
-        newArrOfPlaces.push(newObjPlace);
+        newArrOfPlaces.places.push(newObjPlace);
       }
     }
+
     updateUser(user,places);
     postItinerary(user.userdata._id,newArrOfPlaces);
+
     navigation.navigate('Profile');
   }
 
