@@ -1,4 +1,6 @@
-import { LOGIN_USER, SIGNUP_USER, UPDATE_USER, LOGIN_FB, UPDATE_REDIRECT, DECODE_USER } from '../actions/constants';
+
+import { LOGIN_USER, SIGNUP_USER, LOGOUT_USER, UPDATE_USER, LOGIN_FB, UPDATE_REDIRECT, DECODE_USER } from '../actions/constants';
+
 
 import { AsyncStorage } from 'react-native';
 
@@ -15,7 +17,6 @@ function loginSuccess(payload) {
   if(payload.error === null || payload.error){
     return {...initialState, warning: 'Invalid Email or Password'}
   } else {
-    console.log("xxx");
     AsyncStorage.setItem('token', payload.token)
     return {...payload,
         shouldRedirectSignIn: true,
@@ -36,10 +37,16 @@ function loginBecauseAsyncStorage(payload) {
 
 function logout(){
   AsyncStorage.removeItem('token', (error)=> {
-    console.log(error);
+    if(error) console.log(error);
+    // else {
+    //   AsyncStorage.getItem('token', (err,result) => {
+    //     if(err) console.log('abc',err);
+    //     else console.log('xx', result);
+    //   })
+    // }
   })
   AsyncStorage.removeItem('id', (error)=> {
-    console.log(error);
+    if(error) console.log(error);
   })
   return initialState
 }
@@ -48,7 +55,6 @@ function signUp(payload) {
   if(payload.error === null || payload.error){
     return initialState
   } else {
-    console.log("xxx");
     AsyncStorage.setItem('token', payload.token)
     return {...payload,
         shouldRedirectSignUp: true,
@@ -85,6 +91,7 @@ const userReducer = (state = initialState, action) => {
       shouldRedirectSignIn: false,
       shouldRedirectSignUp: false
     }
+    case LOGOUT_USER: return logout()
     default: return state;
   }
 }
