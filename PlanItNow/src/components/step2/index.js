@@ -1,36 +1,51 @@
 import React from 'react';
 
-import {
-  View,
-  Image,
-  Text,
-  ScrollView,
-  Modal,
-  TouchableHighlight
-} from 'react-native';
+import { View, Image, Text, ScrollView, Modal, TouchableHighlight, StatusBar } from 'react-native';
 
-import { Container, Header, Body, Title, Button } from 'native-base'
+import { Container, Header, Body, Title, Button, Footer, FooterTab, Content, Icon } from 'native-base'
 import { connect } from 'react-redux';
 
 import SortableListView from 'react-native-sortable-listview';
 
 import { processStep2 } from '../../actions';
 
-// let data1 = [['Place 1','Place 2','Place 3','Place 4','Place 5','Place 6'],['Place 4','Place 5','Place 6']]
-// let data2 = ['Place 4','Place 5','Place 6']
+import StepIndicator from 'react-native-step-indicator';
 
-// let order1 = [Object.keys(data1[0]),Object.keys(data1[1])]; //Array of keys
+const labels = ["Inquiry","Choose","Assign","Ordering","Schedule"];
+const customStyles = {
+  stepIndicatorSize: 25,
+  currentStepIndicatorSize:30,
+  separatorStrokeWidth: 2,
+  currentStepStrokeWidth: 3,
+  stepStrokeCurrentColor: '#5E35B1',
+  stepStrokeWidth: 3,
+  stepStrokeFinishedColor: '#5E35B1',
+  stepStrokeUnFinishedColor: '#757575',
+  separatorFinishedColor: '#5E35B1',
+  separatorUnFinishedColor: '#757575',
+  stepIndicatorFinishedColor: '#5E35B1',
+  stepIndicatorUnFinishedColor: '#ffffff',
+  stepIndicatorCurrentColor: '#FF7043',
+  stepIndicatorLabelFontSize: 13,
+  currentStepIndicatorLabelFontSize: 13,
+  stepIndicatorLabelCurrentColor: '#5E35B1',
+  stepIndicatorLabelFinishedColor: '#ffffff',
+  stepIndicatorLabelUnFinishedColor: '#757575',
+  labelColor: '#000',
+  labelSize: 13,
+  currentStepLabelColor: '#5E35B1'
+}
 
 class RowComponent extends React.Component {
   render () {
     return (
       <TouchableHighlight
-        underlayColor={'#B39DDB'}
-        delayLongPress={100}
-        style={{padding: 15, backgroundColor: "#B39DDB", borderBottomWidth:2, borderColor: '#eee'}}
+        underlayColor={'#5E35B1'}
+        delayLongPress={50}
+        style={{padding: 25, backgroundColor: "#5E35B1", borderBottomWidth:3, borderColor: '#eee'}}
         {...this.props.sortHandlers}
       >
-        <Text>{this.props.data.place.name}</Text>
+        <Text style={{fontSize:20, color:'#fff'}}>{this.props.data.place.name}</Text>
       </TouchableHighlight>
     );
   }
@@ -44,7 +59,8 @@ class MyComponent extends React.Component {
       dataAll: [],
       orderAll: [], //Array of keys
       data: [],
-      order: {}
+      order: {},
+      currentPosition: 3
     }
   }
 
@@ -61,7 +77,6 @@ class MyComponent extends React.Component {
     this.setState({
       dataAll: arrPlaces,
       orderAll: arrOrder, //Array of keys
-
     })
   }
 
@@ -89,59 +104,72 @@ class MyComponent extends React.Component {
 
     const { navigate } = this.props.navigation;
     navigate('Step3');
-    // console.log("hasil nih bro--- ", newArrPlaces );
   }
+
 
   render() {
     return (
-      <Container>
-      <Header style={{backgroundColor:'#5E35B1'}}>
-        <Body>
-          <Title>Step 2 - Arrange Order</Title>
-        </Body>
-      </Header>
-          <Modal
-            animationType={"slide"}
-            transparent={false}
-            visible={this.state.modalVisible}
-            onRequestClose={() => {alert("Modal has been closed.")}}>
-              <View style={{height:50}}>
-                <TouchableHighlight onPress={() => {
-                  this.setState({modalVisible:false})
-                }}>
-                <View style={{marginTop:10, marginLeft:12}}>
-                  <Text style={{fontSize:20}}>BACK</Text>
+      <Container style={{backgroundColor: '#B39DDB'}}>
+
+          <View style={{marginTop:20, marginBottom:20}}>
+            <StepIndicator
+               customStyles={customStyles}
+               currentPosition={this.state.currentPosition}
+               labels={labels}
+            />
+          </View>
+            <Modal
+              animationType={"slide"}
+              transparent={false}
+              visible={this.state.modalVisible}
+              onRequestClose={() => {alert("Modal has been closed.")}}>
+
+                <View style={{height:50}}>
+                  <TouchableHighlight onPress={() => {
+                    this.setState({modalVisible:false})
+                  }}>
+                    <View style={{marginTop:10, marginLeft:12}}>
+                      <Icon name="md-arrow-back" style={{marginLeft:10, fontSize:30}}/>
+                    </View>
+                  </TouchableHighlight>
                 </View>
-                </TouchableHighlight>
+                <SortableListView
+                      style={{flex:1}}
+                      data={this.state.data}
+                      order={this.state.order}
+                      onRowMoved={e => {
+                        this.state.order.splice(e.to, 0, this.state.order.splice(e.from, 1)[0]);
+                        this.forceUpdate();
+                      }}
+                      renderRow={row => <RowComponent data={row} />}/>
+            </Modal>
+
+            <Content>
+              <View style={{marginTop:10}}>
+                {this.state.dataAll.map((day,index) => (
+                  <TouchableHighlight
+                    key={index}
+                    onPress={() => { this.setModalVisible(index) }}
+                    style={{backgroundColor:"#fff", margin:10, borderRadius:10}}>
+                    <Text style={{fontSize:20, padding:10, color:'#000', justifyContent:'center', alignSelf:'center'}}>
+                      DAY - {index+1}
+                    </Text>
+                  </TouchableHighlight>
+                ))}
               </View>
-              <SortableListView
-                    style={{flex:1}}
-                    data={this.state.data}
-                    order={this.state.order}
-                    onRowMoved={e => {
-                      this.state.order.splice(e.to, 0, this.state.order.splice(e.from, 1)[0]);
-                      this.forceUpdate();
-                    }}
-                    renderRow={row => <RowComponent data={row} />}/>
-          </Modal>
+            </Content>
 
-          {this.state.dataAll.map((day,index) => (
-            <TouchableHighlight key={index} onPress={() => {
-              this.setModalVisible(index)
-            }}>
-              <Text style={{fontSize:20, marginLeft:10, marginTop:10}}>
-                DAY - {index+1}
-              </Text>
-            </TouchableHighlight>
-          ))}
-          <Button onPress={()=> this.handleSubmitOrder()}>
-            <Text> BUTTON </Text>
-          </Button>
-
-
+            <Footer>
+              <FooterTab>
+                <Button
+                  style={{ backgroundColor: '#5E35B1'}}
+                  block
+                  onPress={()=>this.handleSubmitOrder()}>
+                  <Text style={{ color: '#fff', fontWeight: 'bold' }}>Proceed to Step 5</Text>
+                </Button>
+              </FooterTab>
+            </Footer>
       </Container>
-
-
     )
   }
 }
