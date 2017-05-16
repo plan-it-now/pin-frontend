@@ -1,31 +1,61 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  ScrollView
-} from 'react-native'
+import { View, Text, ScrollView, StatusBar } from 'react-native'
 
-import {
-  Container,
-  Content,
-  Item,
-  Input,
-  Fab,
-  Button
-} from 'native-base'
+import { Container, Header, Body, Title, Content, Item, Input, Fab, Button, Footer, FooterTab } from 'native-base'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
 
 import ScheduleDetail from './scheduleDetail';
+import { updateUser,postItinerary } from '../../actions';
+
+import StepIndicator from 'react-native-step-indicator';
+
+const labels = ["Inquiry","Choose","Assign","Ordering","Schedule"];
+const customStyles = {
+  stepIndicatorSize: 25,
+  currentStepIndicatorSize:30,
+  separatorStrokeWidth: 2,
+  currentStepStrokeWidth: 3,
+  stepStrokeCurrentColor: '#5E35B1',
+  stepStrokeWidth: 3,
+  stepStrokeFinishedColor: '#5E35B1',
+  stepStrokeUnFinishedColor: '#757575',
+  separatorFinishedColor: '#5E35B1',
+  separatorUnFinishedColor: '#757575',
+  stepIndicatorFinishedColor: '#5E35B1',
+  stepIndicatorUnFinishedColor: '#ffffff',
+  stepIndicatorCurrentColor: '#FF7043',
+  stepIndicatorLabelFontSize: 13,
+  currentStepIndicatorLabelFontSize: 13,
+  stepIndicatorLabelCurrentColor: '#5E35B1',
+  stepIndicatorLabelFinishedColor: '#ffffff',
+  stepIndicatorLabelUnFinishedColor: '#757575',
+  labelColor: '#000',
+  labelSize: 13,
+  currentStepLabelColor: '#5E35B1'
+}
 
 class ItineraryStepThree extends React.Component {
   constructor(props) {
     super(props)
       this.state = {
         active: true,
-        structuredPlaces: []
+        structuredPlaces: [],
+        time: [],
+        currentPosition: 4
       }
+      this.setTimeSchedule = this.setTimeSchedule.bind(this);
+  }
+
+  setTimeSchedule(timeChild,idx) {
+    let tmp = this.state.structuredPlaces;
+    tmp[idx] = timeChild;
+    this.setState({
+      structuringPlaces: tmp
+    }, () => {
+      console.log(this.state.structuredPlaces);
+    })
   }
 
   structuringPlaces() {
@@ -37,49 +67,79 @@ class ItineraryStepThree extends React.Component {
 
     this.setState({
       structuredPlaces: orderedPlaces
+    }, () => {
+      console.log('ini structured places',this.state.structuredPlaces);
     })
-
-    console.log(orderedPlaces);
   }
 
   componentDidMount() {
     this.structuringPlaces();
+  }
 
+  finalConfirm() {
+    const { updateUser,user, places, postItinerary, navigation } = this.props
+    const { structuredPlaces } = this.state
+    let newArrOfPlaces = {
+      days: places.days,
+      places: []
+    }
+    for (let i = 0 ; i < structuredPlaces.length; i++) {
+      for (let j = 0; j < structuredPlaces[i].length; j++) {
+        let newObjPlace = {
+          place: structuredPlaces[i][j].place._id,
+          day: structuredPlaces[i][j].day,
+          orderIndex: structuredPlaces[i][j].orderIndex,
+          schedule: structuredPlaces[i][j].schedule
+        }
+        newArrOfPlaces.places.push(newObjPlace);
+      }
+    }
+
+    updateUser(user,places);
+    postItinerary(user.userdata,newArrOfPlaces);
+
+    navigation.navigate('Profile');
   }
 
   render () {
 
     return (
       <Container style={{ backgroundColor: '#B39DDB' }}>
+        <View style={{marginTop:20, marginBottom:20}}>
+          <StepIndicator
+             customStyles={customStyles}
+             currentPosition={this.state.currentPosition}
+             labels={labels}
+          />
+        </View>
+
         <Content
           padder>
 
           <ScrollView>
             {
               this.state.structuredPlaces.map((places,idx) => (
-                <View>
-                  <Text>  Day - {idx+1} </Text>
-                  <ScheduleDetail places={places}/>
+                <View key={idx}>
+                  <View style={{paddingLeft:10}}>
+                    <Text style={{fontSize:20}}>Day - {idx+1} </Text>
+                  </View>
+                  <ScheduleDetail places={places} bossIdx={idx} setTimeSchedule={this.setTimeSchedule}/>
                 </View>
               ))
             }
           </ScrollView>
         </Content>
-        <Button
-          rounded
-          style={{
-            backgroundColor: '#37b578',
-            position: 'absolute',
-            bottom: 10,
-            left: 10
-          }}>
-          <Icon name="check" color="white" size={22}/>
-          <Text style={{
-              paddingLeft: 5,
-              color: '#fff',
-              fontWeight: 'bold'
-            }}>Submit</Text>
-        </Button>
+
+        <Footer>
+          <FooterTab>
+            <Button
+              style={{ backgroundColor: '#5E35B1'}}
+              block
+              onPress={()=>this.finalConfirm()}>
+              <Text style={{ color: '#fff', fontWeight: 'bold' }}>Generate Itinerary</Text>
+            </Button>
+          </FooterTab>
+        </Footer>
       </Container>
     )
   }
@@ -87,7 +147,13 @@ class ItineraryStepThree extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  places: state.places
+  places: state.places,
+  user: state.logindata
 })
 
-export default connect(mapStateToProps,null)(ItineraryStepThree);
+const mapDispatchToProps = dispatch => ({
+  updateUser: (user,places) => dispatch(updateUser(user,places)),
+  postItinerary: (userid,arrayPlaces) => dispatch(postItinerary(userid,arrayPlaces))
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(ItineraryStepThree);

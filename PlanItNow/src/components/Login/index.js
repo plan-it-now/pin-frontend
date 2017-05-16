@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { View, Text, StyleSheet, Image, AsyncStorage } from 'react-native';
+import { View, Text, StyleSheet, Image, AsyncStorage, StatusBar } from 'react-native';
 
-import { Container, Content, Form, Item, Input, Label, Button, Icon } from 'native-base';
-import { login } from '../../actions'
+import { Container, Content, Footer, FooterTab, Form, Item, Input, Label, Button, Icon } from 'native-base';
+import { login, loginfb, updateRedirectFalse } from '../../actions'
 
 import LoginFb from '../FacebookLogin'
 const FBSDK = require('react-native-fbsdk');
@@ -20,7 +20,8 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      warning: ''
+      warning: '',
+      name: '',
     }
   }
 
@@ -36,17 +37,18 @@ class Login extends React.Component {
     // if(AsyncStorage.getItem('token')){
     //   this.loginSuccess();
     // }
-
     // for development purpose only
-    this.props.login({
-      email: 'a',
-      password: 'a'
-    })
+    // this.props.login({
+    //   email: 'a',
+    //   password: 'a'
+    // })
   }
 
   loginSuccess() {
     const { navigate } = this.props.navigation
-    navigate('inputQuery')
+    navigate('Profile')
+    this.props.updateRedirectFalse();
+    // navigate('SpinnerLogin')
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -76,15 +78,18 @@ class Login extends React.Component {
         if (result.isCancelled) {
           alert('Login cancelled');
         } else {
-          console.log('masuk sini',result.accessToken);
-          var app = self
+          // console.log('masuk sini',result.accessToken);
+          // var app = self
           AccessToken.getCurrentAccessToken()
                      .then((accessTokenData) => {
                        console.log('accessTokenData --------', accessTokenData.accessToken);
                        fetch('https://graph.facebook.com/v2.5/me?fields=email,name,friends&access_token=' + accessTokenData.accessToken)
                          .then((response) => response.json())
                          .then((json) => {
-                           console.log('response json ------',json);
+                           console.log('response json ------',json.name);
+                           self.setState({name: json.name})
+                           self.setState({email: json.email})
+                           self.props.loginfb({ email: self.state.email, name: self.state.name })
                            var user = {}
                            // Some user object has been set up somewhere, build that user here
                            user.name = json.name
@@ -94,7 +99,7 @@ class Login extends React.Component {
                            user.username = json.name
                            user.loading = false
                            user.loggedIn = true
-                           app._requestLoginFacebook(user)
+                          //  self._requestLoginFacebook(user)
                          })
                          .catch((error) => {
                            console.log(error);
@@ -112,16 +117,18 @@ class Login extends React.Component {
 
   render () {
     return (
+      <Container>
       <View
         style={styles.containerLogin}
       >
+      <StatusBar hidden={true}/>
         <Image
           style={styles.backgroundImage}
           source={{ uri : 'https://s-media-cache-ak0.pinimg.com/originals/d7/99/d9/d799d98dac43a2e49d71eac78d632b79.jpg' }}
         >
           <View
             style={{
-              marginTop: 30,
+              marginTop: 50,
               width: '70%',
               height: '80%',
             }}>
@@ -144,7 +151,7 @@ class Login extends React.Component {
             <Item>
               <Icon name='lock' style={{fontSize: 20, color: 'white'}} />
               <Input
-                placeholder = "Password"
+                placeholder = " Password"
                 placeholderTextColor = "#fff"
                 secureTextEntry = {true}
                 onChangeText = {(text) => this.setState({password:text})}
@@ -163,18 +170,7 @@ class Login extends React.Component {
                   style={{color: '#fff'}}
                   >Sign In</Text>
               </Button>
-              <Button onPress={() => this.navigateToRegister()}
-                  block
-                  style={{
-                    marginTop: 20,
-                    alignItems: 'center',
-                    backgroundColor: '#5E35B1'
-                  }}
-                  >
-                  <Text
-                    style={{color: '#fff'}}
-                    >Sign Up</Text>
-                </Button>
+
               <Button onPress={() => this.authfacebooksdk()}
                 block
                 style={{
@@ -184,7 +180,7 @@ class Login extends React.Component {
                 }}
               >
                  <Icon name='logo-facebook' />
-                  <Text style={{color:'#fff'}}> Continue with Facebook</Text>
+                  <Text style={{color:'#fff'}}> Sign In with Facebook</Text>
                 </Button>
           </View>
           <View style={{flex:1, justifyContent:'center', flexDirection:'row'}}>
@@ -193,6 +189,21 @@ class Login extends React.Component {
           </View>
         </Image>
     </View>
+
+    <Footer>
+      <FooterTab>
+        <Button
+          style={{ backgroundColor: '#000'}}
+          full
+          onPress={()=>this.navigateToRegister()}>
+          <View style={{flexDirection:'row'}}>
+          <Text style={{ color: '#fff'}}>Don't have account? </Text>
+          <Text style={{ color: '#fff', fontWeight:'bold'}}> Sign Up. </Text>
+          </View>
+        </Button>
+      </FooterTab>
+    </Footer>
+    </Container>
     )
   }
 
@@ -221,7 +232,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  login: (user) => dispatch(login(user))
+  login: (user) => dispatch(login(user)),
+  loginfb: (user) => dispatch(loginfb(user)),
+  updateRedirectFalse: () => dispatch(updateRedirectFalse())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

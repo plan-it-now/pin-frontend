@@ -14,8 +14,8 @@ const MapDetail = (props) => (
         region={{
           latitude: +(props.card.latitude),
           longitude: +(props.card.longitude),
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
+          latitudeDelta: 0.0222,
+          longitudeDelta: 0.0121,
         }}
         showUserLocation={true}
     >
@@ -23,7 +23,7 @@ const MapDetail = (props) => (
         latitude: +(props.card.latitude),
         longitude: +(props.card.longitude),
         })}
-        image={require('../../assets/pin.png')}
+        pinColor='#5E35B1'
       />
     </MapView>
   </View>
