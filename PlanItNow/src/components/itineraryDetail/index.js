@@ -54,11 +54,13 @@ class ItineraryDetail extends React.Component {
     return (
       <View style={{ backgroundColor: '#B39DDB', width: '100%', height: '100%' }}>
         <Header style={{ backgroundColor: '#5E35B1' }}>
-          <View style={{ alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginTop: 15 }}>
+          <Left><Icon
+            onPress={() => this.props.navigation.goBack() }
+            name="md-arrow-back" style={{ color: '#fff'}}/>
+          </Left>
             <Body>
                 <Title>Itinerary Details</Title>
             </Body>
-          </View>
         </Header>
         <ScrollView>
         {
@@ -68,11 +70,10 @@ class ItineraryDetail extends React.Component {
                 <Text style={{fontSize:20, color: '#212121', fontWeight: 'bold'}}>Day - {idx+1} </Text>
               </View>
               <View style={{
-                borderWidth: 3,
+                borderWidth: 1,
                 borderColor: '#5E35B1',
                   backgroundColor: '#EDE7F6',
                   margin: 10,
-                  borderRadius: 10,
                   marginBottom: 15 }}>
                   {
                     places.map((x,i) => (
