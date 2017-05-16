@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { View, Image, ScrollView, StyleSheet, Modal, TouchableHighlight, Dimensions, Alert, StatusBar} from 'react-native';
+import { View, Image, ScrollView, StyleSheet, Modal, TouchableHighlight, Dimensions, Alert, StatusBar, BackHandler } from 'react-native';
 import { Container, Icon, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Button, Content, Header, Title, Footer, FooterTab } from 'native-base';
 
 import { connect } from 'react-redux';
@@ -71,6 +71,26 @@ class Recomedation extends React.Component {
       }],
       currentPosition: 1
     };
+  }
+
+  handleBackButton() {
+    return true
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton)
+    Alert.alert(
+      'Instructions',
+      '\n              Swipe Left to Discard\n\n              Swipe Right to Decide\n',
+      [
+        {text: 'OK, GOT IT.', onPress: () => console.log('OK Pressed')},
+      ],
+      { cancelable: false }
+    )
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -207,59 +227,60 @@ class Recomedation extends React.Component {
           />
         </View>
 
-        <View style={styles.container}>
-            <Swiper
-            ref={swiper => {
-              this.swiper = swiper;
-            }}
-            childrenOnTop={true}
-            backgroundColor = '#B39DDB'
-            onSwiped={(cardIndex) => {
-              this.setState({cardIndex: this.state.cardIndex+1})
-              console.log(cardIndex)
-            }}
-              cards={this.state.cards}
-              verticalSwipe={false}
-              onSwipedLeft={(cardIndex) => this.swipeLeft(cardIndex)}
-              onSwipedRight={(cardIndex) => this.swipeRight(cardIndex)}
-              cardIndex={this.state.cardIndex}
-              renderCard={this.renderCard}
-              onSwipedAll={() => this.displayAlert()}
-            >
+        <Content>
+          <View style={styles.container}>
+              <Swiper
+              ref={swiper => {
+                this.swiper = swiper;
+              }}
+              childrenOnTop={true}
+              backgroundColor = '#B39DDB'
+              onSwiped={(cardIndex) => {
+                this.setState({cardIndex: this.state.cardIndex+1})
+                console.log(cardIndex)
+              }}
+                cards={this.state.cards}
+                verticalSwipe={false}
+                onSwipedLeft={(cardIndex) => this.swipeLeft(cardIndex)}
+                onSwipedRight={(cardIndex) => this.swipeRight(cardIndex)}
+                cardIndex={this.state.cardIndex}
+                renderCard={this.renderCard}
+                onSwipedAll={() => this.displayAlert()}
+              >
 
-            </Swiper>
+              </Swiper>
 
-            <Modal
-             animationType={"slide"}
-             transparent={true}
-             visible={this.state.modalVisible}
-             onRequestClose={() => {console.log('modal closed');}}
-            >
+              <Modal
+               animationType={"slide"}
+               transparent={true}
+               visible={this.state.modalVisible}
+               onRequestClose={() => {console.log('modal closed');}}
+              >
 
-              <View style={styles.mapcontainer}>
-                <MapDetail card={this.state.mapData} />
-              </View>
+                <View style={styles.mapcontainer}>
+                  <MapDetail card={this.state.mapData} />
+                </View>
 
-              <Button style={{backgroundColor:'#5E35B1'}} block onPress={()=> {this.setModalVisible(false, null)}}>
-                  <Text>Close</Text>
-              </Button>
-            </Modal>
+                <Button style={{backgroundColor:'#5E35B1'}} block onPress={()=> {this.setModalVisible(false, null)}}>
+                    <Text>Close</Text>
+                </Button>
+              </Modal>
+          </View>
+        </Content>
 
-
-        </View>
         <Footer>
             <FooterTab style={{backgroundColor:'#5E35B1'}}>
               { this.state.swipe.length !== 0 ?
                 <Button
                   onPress={this.swipeBack}
                   vertical>
-                    <Icon name="md-sync" />
+                    <Icon name="md-undo" />
                     <Text>Undo</Text>
                 </Button>
                 :
                 <Button
                   vertical>
-                    <Icon name="md-sync" />
+                    <Icon name="md-undo" />
                     <Text>Undo</Text>
                 </Button>
 
@@ -290,7 +311,7 @@ const deviceHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#B39DDB',
-    height: deviceHeight* 0.847,
+    height: deviceHeight* 0.9,
     paddingTop:0,
     marginTop:-50
   },

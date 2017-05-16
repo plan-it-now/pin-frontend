@@ -2,9 +2,7 @@ import React from 'react';
 
 import DrawerProfile from '../DrawerProfile';
 
-
-
-import { View, Image, TouchableOpacity, DrawerLayoutAndroid } from 'react-native'
+import { View, Image, TouchableOpacity, DrawerLayoutAndroid, BackHandler } from 'react-native'
 
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Card, CardItem, Text, Drawer,
 } from 'native-base';
@@ -12,7 +10,7 @@ import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Rig
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
 
-import { fetchItin } from '../../actions';
+import { fetchItin, logout } from '../../actions';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -29,6 +27,24 @@ class Profile extends React.Component {
   componentWillMount() {
     const { fetchItin , user } = this.props
     fetchItin(user.userdata._id);
+  }
+
+  handleLogout() {
+    this.props.logout();
+    const { navigate } = this.props.navigation;
+    navigate('Login');
+  }
+
+  handleBackButton() {
+    return true
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton)
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton)
   }
 
   render () {
@@ -59,7 +75,7 @@ class Profile extends React.Component {
         <View>
           <View style={{
             }}>
-            <Button outline light bordered style={{ alignSelf:'center'  }}>
+            <Button outline light bordered style={{ alignSelf:'center'  }} onPress={()=>this.handleLogout()}>
                 <Text style={{ color: '#fff', fontSize: 15, fontWeight: 'bold' }}>Logout</Text>
             </Button>
           </View>
@@ -97,7 +113,8 @@ class Profile extends React.Component {
         /> :
         <Content padder>
           {
-            this.props.itineraries.map( itinerary => (
+            this.props.itineraries.map( (itinerary,index) => (
+              <View key={index} style={{marginBottom:20}}>
               <Card>
                   <TouchableOpacity onPress={() => this.props.navigation.navigate('Detail', {_itinerary:itinerary })}>
                     <Image
@@ -124,7 +141,7 @@ class Profile extends React.Component {
                       <View style={{ flexDirection: 'row', flexWrap: 'wrap'}}>
                         {
                           itinerary.places.map((x,idx) => (
-                              <Text style={{ paddingRight: 20, paddingTop: 5, color: '#5E35B1', fontWeight: 'bold' }} key={idx}>#{x.place.tag}</Text>
+                              <Text key={idx} style={{ paddingRight: 20, paddingTop: 5, color: '#5E35B1', fontWeight: 'bold' }} key={idx}>#{x.place.tag}</Text>
                           ))
                         }
                       </View>
@@ -132,6 +149,7 @@ class Profile extends React.Component {
                     </Body>
                   </CardItem>
               </Card>
+              </View>
             ))
           }
         </Content>
@@ -142,13 +160,13 @@ class Profile extends React.Component {
             justifyContent: 'center',
             width: 60,
             height: 60,
-            backgroundColor: '#5E35B1',
+            backgroundColor: '#FF7043',
             position: 'absolute',
             bottom: 10,
             right: 20,
             borderRadius: 100
           }}>
-          <Icon name="plus" color="white" size={26} style={{
+          <Icon name="plus" color="#5E35B1" size={26} style={{
             textAlign: 'center',
             }}/>
         </Button>
@@ -164,6 +182,7 @@ const mapStateToProps = state => ({
 })
 const mapDispatchToProps = dispatch => ({
   fetchItin: (userid) => dispatch(fetchItin(userid)),
+  logout: () => dispatch(logout())
 })
 
 

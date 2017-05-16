@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   Text,
   View,
-  BackHandler,
   StatusBar,
   TouchableOpacity
 } from 'react-native';
@@ -51,26 +50,6 @@ class inputQuery extends Component {
       currentPosition: 0
     }
     this.submitQuery = this.submitQuery.bind(this);
-  }
-
-  componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton)
-
-    //for development use only
-    // setTimeout(()=>{
-    //   const { pref, fetchPlaces } = this.props;
-    //
-    //   fetchPlaces(pref,'Semarang', 2);
-    //     this.props.navigation.navigate('Recomendation');
-    // }, 1000)
-  }
-
-  componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton)
-  }
-
-  handleBackButton() {
-    return true
   }
 
   static navigationOptions = {
@@ -144,6 +123,15 @@ class inputQuery extends Component {
              <Text style={{fontSize:15, color:'red'}}>{this.state.warning}</Text>
              </View>
             </View>
+          </View>
+
+          <View style={{alignSelf:'center', marginBottom:10}}>
+              <Button
+                style={{ backgroundColor: '#5E35B1'}}
+                rounded
+                onPress={() => this.props.navigation.goBack()}>
+                <Text style={{ color: '#fff', fontWeight: 'bold' }}>Back to Profile</Text>
+              </Button>
           </View>
       </Container>
     )

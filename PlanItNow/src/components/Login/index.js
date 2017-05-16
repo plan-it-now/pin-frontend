@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { View, Text, StyleSheet, Image, AsyncStorage, StatusBar } from 'react-native';
 
 import { Container, Content, Footer, FooterTab, Form, Item, Input, Label, Button, Icon } from 'native-base';
-import { login, loginfb, updateRedirectFalse } from '../../actions'
+import { login, loginfb, updateRedirectFalse, decodeUser } from '../../actions'
 
 import LoginFb from '../FacebookLogin'
 const FBSDK = require('react-native-fbsdk');
@@ -22,6 +22,7 @@ class Login extends React.Component {
       password: '',
       warning: '',
       name: '',
+      shouldRedirect: false,
     }
   }
 
@@ -34,9 +35,17 @@ class Login extends React.Component {
   }
 
   componentWillMount(){
-    // if(AsyncStorage.getItem('token')){
-    //   this.loginSuccess();
-    // }
+    AsyncStorage.getItem('token', (err,_token) => {
+      if(err) {
+        console.log(err);
+      } else if(_token !== null) {
+        this.setState({
+          shouldRedirect: true
+        }, () => {
+          this.props.decodeUser(_token);
+        })
+      }
+    });
     // for development purpose only
     // this.props.login({
     //   email: 'a',
@@ -45,15 +54,16 @@ class Login extends React.Component {
   }
 
   loginSuccess() {
-    const { navigate } = this.props.navigation
-    navigate('Profile')
+    const { navigate } = this.props.navigation;
+    navigate('Profile');
     this.props.updateRedirectFalse();
-    // navigate('SpinnerLogin')
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(this.props.logindata.shouldRedirectSignIn && !prevProps.logindata.shouldRedirectSignIn){
-      this.loginSuccess()
+    if(this.props.logindata.shouldRedirectSignIn && this.state.shouldRedirect){
+      this.setState({shouldRedirect: false}, ()=> {
+        this.loginSuccess()
+      })
     }
   }
 
@@ -61,7 +71,8 @@ class Login extends React.Component {
     if(this.state.email === '' || this.state.password === ''){
       this.setState({warning: 'Please input all fields'})
     } else {
-      this.setState({warning: ''})
+      this.setState({warning: '',
+                    shouldRedirect: true})
       this.props.login({email:this.state.email, password:this.state.password})
     }
   }
@@ -197,7 +208,7 @@ class Login extends React.Component {
           full
           onPress={()=>this.navigateToRegister()}>
           <View style={{flexDirection:'row'}}>
-          <Text style={{ color: '#fff'}}>Don't have account? </Text>
+          <Text style={{ color: '#fff'}}>"Don't have account?" </Text>
           <Text style={{ color: '#fff', fontWeight:'bold'}}> Sign Up. </Text>
           </View>
         </Button>
@@ -234,7 +245,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => ({
   login: (user) => dispatch(login(user)),
   loginfb: (user) => dispatch(loginfb(user)),
-  updateRedirectFalse: () => dispatch(updateRedirectFalse())
+  updateRedirectFalse: () => dispatch(updateRedirectFalse()),
+  decodeUser: (_token) => dispatch(decodeUser(_token))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
