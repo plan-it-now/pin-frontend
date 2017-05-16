@@ -26,7 +26,7 @@ class Profile extends React.Component {
     this.drawer._root.open()
   };
 
-  componentDidMount() {
+  componentWillMount() {
     const { fetchItin , user } = this.props
     fetchItin(user.userdata._id);
   }
@@ -105,7 +105,10 @@ class Profile extends React.Component {
             </Title>
           </Body>
         </Header>
-
+        {this.props.itineraries.length === 0 ? <Image
+          style={{width:'100%', height:'100%', marginTop: -30}}
+          source={{ uri : 'http://i.imgur.com/xyH2gr7.png' }}
+        /> :
         <Content padder>
           {
             this.props.itineraries.map( itinerary => (
@@ -132,7 +135,7 @@ class Profile extends React.Component {
                       <Text>
                         Posted at : {(new Date(itinerary.createdAt)).toLocaleString()}
                       </Text>
-                      <View style={{ flexDirection: 'row', padding:0}}>
+                      <View style={{ flexDirection: 'row', flexWrap: 'wrap'}}>
                         <Text note>Tags :</Text>
                         {
                           itinerary.places.map((x,idx) => (
@@ -147,7 +150,7 @@ class Profile extends React.Component {
             ))
           }
         </Content>
-
+      }
         <Button
           onPress={() => this.props.navigation.navigate('inputQuery')}
           style={{

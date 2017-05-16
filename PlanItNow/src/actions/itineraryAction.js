@@ -7,10 +7,10 @@ const postItinSuccess = (data) => ({
   payload: data
 })
 
-export const postItinerary = (userid, arrayPlaces) => (
+export const postItinerary = (user, arrayPlaces) => (
   dispatch => (
     axios.post('http://ec2-52-221-233-16.ap-southeast-1.compute.amazonaws.com/itineraries', {
-      user: userid,
+      user: user,
       days: arrayPlaces.days,
       places: arrayPlaces.places
     })
