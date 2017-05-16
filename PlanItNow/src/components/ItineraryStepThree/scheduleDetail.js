@@ -10,7 +10,8 @@ import {
   Item,
   Input,
   Fab,
-  Button
+  Button,
+  Icon
 } from 'native-base'
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
@@ -56,7 +57,7 @@ class ScheduleDetail extends React.Component {
     const newTimeArr = []
     const newVisible = []
     for (let i = 0; i < this.props.places.length; i++) {
-      newTimeArr.push('00:00')
+      newTimeArr.push('00:11')
       newVisible.push(false);
     }
     this.setState({
@@ -88,13 +89,19 @@ class ScheduleDetail extends React.Component {
                   alignItems: 'center',
                   marginTop: 10,
                   marginBottom: 10,
-
                 }}>
                 <View>
-                  <TouchableOpacity onPress={() => this._showTimePicker(i)}>
-                    <Text>Time Picker</Text>
-                    <Text>{this.state.time[i]}</Text>
+                { this.state.time[i] == '00:11' ?
+                  <TouchableOpacity >
+                   <Button style={{borderRadius:100, backgroundColor:'#5E35B1', marginLeft:10}} onPress={() => this._showTimePicker(i)}>
+                    <Text style={{color:'#fff'}}>Set Time</Text>
+                   </Button>
                   </TouchableOpacity>
+                  :
+                  <View >
+                    <Text style={{fontSize:20, color:'#5E35B1', paddingLeft:10}} onPress={() => this._showTimePicker(i)}>{this.state.time[i]}</Text>
+                  </View>
+                }
                   <DateTimePicker
                     mode='time'
                     isVisible={this.state.isTimePickerVisible[i]}
@@ -103,14 +110,13 @@ class ScheduleDetail extends React.Component {
                   />
                 </View>
 
-                <View
-                  style={{ width: 300, paddingLeft: 15 }}
-                >
-                  <Text style={{
-                    color: '#000',
-                    fontSize: 18
-                  }}>{x.place.name}</Text>
 
+                <View style={{ width: 300, paddingLeft: 15 }}>
+
+                    <Text style={{
+                      color: '#000',
+                      fontSize: 15
+                    }}>{x.place.name}</Text>
                 </View>
 
               </View>

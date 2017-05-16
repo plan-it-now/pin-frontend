@@ -73,6 +73,17 @@ class Recomedation extends React.Component {
     };
   }
 
+  componentDidMount() {
+    Alert.alert(
+      'Instructions',
+      '\n              Swipe Left to Discard\n\n              Swipe Right to Decide\n',
+      [
+        {text: 'OK, GOT IT.', onPress: () => console.log('OK Pressed')},
+      ],
+      { cancelable: false }
+    )
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if(prevProps.places.recomendationPlaces !== this.props.places.recomendationPlaces) {
       this.setState({
@@ -207,59 +218,60 @@ class Recomedation extends React.Component {
           />
         </View>
 
-        <View style={styles.container}>
-            <Swiper
-            ref={swiper => {
-              this.swiper = swiper;
-            }}
-            childrenOnTop={true}
-            backgroundColor = '#B39DDB'
-            onSwiped={(cardIndex) => {
-              this.setState({cardIndex: this.state.cardIndex+1})
-              console.log(cardIndex)
-            }}
-              cards={this.state.cards}
-              verticalSwipe={false}
-              onSwipedLeft={(cardIndex) => this.swipeLeft(cardIndex)}
-              onSwipedRight={(cardIndex) => this.swipeRight(cardIndex)}
-              cardIndex={this.state.cardIndex}
-              renderCard={this.renderCard}
-              onSwipedAll={() => this.displayAlert()}
-            >
+        <Content>
+          <View style={styles.container}>
+              <Swiper
+              ref={swiper => {
+                this.swiper = swiper;
+              }}
+              childrenOnTop={true}
+              backgroundColor = '#B39DDB'
+              onSwiped={(cardIndex) => {
+                this.setState({cardIndex: this.state.cardIndex+1})
+                console.log(cardIndex)
+              }}
+                cards={this.state.cards}
+                verticalSwipe={false}
+                onSwipedLeft={(cardIndex) => this.swipeLeft(cardIndex)}
+                onSwipedRight={(cardIndex) => this.swipeRight(cardIndex)}
+                cardIndex={this.state.cardIndex}
+                renderCard={this.renderCard}
+                onSwipedAll={() => this.displayAlert()}
+              >
 
-            </Swiper>
+              </Swiper>
 
-            <Modal
-             animationType={"slide"}
-             transparent={true}
-             visible={this.state.modalVisible}
-             onRequestClose={() => {console.log('modal closed');}}
-            >
+              <Modal
+               animationType={"slide"}
+               transparent={true}
+               visible={this.state.modalVisible}
+               onRequestClose={() => {console.log('modal closed');}}
+              >
 
-              <View style={styles.mapcontainer}>
-                <MapDetail card={this.state.mapData} />
-              </View>
+                <View style={styles.mapcontainer}>
+                  <MapDetail card={this.state.mapData} />
+                </View>
 
-              <Button style={{backgroundColor:'#5E35B1'}} block onPress={()=> {this.setModalVisible(false, null)}}>
-                  <Text>Close</Text>
-              </Button>
-            </Modal>
+                <Button style={{backgroundColor:'#5E35B1'}} block onPress={()=> {this.setModalVisible(false, null)}}>
+                    <Text>Close</Text>
+                </Button>
+              </Modal>
+          </View>
+        </Content>
 
-
-        </View>
         <Footer>
             <FooterTab style={{backgroundColor:'#5E35B1'}}>
               { this.state.swipe.length !== 0 ?
                 <Button
                   onPress={this.swipeBack}
                   vertical>
-                    <Icon name="md-sync" />
+                    <Icon name="md-undo" />
                     <Text>Undo</Text>
                 </Button>
                 :
                 <Button
                   vertical>
-                    <Icon name="md-sync" />
+                    <Icon name="md-undo" />
                     <Text>Undo</Text>
                 </Button>
 

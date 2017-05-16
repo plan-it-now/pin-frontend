@@ -98,6 +98,7 @@ class Profile extends React.Component {
         <Content padder>
           {
             this.props.itineraries.map( itinerary => (
+              <View style={{marginBottom:20}}>
               <Card>
                   <TouchableOpacity onPress={() => this.props.navigation.navigate('Detail', {_itinerary:itinerary })}>
                     <Image
@@ -132,6 +133,7 @@ class Profile extends React.Component {
                     </Body>
                   </CardItem>
               </Card>
+              </View>
             ))
           }
         </Content>
@@ -142,13 +144,13 @@ class Profile extends React.Component {
             justifyContent: 'center',
             width: 60,
             height: 60,
-            backgroundColor: '#5E35B1',
+            backgroundColor: '#FF7043',
             position: 'absolute',
             bottom: 10,
             right: 20,
             borderRadius: 100
           }}>
-          <Icon name="plus" color="white" size={26} style={{
+          <Icon name="plus" color="#5E35B1" size={26} style={{
             textAlign: 'center',
             }}/>
         </Button>
