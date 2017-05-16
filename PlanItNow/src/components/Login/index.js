@@ -39,7 +39,11 @@ class Login extends React.Component {
       if(err) {
         console.log(err);
       } else if(_token !== null) {
-        this.props.decodeUser(_token);
+        this.setState({
+          shouldRedirect: true
+        }, () => {
+          this.props.decodeUser(_token);
+        })
       }
     });
     // for development purpose only
