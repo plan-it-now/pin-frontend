@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { LOGIN_USER, SIGNUP_USER, UPDATE_USER, LOGIN_FB, UPDATE_REDIRECT } from './constants';
+import { LOGIN_USER, SIGNUP_USER, UPDATE_USER, LOGIN_FB, UPDATE_REDIRECT, DECODE_USER } from './constants';
 
 //loginkey = token dan ID
 export const loginSuccess = (loginkey) => ({
@@ -91,4 +91,17 @@ export const loginfb = (datauser) => (
   )
 )
 
+const decodeUserSuccess = (data) => ({
+  type: DECODE_USER,
+  payload: data
+})
+
+export const decodeUser = (_token) => (
+  dispatch => (
+    axios.get('http://ec2-52-221-233-16.ap-southeast-1.compute.amazonaws.com/users/userdata',{
+      headers: {'token': _token}
+    })
+    .then((res) => (dispatch(decodeUserSuccess(res.data))))
+  )
+)
 //tambahkan urusan logout

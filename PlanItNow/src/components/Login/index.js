@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { View, Text, StyleSheet, Image, AsyncStorage, StatusBar } from 'react-native';
 
 import { Container, Content, Footer, FooterTab, Form, Item, Input, Label, Button, Icon } from 'native-base';
-import { login, loginfb, updateRedirectFalse } from '../../actions'
+import { login, loginfb, updateRedirectFalse, decodeUser } from '../../actions'
 
 import LoginFb from '../FacebookLogin'
 const FBSDK = require('react-native-fbsdk');
@@ -34,9 +34,13 @@ class Login extends React.Component {
   }
 
   componentWillMount(){
-    // if(AsyncStorage.getItem('token')){
-    //   this.loginSuccess();
-    // }
+    AsyncStorage.getItem('token', (err,_token) => {
+      if(err) {
+        console.log(err);
+      } else if(_token !== null) {
+        this.props.decodeUser(_token);
+      }
+    });
     // for development purpose only
     // this.props.login({
     //   email: 'a',
@@ -53,6 +57,7 @@ class Login extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if(this.props.logindata.shouldRedirectSignIn && !prevProps.logindata.shouldRedirectSignIn){
+      console.log('Harusnya login');
       this.loginSuccess()
     }
   }
@@ -197,7 +202,7 @@ class Login extends React.Component {
           full
           onPress={()=>this.navigateToRegister()}>
           <View style={{flexDirection:'row'}}>
-          <Text style={{ color: '#fff'}}>Don't have account? </Text>
+          <Text style={{ color: '#fff'}}>"Don't have account?" </Text>
           <Text style={{ color: '#fff', fontWeight:'bold'}}> Sign Up. </Text>
           </View>
         </Button>
@@ -234,7 +239,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => ({
   login: (user) => dispatch(login(user)),
   loginfb: (user) => dispatch(loginfb(user)),
-  updateRedirectFalse: () => dispatch(updateRedirectFalse())
+  updateRedirectFalse: () => dispatch(updateRedirectFalse()),
+  decodeUser: (_token) => dispatch(decodeUser(_token))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

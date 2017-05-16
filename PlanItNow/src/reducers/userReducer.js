@@ -1,4 +1,4 @@
-import { LOGIN_USER, SIGNUP_USER, UPDATE_USER, LOGIN_FB, UPDATE_REDIRECT } from '../actions/constants';
+import { LOGIN_USER, SIGNUP_USER, UPDATE_USER, LOGIN_FB, UPDATE_REDIRECT, DECODE_USER } from '../actions/constants';
 
 import { AsyncStorage } from 'react-native';
 
@@ -23,6 +23,14 @@ function loginSuccess(payload) {
         warning: ''
       };
   }
+}
+
+function loginBecauseAsyncStorage(payload) {
+  return {...payload,
+      shouldRedirectSignIn: true,
+      shouldRedirectSignUp: false,
+      warning: ''
+    };
 }
 
 
@@ -65,6 +73,7 @@ function loginFb(payload) {
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_USER: return loginSuccess(action.payload)
+    case DECODE_USER: return loginBecauseAsyncStorage({userdata: action.payload})
     case SIGNUP_USER: return signUp(action.payload)
     case UPDATE_USER: return {
       ...state,
