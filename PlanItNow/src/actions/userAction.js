@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { LOGIN_USER, SIGNUP_USER, UPDATE_USER, LOGIN_FB } from './constants';
+import { LOGIN_USER, SIGNUP_USER, UPDATE_USER, LOGIN_FB, UPDATE_REDIRECT } from './constants';
 
 //loginkey = token dan ID
 export const loginSuccess = (loginkey) => ({
@@ -19,6 +19,10 @@ export const login = (datauser) => (
 export const signupSuccess = (data) => ({
   type: SIGNUP_USER,
   payload: data
+})
+
+export const updateRedirectFalse = () => ({
+  type: UPDATE_REDIRECT
 })
 
 export const signup = (datauser) => (
