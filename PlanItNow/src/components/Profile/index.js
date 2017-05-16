@@ -152,7 +152,7 @@ class Profile extends React.Component {
             this.props.itineraries.map( itinerary => (
               <Card>
                 <View>
-                  <TouchableHighlight>
+                  <TouchableHighlight onPress={() => this.props.navigation.navigate('Detail', {_itinerary:itinerary })}>
                     <Image
                       style={{
                         flex: 1,

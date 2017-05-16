@@ -11,7 +11,8 @@ export const postItinerary = (userid, arrayPlaces) => (
   dispatch => (
     axios.post('http://ec2-52-221-233-16.ap-southeast-1.compute.amazonaws.com/itineraries', {
       user: userid,
-      places: arrayPlaces
+      days: arrayPlaces.days,
+      places: arrayPlaces.places
     })
     .then((res) => dispatch(postItinSuccess(res.data)))
   )

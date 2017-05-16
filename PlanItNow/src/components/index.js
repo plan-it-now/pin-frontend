@@ -12,6 +12,7 @@ import step2 from './step2';
 import Profile from './Profile';
 import EditPassword from './EditPassword';
 import DrawerProfile from './DrawerProfile';
+import ItineraryDetail from './itineraryDetail';
 
 const App = StackNavigator({
 
@@ -23,6 +24,7 @@ const App = StackNavigator({
   Step1: {screen: ItineraryStepOne},
   Step2: {screen: step2},
   Step3: {screen: ItineraryStepThree},
+  Detail: {screen: ItineraryDetail},
   // ItineraryStepThree: {screen: ItineraryStepThree},
 }, {
   headerMode: 'none'
