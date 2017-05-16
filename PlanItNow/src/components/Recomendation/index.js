@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { View, Image, ScrollView, StyleSheet, Modal, TouchableHighlight, Dimensions, Alert, StatusBar} from 'react-native';
-import { Container, Icon, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Button, Content, Header, Title, Toast } from 'native-base';
+import { Container, Icon, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Button, Content, Header, Title, Footer, FooterTab } from 'native-base';
 
 import { connect } from 'react-redux';
 
@@ -95,11 +95,10 @@ class Recomedation extends React.Component {
 
   renderCard = card => {
     return (
-      <View style={{marginTop:10}}>
+      <View style={{marginTop:0}}>
         <Button
           block
-          style={{backgroundColor:"#5E35B1", marginTop:0, borderTopLeftRadius:10, borderTopRightRadius:10}} onPress={()=> {this.setModalVisible(true, card)}}>
-          <Icon name='md-pin' />
+          style={{backgroundColor:"#5E35B1", marginTop:10, borderTopLeftRadius:10, borderTopRightRadius:10}}>
             <Text> {card.name}</Text>
         </Button>
           <View style={styles.card}>
@@ -144,22 +143,17 @@ class Recomedation extends React.Component {
         });
       });
     }
-    Toast.show({
-              type: 'warning',
-              duration: 1500,
-              text: 'Succesfully Undo last decision!',
-              position: 'bottom'
-            })
   };
 
   setIsSwipingBack = (isSwipingBack, cb) => {
-    this.setState(
-      {
-        isSwipingBack: isSwipingBack
-      },
-      cb
-    );
-  };
+      this.setState(
+        {
+          isSwipingBack: isSwipingBack,
+          cardIndex: this.state.cardIndex-1
+        },
+        cb
+      );
+    };
 
   jumpTo = () => {
     this.swiper.jumpToCardIndex(2);
@@ -177,12 +171,6 @@ class Recomedation extends React.Component {
       approved: [...this.state.approved, this.props.places.recomendationPlaces[cardIndex]],
       swipe: [...this.state.swipe, 'right']
     })
-    Toast.show({
-              type: 'success',
-              duration: 1500,
-              text: 'Decision made!',
-              position: 'bottom'
-            })
   }
 
   handleSubmitPlaces() {
@@ -202,25 +190,34 @@ class Recomedation extends React.Component {
     )
   }
 
+  handleMap(){
+      console.log('map:',this.state.cardIndex);
+      this.setState({mapData: this.state.cards[this.state.cardIndex],
+                    modalVisible: true})
+    }
+
   render () {
     return (
-      <View>
-        <View style={{paddingTop:20, paddingBottom:10, backgroundColor:'#B39DDB'}}>
+      <Container>
+        <View style={{paddingTop:20, paddingBottom:10, backgroundColor:'#B39DDB', zIndex:2}}>
           <StepIndicator
              customStyles={customStyles}
              currentPosition={this.state.currentPosition}
              labels={labels}
           />
         </View>
-        
+
         <View style={styles.container}>
             <Swiper
-              ref={swiper => {
-                this.swiper = swiper;
-              }}
-              childrenOnTop={true}
-              backgroundColor = '#B39DDB'
-              onSwiped={(cardIndex) => {console.log(cardIndex)}}
+            ref={swiper => {
+              this.swiper = swiper;
+            }}
+            childrenOnTop={true}
+            backgroundColor = '#B39DDB'
+            onSwiped={(cardIndex) => {
+              this.setState({cardIndex: this.state.cardIndex+1})
+              console.log(cardIndex)
+            }}
               cards={this.state.cards}
               verticalSwipe={false}
               onSwipedLeft={(cardIndex) => this.swipeLeft(cardIndex)}
@@ -229,31 +226,7 @@ class Recomedation extends React.Component {
               renderCard={this.renderCard}
               onSwipedAll={() => this.displayAlert()}
             >
-              <View style={{
-                width:deviceWidth,
-                flexDirection:'row',
-                justifyContent:'space-between',
-              }}
-              >
-                {
-                  this.state.swipe.length !== 0 ?
-                  <Button style={{backgroundColor:"#5E35B1",margin: 10, alignSelf: 'flex-end'}} rounded onPress={this.swipeBack}>
-                      <Icon name="md-sync" color="white"/>
-                  </Button>
-                  :
-                  <View />
-                }
-                <Button
-                    rounded
-                    onPress={()=>this.handleSubmitPlaces()}
-                    style={{
-                      backgroundColor: '#5E35B1',
-                      margin: 10,
-                      alignSelf: 'flex-end'
-                    }}>
-                    <Icon name="md-send" color="white"/>
-                </Button>
-              </View>
+
             </Swiper>
 
             <Modal
@@ -268,11 +241,44 @@ class Recomedation extends React.Component {
               </View>
 
               <Button style={{backgroundColor:"#5E35B1"}} block onPress={()=> {this.setModalVisible(false, null)}}>
-                  <Text>back!</Text>
+                  <Text>Close</Text>
               </Button>
             </Modal>
+
+
         </View>
-      </View>
+        <Footer>
+            <FooterTab style={{backgroundColor:'#5E35B1'}}>
+              { this.state.swipe.length !== 0 ?
+                <Button
+                  onPress={this.swipeBack}
+                  vertical>
+                    <Icon name="md-sync" />
+                    <Text>Undo</Text>
+                </Button>
+                :
+                <Button
+                  vertical>
+                    <Icon name="md-sync" />
+                    <Text>Undo</Text>
+                </Button>
+
+              }
+                <Button
+                  onPress={()=>this.handleMap()}
+                  active vertical>
+                    <Icon name="md-pin" />
+                    <Text>Show Location</Text>
+                </Button>
+                <Button
+                 onPress={()=>this.handleSubmitPlaces()}
+                 vertical>
+                    <Icon name="md-send" />
+                    <Text>Proceed</Text>
+                </Button>
+            </FooterTab>
+        </Footer>
+      </Container>
 
     )
   }
@@ -284,17 +290,19 @@ const deviceHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#B39DDB',
-    height: deviceHeight,
-    paddingTop:0
+    height: deviceHeight* 0.847,
+    paddingTop:0,
+    marginTop:-50
   },
   card: {
+    marginTop:0,
     borderBottomRightRadius: 10,
     borderBottomLeftRadius: 10,
     borderWidth: 2,
     borderColor: '#E8E8E8',
     alignItems: 'center',
     backgroundColor: 'white',
-    height: deviceHeight * 0.59
+    height: deviceHeight * 0.61
   },
   map: {
     position: 'absolute',
@@ -305,7 +313,7 @@ const styles = StyleSheet.create({
   },
   mapcontainer: {
     width: deviceWidth,
-    height: deviceHeight * 0.89,
+    height: deviceHeight * 0.885,
     alignItems: 'center',
   }
 })
