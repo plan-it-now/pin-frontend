@@ -2,7 +2,8 @@ import React from 'react';
 import {
   View,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  ScrollView,
 } from 'react-native'
 import {
   Container,
@@ -10,7 +11,8 @@ import {
   Item,
   Input,
   Fab,
-  Button
+  Button,
+  Icon
 } from 'native-base'
 
 
@@ -23,15 +25,15 @@ class ItineraryDetail extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.structuringPlaces();
   }
-  
+
   structuringPlaces() {
-    const { places } = this.props.navigation.state.params._itinerary
+    const { _itinerary } = this.props.navigation.state.params;
     const orderedPlaces = [];
-    for (let i = 1; i <= days; i++) {
-      orderedPlaces.push(places.filter(place => place.day == i))
+    for (let i = 1; i <= _itinerary.days; i++) {
+      orderedPlaces.push(_itinerary.places.filter(place => place.day == i))
     }
 
     this.setState({
@@ -46,7 +48,58 @@ class ItineraryDetail extends React.Component {
     const { navigation }  = this.props;
     return (
       <View>
-        <Text>ini Details Brotha!</Text>
+        <ScrollView>
+        {
+          this.state.structuredPlaces.map((places,idx) => (
+            <View key={idx}>
+              <View style={{paddingLeft:10}}>
+                <Text style={{fontSize:20}}>Day - {idx+1} </Text>
+              </View>
+              <View style={{
+                  backgroundColor: '#EDE7F6',
+                  borderColor: '#000',
+                  padding: 10,
+                  margin: 10,
+                  borderRadius: 10,
+                  marginBottom: 25 }}>
+                  {
+                    places.map((x,i) => (
+                      <View key={i}
+                        style={{
+                          flex: 1,
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          marginTop: 10,
+                          marginBottom: 10,
+
+                        }}>
+                        <View>
+                          <Text>{x.schedule}</Text>
+                        </View>
+
+                        <View
+                          style={{ width: 300, paddingLeft: 15 }}
+                        >
+                          <Text style={{
+                            color: '#000',
+                            fontSize: 18
+                          }}>{x.place.name}</Text>
+
+                        </View>
+                        <View>
+                           <Icon name="md-trending-up" style={{color: '#5E35B1', fontSize:35}}/>
+                        </View>
+
+                      </View>
+                    ))
+                  }
+
+              </View>
+            </View>
+          ))
+        }
+        </ScrollView>
       </View>
     )
   }
