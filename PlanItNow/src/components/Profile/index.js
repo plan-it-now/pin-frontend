@@ -2,7 +2,9 @@ import React from 'react';
 
 import DrawerProfile from '../DrawerProfile';
 
-import { View, Image, TouchableHighlight, DrawerLayoutAndroid } from 'react-native'
+
+
+import { View, Image, TouchableOpacity, DrawerLayoutAndroid } from 'react-native'
 
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Card, CardItem, Text, Drawer,
 } from 'native-base';
@@ -99,7 +101,7 @@ class Profile extends React.Component {
           </Left>
           <Body>
             <Title>
-              Your Name
+              {this.props.user.userdata.name}
             </Title>
           </Body>
         </Header>
@@ -108,8 +110,7 @@ class Profile extends React.Component {
           {
             this.props.itineraries.map( itinerary => (
               <Card>
-                <View>
-                  <TouchableHighlight>
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate('Detail', {_itinerary:itinerary })}>
                     <Image
                       style={{
                         flex: 1,
@@ -121,25 +122,27 @@ class Profile extends React.Component {
                       source={{ uri : itinerary.places[0].place.photo }}>
                       <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', backgroundColor: 'rgba(52, 52, 52, 0.4)' }}>
                         <Text style={{
-                            color: '#fff', fontWeight: 'bold', margin: 5, flexWrap: 'wrap'
-                          }}>{itinerary.places[0].place.city} Trip</Text>
-                        <Text style={{ color: '#fff', margin: 5}}>
-                          {(new Date(itinerary.createdAt)).toLocaleString()}
-                        </Text>
+                            color: '#fff', fontWeight: 'bold', padding: 20
+                          }}>{itinerary.places[0].place.city} {itinerary.days} Days Trip</Text>
                       </View>
                     </Image>
-                  </TouchableHighlight>
+                  </TouchableOpacity>
                   <CardItem>
                     <Body>
                       <Text>
-                        {itinerary.places[0].place.name}
+                        Posted at : {(new Date(itinerary.createdAt)).toLocaleString()}
                       </Text>
-                      <Text note>
-                        2 days ago
-                      </Text>
+                      <View style={{ flexDirection: 'row', padding:0}}>
+                        <Text note>Tags :</Text>
+                        {
+                          itinerary.places.map((x,idx) => (
+                              <Text note key={idx}>#{x.place.tag}</Text>
+                          ))
+                        }
+                      </View>
+
                     </Body>
                   </CardItem>
-                </View>
               </Card>
             ))
           }
