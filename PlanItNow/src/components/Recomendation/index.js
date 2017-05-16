@@ -240,7 +240,7 @@ class Recomedation extends React.Component {
                 <MapDetail card={this.state.mapData} />
               </View>
 
-              <Button style={{backgroundColor:"#5E35B1"}} block onPress={()=> {this.setModalVisible(false, null)}}>
+              <Button style={{backgroundColor:'#5E35B1'}} block onPress={()=> {this.setModalVisible(false, null)}}>
                   <Text>Close</Text>
               </Button>
             </Modal>

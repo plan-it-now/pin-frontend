@@ -2,63 +2,19 @@ import React from 'react';
 
 import DrawerProfile from '../DrawerProfile';
 
-import {
+import { View, Image, TouchableHighlight, DrawerLayoutAndroid } from 'react-native'
 
-  View,
-
-  Image,
-
-  TouchableHighlight,
-
-  DrawerLayoutAndroid
-
-} from 'react-native';
-
-
-
-import {
-
-  Container,
-
-  Header,
-
-  Title,
-
-  Content,
-
-  Footer,
-
-  FooterTab,
-
-  Button,
-
-  Left,
-
-  Right,
-
-  Body,
-
-  Card,
-
-  CardItem,
-
-  Text,
-
-  Drawer,
-
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Card, CardItem, Text, Drawer,
 } from 'native-base';
+
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
 
 import { fetchItin } from '../../actions';
 
-
 class Profile extends React.Component {
-
   constructor(props) {
-
     super(props)
-
   }
 
   closeDrawer() {
@@ -72,8 +28,6 @@ class Profile extends React.Component {
     const { fetchItin , user } = this.props
     fetchItin(user.userdata._id);
   }
-
-
 
   render () {
     var navigationView = (
@@ -120,7 +74,6 @@ class Profile extends React.Component {
         </View>
       </View>
     );
-
 
     return (
       <DrawerLayoutAndroid
