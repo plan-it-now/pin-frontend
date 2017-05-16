@@ -113,7 +113,7 @@ class ItineraryStepOne extends React.Component {
                         borderRadius:10
                       }}
                     >
-                      <View style={{ width: 200, paddingLeft: 10 }}>
+                      <View style={{ width: 200, paddingLeft: 30 }}>
                         <Text style={{ color: '#000', fontSize: 18}}>{appPlace.place.name} </Text>
                       </View>
 
@@ -137,16 +137,14 @@ class ItineraryStepOne extends React.Component {
               </Content>
             </ScrollView>
 
-            <Footer>
-              <FooterTab>
+            <View style={{alignSelf:'center', marginBottom:10}}>
                 <Button
                   style={{ backgroundColor: '#5E35B1'}}
-                  block
+                  rounded
                   onPress={()=>this.handleSave()}>
                   <Text style={{ color: '#fff', fontWeight: 'bold' }}>Proceed to Step 4</Text>
                 </Button>
-              </FooterTab>
-            </Footer>
+            </View>
       </Container>
     )
   }

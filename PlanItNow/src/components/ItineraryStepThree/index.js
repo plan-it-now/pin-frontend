@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView, StatusBar } from 'react-native'
+import { View, Text, ScrollView, StatusBar, Alert } from 'react-native'
 
 import { Container, Header, Body, Title, Content, Item, Input, Fab, Button, Footer, FooterTab } from 'native-base'
 
@@ -121,7 +121,7 @@ class ItineraryStepThree extends React.Component {
               this.state.structuredPlaces.map((places,idx) => (
                 <View key={idx}>
                   <View style={{paddingLeft:10}}>
-                    <Text style={{fontSize:20}}>Day - {idx+1} </Text>
+                    <Text style={{fontSize:20, fontWeight:'bold'}}>Day - {idx+1} </Text>
                   </View>
                   <ScheduleDetail places={places} bossIdx={idx} setTimeSchedule={this.setTimeSchedule}/>
                 </View>
@@ -130,16 +130,14 @@ class ItineraryStepThree extends React.Component {
           </ScrollView>
         </Content>
 
-        <Footer>
-          <FooterTab>
+        <View style={{alignSelf:'center', marginBottom:10}}>
             <Button
               style={{ backgroundColor: '#5E35B1'}}
-              block
+              rounded
               onPress={()=>this.finalConfirm()}>
               <Text style={{ color: '#fff', fontWeight: 'bold' }}>Generate Itinerary</Text>
             </Button>
-          </FooterTab>
-        </Footer>
+        </View>
       </Container>
     )
   }

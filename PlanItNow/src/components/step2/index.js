@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { View, Image, Text, ScrollView, Modal, TouchableHighlight, StatusBar } from 'react-native';
+import { View, Image, Text, ScrollView, Modal, TouchableHighlight, TouchableOpacity, StatusBar } from 'react-native';
 
 import { Container, Header, Body, Title, Button, Footer, FooterTab, Content, Icon } from 'native-base'
 import { connect } from 'react-redux';
@@ -147,28 +147,26 @@ class MyComponent extends React.Component {
             <Content>
               <View style={{marginTop:10}}>
                 {this.state.dataAll.map((day,index) => (
-                  <TouchableHighlight
+                  <TouchableOpacity
                     key={index}
                     onPress={() => { this.setModalVisible(index) }}
                     style={{backgroundColor:"#fff", margin:10, borderRadius:10}}>
                     <Text style={{fontSize:20, padding:10, color:'#000', justifyContent:'center', alignSelf:'center'}}>
                       DAY - {index+1}
                     </Text>
-                  </TouchableHighlight>
+                  </TouchableOpacity>
                 ))}
               </View>
             </Content>
 
-            <Footer>
-              <FooterTab>
+            <View style={{alignSelf:'center', marginBottom:10}}>
                 <Button
                   style={{ backgroundColor: '#5E35B1'}}
-                  block
+                  rounded
                   onPress={()=>this.handleSubmitOrder()}>
                   <Text style={{ color: '#fff', fontWeight: 'bold' }}>Proceed to Step 5</Text>
                 </Button>
-              </FooterTab>
-            </Footer>
+            </View>
       </Container>
     )
   }
