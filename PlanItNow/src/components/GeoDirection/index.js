@@ -16,7 +16,10 @@ class GeoDirection extends React.Component {
     super(props);
     this.state = {
       // initialPosition: 'unknown',
-      lastPosition: 'unknown',
+      lastPosition: {
+        latitude: 0,
+        longitude: 0
+      }
     };
   }
 
@@ -33,8 +36,13 @@ class GeoDirection extends React.Component {
     //   {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     // );
     this.watchID = navigator.geolocation.watchPosition((position) => {
-      let lastPosition = JSON.stringify(position);
-      this.setState({lastPosition});
+      // let test = JSON.stringify(position);
+      // console.log('asd',position);
+      this.setState({lastPosition: {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
+            },
+          });
     });
   }
 
@@ -46,8 +54,8 @@ class GeoDirection extends React.Component {
     const { myDestination } = this.props;
     const data = {
        source: {
-        latitude: myLocation.latitude,
-        longitude: myLocation.longitude
+        latitude: this.state.lastPosition.latitude,
+        longitude: this.state.lastPosition.longitude
       },
       destination: {
         latitude: myDestination.latitude,

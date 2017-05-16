@@ -13,9 +13,11 @@ import Profile from './Profile';
 import EditPassword from './EditPassword';
 import DrawerProfile from './DrawerProfile';
 import ItineraryDetail from './itineraryDetail';
+import GeoDirection from './GeoDirection';
 
 const App = StackNavigator({
 
+  GeoDirection: {screen : GeoDirection},
   Login: {screen : Login},
   Profile: {screen : Profile},
   // inputQuery: {screen: inputQuery},
