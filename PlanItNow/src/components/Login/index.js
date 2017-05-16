@@ -150,7 +150,7 @@ class Login extends React.Component {
             <Item>
               <Icon name='lock' style={{fontSize: 20, color: 'white'}} />
               <Input
-                placeholder = "Password"
+                placeholder = " Password"
                 placeholderTextColor = "#fff"
                 secureTextEntry = {true}
                 onChangeText = {(text) => this.setState({password:text})}
