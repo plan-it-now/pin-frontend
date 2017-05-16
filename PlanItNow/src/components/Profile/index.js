@@ -104,8 +104,8 @@ class Profile extends React.Component {
         <Content padder>
           {
             this.props.itineraries.map( (itinerary,index) => (
-              <View style={{marginBottom:20}}>
-              <Card key={index}>
+              <View key={index} style={{marginBottom:20}}>
+              <Card>
                   <TouchableOpacity onPress={() => this.props.navigation.navigate('Detail', {_itinerary:itinerary })}>
                     <Image
                       style={{
@@ -131,7 +131,7 @@ class Profile extends React.Component {
                       <View style={{ flexDirection: 'row', flexWrap: 'wrap'}}>
                         {
                           itinerary.places.map((x,idx) => (
-                              <Text style={{ paddingRight: 20, paddingTop: 5, color: '#5E35B1', fontWeight: 'bold' }} key={idx}>#{x.place.tag}</Text>
+                              <Text key={idx} style={{ paddingRight: 20, paddingTop: 5, color: '#5E35B1', fontWeight: 'bold' }} key={idx}>#{x.place.tag}</Text>
                           ))
                         }
                       </View>
