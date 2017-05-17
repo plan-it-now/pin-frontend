@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { View, Text, StyleSheet, Image, AsyncStorage, StatusBar } from 'react-native';
 
 import { Container, Content, Footer, FooterTab, Form, Item, Input, Label, Button, Icon } from 'native-base';
-import { login, loginfb, updateRedirectFalse, decodeUser } from '../../actions'
+import { login, loginfb, decodeUser } from '../../actions'
 
 const FBSDK = require('react-native-fbsdk');
 
@@ -55,7 +55,7 @@ class Login extends React.Component {
   loginSuccess() {
     const { navigate } = this.props.navigation;
     navigate('Profile', {willFetch: true});
-    this.props.updateRedirectFalse();
+    // this.props.updateRedirectFalse();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -251,7 +251,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => ({
   login: (user) => dispatch(login(user)),
   loginfb: (user) => dispatch(loginfb(user)),
-  updateRedirectFalse: () => dispatch(updateRedirectFalse()),
+  // updateRedirectFalse: () => dispatch(updateRedirectFalse()),
   decodeUser: (_token) => dispatch(decodeUser(_token))
 })
 
