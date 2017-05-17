@@ -14,7 +14,10 @@ import {
   UPDATE_REDIRECT,
   POST_ITIN,
   FETCH_ITIN,
-  FETCH_PLACES
+  FETCH_PLACES,
+  PROCESS_PLACES,
+  PROCESS_STEP1,
+  PROCESS_STEP2
 } from '../src/actions/constants';
 
 const initialState = {
@@ -95,8 +98,9 @@ describe('Itinerary Reducer', () => {
   })
 })
 
+
 describe('Places Reducer', () => {
-  it('handle Placer Reducer', () => {
+  it('Should render all recomendation place', () => {
     const actions = {
       type: FETCH_PLACES,
       payload: {payload: 'payloadVal'}
@@ -114,4 +118,62 @@ describe('Places Reducer', () => {
       rejectedPlaces: []
     })
   })
+
+  it('Handle result from users decision', () => {
+    const actions = {
+      type: PROCESS_PLACES,
+      payload: {payload: 'payloadVal'}
+    }
+    const newState = placeReducer(undefined, actions)
+    expect(newState).toEqual({
+      approvedPlaces: [],
+      days: 0,
+      recomendationPlaces: [{
+        description: "",
+        name: "Loading...",
+        photo: "",
+      }],
+      payload: "payloadVal",
+      rejectedPlaces: []
+    })
+  })
+
+  it('Handle ordering users Itinerary', () => {
+    const actions = {
+      type: PROCESS_STEP1,
+      payload: {payload: 'payloadVal'}
+    }
+    const newState = placeReducer(undefined, actions)
+    expect(newState).toEqual({
+      approvedPlaces: [],
+      days: 0,
+      recomendationPlaces: [{
+        description: "",
+        name: "Loading...",
+        photo: "",
+      }],
+      payload: "payloadVal",
+      rejectedPlaces: []
+    })
+  })
+
+  it('Handle rescheduling users Itinerary', () => {
+    const actions = {
+      type: PROCESS_STEP2,
+      payload: {payload: 'payloadVal'}
+    }
+    const newState = placeReducer(undefined, actions)
+    expect(newState).toEqual({
+      approvedPlaces: [],
+      days: 0,
+      recomendationPlaces: [{
+        description: "",
+        name: "Loading...",
+        photo: "",
+      }],
+      payload: "payloadVal",
+      rejectedPlaces: []
+    })
+  })
+
 })
