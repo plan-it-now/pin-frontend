@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { LOGIN_USER, SIGNUP_USER, LOGOUT_USER, UPDATE_USER, LOGIN_FB, UPDATE_REDIRECT, DECODE_USER } from './constants';
+import { LOGIN_USER, SIGNUP_USER, LOGOUT_USER, UPDATE_USER, LOGIN_FB, UPDATE_REDIRECT, DECODE_USER, SERVER_URL } from './constants';
 
 
 //loginkey = token dan ID
@@ -11,7 +11,7 @@ export const loginSuccess = (loginkey) => ({
 
 export const login = (datauser) => (
   dispatch => (
-    axios.post('http://ec2-52-221-233-16.ap-southeast-1.compute.amazonaws.com/login',datauser)
+    axios.post(SERVER_URL+'login',datauser)
     .then((res) => (dispatch(loginSuccess(res.data)))
     )
   )
@@ -32,7 +32,7 @@ export const logout = () => ({
 
 export const signup = (datauser) => (
   dispatch => (
-    axios.post('http://ec2-52-221-233-16.ap-southeast-1.compute.amazonaws.com/signup',datauser)
+    axios.post(SERVER_URL+'signup',datauser)
     .then((res) => (dispatch(signupSuccess(res.data)))
     )
   )
@@ -90,7 +90,7 @@ export const loginfbSuccess = (data) => ({
 
 export const loginfb = (datauser) => (
   dispatch => (
-    axios.post('http://ec2-52-221-233-16.ap-southeast-1.compute.amazonaws.com/login-fb',datauser)
+    axios.post(SERVER_URL+'login-fb',datauser)
     .then((res) => (dispatch(loginfbSuccess(res.data)))
     )
   )
@@ -103,7 +103,7 @@ const decodeUserSuccess = (data) => ({
 
 export const decodeUser = (_token) => (
   dispatch => (
-    axios.get('http://ec2-52-221-233-16.ap-southeast-1.compute.amazonaws.com/users/userdata',{
+    axios.get(SERVER_URL+'users/userdata',{
       headers: {'token': _token}
     })
     .then((res) => (dispatch(decodeUserSuccess(res.data))))

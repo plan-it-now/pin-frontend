@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { FETCH_PLACES, PROCESS_PLACES, PROCESS_STEP1, PROCESS_STEP2 } from './constants';
+import { FETCH_PLACES, PROCESS_PLACES, PROCESS_STEP1, PROCESS_STEP2, SERVER_URL } from './constants';
 
 const mockingjayAlgorithm = (pref,data) => {
   let arrayPlaces = data;
@@ -87,7 +87,7 @@ const fetchPlacesSucces = (pref,data,days) => ({
 export const fetchPlaces = (pref,city,days) => {
   return (
     dispatch => (
-      axios.get('http://ec2-52-221-233-16.ap-southeast-1.compute.amazonaws.com/places/city/'+city)
+      axios.get(SERVER_URL+'places/city/'+city)
       .then((res) => (dispatch(fetchPlacesSucces(pref,res.data,days))))
     )
   )
