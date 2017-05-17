@@ -104,110 +104,6 @@ ShallowWrapper {
 }
 `;
 
-exports[`Should render ItineraryDetail Component 1`] = `
-ShallowWrapper {
-  "complexSelector": ComplexSelector {
-    "buildPredicate": [Function],
-    "childrenOfNode": [Function],
-    "findWhereUnwrapped": [Function],
-  },
-  "length": 1,
-  "node": <ItineraryDetail />,
-  "nodes": Array [
-    <ItineraryDetail />,
-  ],
-  "options": Object {},
-  "renderer": ReactShallowRenderer {
-    "_instance": ShallowComponentWrapper {
-      "_calledComponentWillUnmount": false,
-      "_compositeType": 0,
-      "_context": Object {},
-      "_currentElement": <Provider
-        store={
-                Object {
-                        "dispatch": [Function],
-                        "getState": [Function],
-                        "replaceReducer": [Function],
-                        "subscribe": [Function],
-                        Symbol(observable): [Function],
-                      }
-        }
->
-        <ItineraryDetail />
-</Provider>,
-      "_debugID": 21,
-      "_hostContainerInfo": null,
-      "_hostParent": null,
-      "_instance": Provider {
-        "_reactInternalInstance": [Circular],
-        "context": Object {},
-        "props": Object {
-          "children": <ItineraryDetail />,
-          "store": Object {
-            "dispatch": [Function],
-            "getState": [Function],
-            "replaceReducer": [Function],
-            "subscribe": [Function],
-            Symbol(observable): [Function],
-          },
-        },
-        "refs": Object {},
-        "state": null,
-        "store": Object {
-          "dispatch": [Function],
-          "getState": [Function],
-          "replaceReducer": [Function],
-          "subscribe": [Function],
-          Symbol(observable): [Function],
-        },
-        "updater": Object {
-          "enqueueCallback": [Function],
-          "enqueueCallbackInternal": [Function],
-          "enqueueElementInternal": [Function],
-          "enqueueForceUpdate": [Function],
-          "enqueueReplaceState": [Function],
-          "enqueueSetState": [Function],
-          "isMounted": [Function],
-          "validateCallback": [Function],
-        },
-      },
-      "_mountOrder": 11,
-      "_pendingCallbacks": null,
-      "_pendingElement": null,
-      "_pendingForceUpdate": false,
-      "_pendingReplaceState": false,
-      "_pendingStateQueue": null,
-      "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <ItineraryDetail />,
-        "_debugID": 22,
-        "_renderedOutput": <ItineraryDetail />,
-      },
-      "_renderedNodeType": 1,
-      "_rootNodeID": 0,
-      "_topLevelWrapper": null,
-      "_updateBatchNumber": null,
-      "_warnedAboutRefsInRender": false,
-    },
-    "getRenderOutput": [Function],
-    "render": [Function],
-  },
-  "root": [Circular],
-  "unrendered": <Provider
-    store={
-        Object {
-            "dispatch": [Function],
-            "getState": [Function],
-            "replaceReducer": [Function],
-            "subscribe": [Function],
-            Symbol(observable): [Function],
-          }
-    }
->
-    <ItineraryDetail />
-</Provider>,
-}
-`;
-
 exports[`Should render ItineraryStepOne Component 1`] = `
 ShallowWrapper {
   "complexSelector": ComplexSelector {
@@ -655,7 +551,7 @@ ShallowWrapper {
 >
         <MapDetail />
 </Provider>,
-      "_debugID": 19,
+      "_debugID": 21,
       "_hostContainerInfo": null,
       "_hostParent": null,
       "_instance": Provider {
@@ -691,7 +587,7 @@ ShallowWrapper {
           "validateCallback": [Function],
         },
       },
-      "_mountOrder": 10,
+      "_mountOrder": 11,
       "_pendingCallbacks": null,
       "_pendingElement": null,
       "_pendingForceUpdate": false,
@@ -699,7 +595,7 @@ ShallowWrapper {
       "_pendingStateQueue": null,
       "_renderedComponent": NoopInternalComponent {
         "_currentElement": <MapDetail />,
-        "_debugID": 20,
+        "_debugID": 22,
         "_renderedOutput": <MapDetail />,
       },
       "_renderedNodeType": 1,
@@ -932,110 +828,6 @@ ShallowWrapper {
     }
 >
     <Connect(Profile) />
-</Provider>,
-}
-`;
-
-exports[`Should render Recomedation Component 1`] = `
-ShallowWrapper {
-  "complexSelector": ComplexSelector {
-    "buildPredicate": [Function],
-    "childrenOfNode": [Function],
-    "findWhereUnwrapped": [Function],
-  },
-  "length": 1,
-  "node": <Connect(Recomedation) />,
-  "nodes": Array [
-    <Connect(Recomedation) />,
-  ],
-  "options": Object {},
-  "renderer": ReactShallowRenderer {
-    "_instance": ShallowComponentWrapper {
-      "_calledComponentWillUnmount": false,
-      "_compositeType": 0,
-      "_context": Object {},
-      "_currentElement": <Provider
-        store={
-                Object {
-                        "dispatch": [Function],
-                        "getState": [Function],
-                        "replaceReducer": [Function],
-                        "subscribe": [Function],
-                        Symbol(observable): [Function],
-                      }
-        }
->
-        <Connect(Recomedation) />
-</Provider>,
-      "_debugID": 23,
-      "_hostContainerInfo": null,
-      "_hostParent": null,
-      "_instance": Provider {
-        "_reactInternalInstance": [Circular],
-        "context": Object {},
-        "props": Object {
-          "children": <Connect(Recomedation) />,
-          "store": Object {
-            "dispatch": [Function],
-            "getState": [Function],
-            "replaceReducer": [Function],
-            "subscribe": [Function],
-            Symbol(observable): [Function],
-          },
-        },
-        "refs": Object {},
-        "state": null,
-        "store": Object {
-          "dispatch": [Function],
-          "getState": [Function],
-          "replaceReducer": [Function],
-          "subscribe": [Function],
-          Symbol(observable): [Function],
-        },
-        "updater": Object {
-          "enqueueCallback": [Function],
-          "enqueueCallbackInternal": [Function],
-          "enqueueElementInternal": [Function],
-          "enqueueForceUpdate": [Function],
-          "enqueueReplaceState": [Function],
-          "enqueueSetState": [Function],
-          "isMounted": [Function],
-          "validateCallback": [Function],
-        },
-      },
-      "_mountOrder": 12,
-      "_pendingCallbacks": null,
-      "_pendingElement": null,
-      "_pendingForceUpdate": false,
-      "_pendingReplaceState": false,
-      "_pendingStateQueue": null,
-      "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <Connect(Recomedation) />,
-        "_debugID": 24,
-        "_renderedOutput": <Connect(Recomedation) />,
-      },
-      "_renderedNodeType": 1,
-      "_rootNodeID": 0,
-      "_topLevelWrapper": null,
-      "_updateBatchNumber": null,
-      "_warnedAboutRefsInRender": false,
-    },
-    "getRenderOutput": [Function],
-    "render": [Function],
-  },
-  "root": [Circular],
-  "unrendered": <Provider
-    store={
-        Object {
-            "dispatch": [Function],
-            "getState": [Function],
-            "replaceReducer": [Function],
-            "subscribe": [Function],
-            Symbol(observable): [Function],
-          }
-    }
->
-    <Connect(Recomedation) />
 </Provider>,
 }
 `;

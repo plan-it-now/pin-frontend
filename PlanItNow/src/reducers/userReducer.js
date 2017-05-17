@@ -13,7 +13,7 @@ const initialState = {
 }
 
 function loginSuccess(payload) {
-  console.log("PAYLOAD", payload);
+  // console.log("PAYLOAD", payload);
   if(payload.error === null || payload.error){
     return {...initialState, warning: 'Invalid Email or Password'}
   } else {
