@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for PlanItNow/src/actions/userAction.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">PlanItNow/src/actions</a> userAction.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">21.05% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>12/57</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/40</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/22</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">24% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>12/50</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import axios from 'axios';
+&nbsp;
+import { LOGIN_USER, SIGNUP_USER, LOGOUT_USER, UPDATE_USER, LOGIN_FB, UPDATE_REDIRECT, DECODE_USER } from './constants';
+&nbsp;
+&nbsp;
+//loginkey = token dan ID
+export const loginSuccess = <span class="fstat-no" title="function not covered" >(l</span>oginkey) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+  type: LOGIN_USER,
+  payload: loginkey,
+})
+&nbsp;
+export const login = <span class="fstat-no" title="function not covered" >(d</span>atauser) =&gt; (
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  di</span>spatch =&gt; (</span>
+<span class="cstat-no" title="statement not covered" >    axios.post('http://ec2-52-221-233-16.ap-southeast-1.compute.amazonaws.com/login',datauser)</span>
+    .then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; (<span class="cstat-no" title="statement not covered" >dispatch(loginSuccess(res.data)))</span>
+    )
+  )
+)
+&nbsp;
+export const signupSuccess = <span class="fstat-no" title="function not covered" >(d</span>ata) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+  type: SIGNUP_USER,
+  payload: data
+})
+&nbsp;
+export const updateRedirectFalse = <span class="fstat-no" title="function not covered" >()</span> =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+  type: UPDATE_REDIRECT
+})
+&nbsp;
+export const logout = <span class="fstat-no" title="function not covered" >()</span> =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+  type: LOGOUT_USER
+})
+&nbsp;
+export const signup = <span class="fstat-no" title="function not covered" >(d</span>atauser) =&gt; (
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  di</span>spatch =&gt; (</span>
+<span class="cstat-no" title="statement not covered" >    axios.post('http://ec2-52-221-233-16.ap-southeast-1.compute.amazonaws.com/signup',datauser)</span>
+    .then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; (<span class="cstat-no" title="statement not covered" >dispatch(signupSuccess(res.data)))</span>
+    )
+  )
+)
+&nbsp;
+const updateSuccess = <span class="fstat-no" title="function not covered" >(d</span>ata) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+  type: UPDATE_USER,
+  payload: data,
+})
+&nbsp;
+export const updateUser = <span class="fstat-no" title="function not covered" >(u</span>ser,places) =&gt; {
+  let newUser = <span class="cstat-no" title="statement not covered" >user;</span>
+<span class="cstat-no" title="statement not covered" >  for (let i = 0; i &lt; places.approvedPlaces.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >    if (places.approvedPlaces[i].place.tag == 'Art' &amp;&amp; newUser.userdata.pref.art &lt;= 95) {</span>
+<span class="cstat-no" title="statement not covered" >      newUser.userdata.pref.art += 5;</span>
+    } else <span class="cstat-no" title="statement not covered" >if (places.approvedPlaces[i].place.tag == 'Architecture' &amp;&amp; newUser.userdata.pref.architecture &lt;= 95){</span>
+<span class="cstat-no" title="statement not covered" >      newUser.userdata.pref.architecture += 5;</span>
+    } else <span class="cstat-no" title="statement not covered" >if (places.approvedPlaces[i].place.tag == 'History' &amp;&amp; newUser.userdata.pref.history &lt;= 95){</span>
+<span class="cstat-no" title="statement not covered" >      newUser.userdata.pref.history += 5;</span>
+    } else <span class="cstat-no" title="statement not covered" >if (places.approvedPlaces[i].place.tag == 'Shopping' &amp;&amp; newUser.userdata.pref.shopping &lt;= 95){</span>
+<span class="cstat-no" title="statement not covered" >      newUser.userdata.pref.shopping += 5;</span>
+    } else <span class="cstat-no" title="statement not covered" >if (places.approvedPlaces[i].place.tag == 'Nature' &amp;&amp; newUser.userdata.pref.nature &lt;= 95){</span>
+<span class="cstat-no" title="statement not covered" >      newUser.userdata.pref.nature += 5;</span>
+    }
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  for (let i = 0; i &lt; places.rejectedPlaces.length; i++ ) {</span>
+<span class="cstat-no" title="statement not covered" >    if (places.rejectedPlaces[i].tag == 'Art' &amp;&amp; newUser.userdata.pref.art &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >      newUser.userdata.pref.art -= 5;</span>
+    } else <span class="cstat-no" title="statement not covered" >if (places.rejectedPlaces[i].tag == 'Architecture' &amp;&amp; newUser.userdata.pref.architecture &gt; 0){</span>
+<span class="cstat-no" title="statement not covered" >      newUser.userdata.pref.architecture -= 5;</span>
+    } else <span class="cstat-no" title="statement not covered" >if (places.rejectedPlaces[i].tag == 'History' &amp;&amp; newUser.userdata.pref.history &gt; 0){</span>
+<span class="cstat-no" title="statement not covered" >      newUser.userdata.pref.history -= 5;</span>
+    } else <span class="cstat-no" title="statement not covered" >if (places.rejectedPlaces[i].tag == 'Shopping' &amp;&amp; newUser.userdata.pref.shopping &gt; 0){</span>
+<span class="cstat-no" title="statement not covered" >      newUser.userdata.pref.shopping -= 5;</span>
+    } else <span class="cstat-no" title="statement not covered" >if (places.rejectedPlaces[i].tag == 'Nature' &amp;&amp; newUser.userdata.pref.nature &gt; 0){</span>
+<span class="cstat-no" title="statement not covered" >      newUser.userdata.pref.nature -= 5;</span>
+    }
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return (</span>
+<span class="fstat-no" title="function not covered" >    di</span>spatch =&gt; (
+<span class="cstat-no" title="statement not covered" >      axios.put(`http://ec2-52-221-233-16.ap-southeast-1.compute.amazonaws.com/users/${newUser.userdata._id}`, {</span>
+        pref: newUser.userdata.pref
+      })
+      .then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; (<span class="cstat-no" title="statement not covered" >dispatch(updateSuccess(res.data)))</span>)
+    )
+  )
+}
+&nbsp;
+export const loginfbSuccess = <span class="fstat-no" title="function not covered" >(d</span>ata) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+  type: LOGIN_FB,
+  payload: data
+})
+&nbsp;
+export const loginfb = <span class="fstat-no" title="function not covered" >(d</span>atauser) =&gt; (
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  di</span>spatch =&gt; (</span>
+<span class="cstat-no" title="statement not covered" >    axios.post('http://ec2-52-221-233-16.ap-southeast-1.compute.amazonaws.com/login-fb',datauser)</span>
+    .then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; (<span class="cstat-no" title="statement not covered" >dispatch(loginfbSuccess(res.data)))</span>
+    )
+  )
+)
+&nbsp;
+const decodeUserSuccess = <span class="fstat-no" title="function not covered" >(d</span>ata) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+  type: DECODE_USER,
+  payload: data
+})
+&nbsp;
+export const decodeUser = <span class="fstat-no" title="function not covered" >(_</span>token) =&gt; (
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >  di</span>spatch =&gt; (</span>
+<span class="cstat-no" title="statement not covered" >    axios.get('http://ec2-52-221-233-16.ap-southeast-1.compute.amazonaws.com/users/userdata',{</span>
+      headers: {'token': _token}
+    })
+    .then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; (<span class="cstat-no" title="statement not covered" >dispatch(decodeUserSuccess(res.data)))</span>)
+  )
+)
+//tambahkan urusan logout
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed May 17 2017 14:54:15 GMT+0700 (WIB)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>
