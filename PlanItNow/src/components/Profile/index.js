@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
 
 import { fetchItin, logout } from '../../actions';
+import Tags from './Tags';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -109,8 +110,8 @@ class Profile extends React.Component {
         </Header>
         {this.props.itineraries.length === 0 ? <Image
           style={{width:'100%', height:'100%', marginTop: -30}}
-          source={{ uri : 'http://i.imgur.com/xyH2gr7.png' }}
-        /> :
+          source={{ uri : 'http://i.imgur.com/xyH2gr7.png' }}/>
+          :
         <Content padder>
           {
             this.props.itineraries.map( (itinerary,index) => (
@@ -136,14 +137,10 @@ class Profile extends React.Component {
                   <CardItem>
                     <Body>
                       <Text>
-                        Posted at : {(new Date(itinerary.createdAt)).toLocaleDateString()}
+                        Posted at : {(new Date(itinerary.createdAt)).toLocaleDateString()}, {(new Date(itinerary.createdAt)).toLocaleTimeString()}
                       </Text>
                       <View style={{ flexDirection: 'row', flexWrap: 'wrap'}}>
-                        {
-                          itinerary.places.map((x,idx) => (
-                              <Text key={idx} style={{ paddingRight: 20, paddingTop: 5, color: '#5E35B1', fontWeight: 'bold' }} key={idx}>#{x.place.tag}</Text>
-                          ))
-                        }
+                        <Tags itinerary={itinerary}/>
                       </View>
 
                     </Body>
