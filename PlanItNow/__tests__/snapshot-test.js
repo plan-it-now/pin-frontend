@@ -135,3 +135,12 @@ it('Should render Register Component', () => {
   );
   expect(RegisterComp).toMatchSnapshot();
 })
+
+it('Should render Register Component', () => {
+  const RegisterComp = shallow(
+    <Provider store={store}>
+      <Register />
+    </Provider>
+  );
+  expect(RegisterComp).toMatchSnapshot();
+})
