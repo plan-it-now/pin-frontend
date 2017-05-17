@@ -5,7 +5,7 @@ import { View, Text, StyleSheet, Image, StatusBar } from 'react-native';
 
 import { Container, Content, Form, Item, Input, Label, Button, Icon } from 'native-base';
 
-import { signup, updateRedirectFalse } from '../../actions'
+import { signup } from '../../actions'
 
 class Register extends React.Component {
   constructor(props) {
@@ -33,7 +33,7 @@ class Register extends React.Component {
   loginSuccess() {
     const { navigate } = this.props.navigation;
     navigate('Profile', {willFetch: false});
-    this.props.updateRedirectFalse();
+    // this.props.updateRedirectFalse();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -102,6 +102,9 @@ class Register extends React.Component {
                 alignSelf: 'center',
               }}
               source={require('../../assets/pin-logo-transparent.png')}/>
+            <View style={{alignSelf:'center', marginBottom:40, marginTop:-15}}>
+              <Text style={{color:'#fff', fontSize:20, fontWeight:'bold'}}>Plan It Now</Text>
+            </View>
             <Item>
               <Icon name='person' style={{fontSize: 20, color: 'white'}} />
               <Input
@@ -182,7 +185,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => ({
   signup: (user) => dispatch(signup(user)),
-  updateRedirectFalse: () => dispatch(updateRedirectFalse())
+  // updateRedirectFalse: () => dispatch(updateRedirectFalse())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);

@@ -45,11 +45,6 @@ class Login extends React.Component {
         })
       }
     });
-    // for development purpose only
-    // this.props.login({
-    //   email: 'a',
-    //   password: 'a'
-    // })
   }
 
   loginSuccess() {
@@ -149,6 +144,9 @@ class Login extends React.Component {
                 alignSelf: 'center',
               }}
               source={require('../../assets/pin-logo-transparent.png')}/>
+            <View style={{alignSelf:'center', marginBottom:40, marginTop:-15}}>
+              <Text style={{color:'#fff', fontSize:20, fontWeight:'bold'}}>Plan It Now</Text>
+            </View>
             <Item>
               <Icon name='mail' style={{fontSize: 20, color: 'white'}} />
               <Input
@@ -181,17 +179,7 @@ class Login extends React.Component {
                   >Sign In</Text>
             </Button>
 
-            <Button onPress={() => this.authfacebooksdk()}
-              block
-              style={{
-                marginTop: 20,
-                alignItems: 'center',
-                backgroundColor: '#3B5998'
-              }}
-            >
-              <Icon name='logo-facebook' />
-              <Text style={{color:'#fff'}}> Sign In with Facebook</Text>
-            </Button>
+
           </View>
 
           {
