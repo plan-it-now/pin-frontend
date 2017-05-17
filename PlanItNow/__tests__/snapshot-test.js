@@ -16,6 +16,12 @@ import inputQuery from '../src/Components/inputQuery';
 import ItineraryDetail from '../src/Components/ItineraryDetail';
 import ItineraryStepOne from '../src/Components/ItineraryStepOne';
 import MyComponent from '../src/Components/step2';
+import { RowComponent } from '../src/Components/step2';
+import ItineraryStepThree from '../src/Components/ItineraryStepThree';
+import ScheduleDetail from '../src/Components/ItineraryStepThree/ScheduleDetail.js';
+import MapDetail from '../src/Components/MapDetail';
+import Recomedation from '../src/Components/Recomendation';
+import Register from '../src/Components/Register';
 
 const store = createStore(reducers, applyMiddleware(thunk, logger));
 
@@ -40,7 +46,7 @@ it('Should render Profile Component', () => {
   expect(profileComp).toMatchSnapshot();
 })
 
-it('Should render GeoDirection Componet', () => {
+it('Should render GeoDirection Component', () => {
   const GeoDirectionComp = shallow(
     <Provider store={store}>
       <GeoDirection />
@@ -49,7 +55,7 @@ it('Should render GeoDirection Componet', () => {
   expect(GeoDirectionComp).toMatchSnapshot();
 })
 
-it('Should render inputQuery Componet', () => {
+it('Should render inputQuery Component', () => {
   const inputQueryComp = shallow(
     <Provider store={store}>
       <inputQuery />
@@ -58,7 +64,7 @@ it('Should render inputQuery Componet', () => {
   expect(inputQueryComp).toMatchSnapshot();
 })
 
-it('Should render ItineraryStepOne Componet', () => {
+it('Should render ItineraryStepOne Component', () => {
   const ItineraryStepOneComp = shallow(
     <Provider store={store}>
       <ItineraryStepOne />
@@ -67,11 +73,65 @@ it('Should render ItineraryStepOne Componet', () => {
   expect(ItineraryStepOneComp).toMatchSnapshot();
 })
 
-it('Should render MyComponent Componet', () => {
+it('Should render MyComponent Component', () => {
   const MyComponentComp = shallow(
     <Provider store={store}>
       <MyComponent />
     </Provider>
   );
   expect(MyComponentComp).toMatchSnapshot();
+})
+
+it('Should render RowComponent Component', () => {
+  const RowComponentComp = shallow(
+    <Provider store={store}>
+      <RowComponent />
+    </Provider>
+  );
+  expect(RowComponentComp).toMatchSnapshot();
+})
+
+it('Should render ItineraryStepThree Component', () => {
+  const ItineraryStepThreeComp = shallow(
+    <Provider store={store}>
+      <ItineraryStepThree />
+    </Provider>
+  );
+  expect(ItineraryStepThreeComp).toMatchSnapshot();
+})
+
+it('Should render ItineraryStepThree Component', () => {
+  const ItineraryStepThreeComp = shallow(
+    <Provider store={store}>
+      <ItineraryStepThree />
+    </Provider>
+  );
+  expect(ItineraryStepThreeComp).toMatchSnapshot();
+})
+
+it('Should render ScheduleDetail Component', () => {
+  const ScheduleDetailComp = shallow(
+    <Provider store={store}>
+      <ScheduleDetail />
+    </Provider>
+  );
+  expect(ScheduleDetailComp).toMatchSnapshot();
+})
+
+it('Should render MapDetail Component', () => {
+  const MapDetailComp = shallow(
+    <Provider store={store}>
+      <MapDetail />
+    </Provider>
+  );
+  expect(MapDetailComp).toMatchSnapshot();
+})
+
+it('Should render Register Component', () => {
+  const RegisterComp = shallow(
+    <Provider store={store}>
+      <Register />
+    </Provider>
+  );
+  expect(RegisterComp).toMatchSnapshot();
 })
