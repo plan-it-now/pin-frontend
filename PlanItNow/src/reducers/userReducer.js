@@ -27,11 +27,15 @@ function loginSuccess(payload) {
 }
 
 function loginBecauseAsyncStorage(payload) {
-  return {...payload,
-      shouldRedirectSignIn: true,
-      shouldRedirectSignUp: false,
-      warning: ''
-    };
+  if(payload.userdata.error){
+    return initialState;
+  } else {
+    return {...payload,
+        shouldRedirectSignIn: true,
+        shouldRedirectSignUp: false,
+        warning: ''
+      };
+  }
 }
 
 

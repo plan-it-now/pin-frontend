@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { View, Text, StyleSheet, Image, AsyncStorage, StatusBar } from 'react-native';
 
 import { Container, Content, Footer, FooterTab, Form, Item, Input, Label, Button, Icon } from 'native-base';
-import { login, loginfb, updateRedirectFalse, decodeUser } from '../../actions'
+import { login, loginfb, decodeUser } from '../../actions'
 
 const FBSDK = require('react-native-fbsdk');
 
@@ -45,17 +45,12 @@ class Login extends React.Component {
         })
       }
     });
-    // for development purpose only
-    // this.props.login({
-    //   email: 'a',
-    //   password: 'a'
-    // })
   }
 
   loginSuccess() {
     const { navigate } = this.props.navigation;
     navigate('Profile', {willFetch: true});
-    this.props.updateRedirectFalse();
+    // this.props.updateRedirectFalse();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -149,6 +144,9 @@ class Login extends React.Component {
                 alignSelf: 'center',
               }}
               source={require('../../assets/pin-logo-transparent.png')}/>
+            <View style={{alignSelf:'center', marginBottom:40, marginTop:-15}}>
+              <Text style={{color:'#fff', fontSize:20, fontWeight:'bold'}}>Plan It Now</Text>
+            </View>
             <Item>
               <Icon name='mail' style={{fontSize: 20, color: 'white'}} />
               <Input
@@ -181,17 +179,7 @@ class Login extends React.Component {
                   >Sign In</Text>
             </Button>
 
-            <Button onPress={() => this.authfacebooksdk()}
-              block
-              style={{
-                marginTop: 20,
-                alignItems: 'center',
-                backgroundColor: '#3B5998'
-              }}
-            >
-              <Icon name='logo-facebook' />
-              <Text style={{color:'#fff'}}> Sign In with Facebook</Text>
-            </Button>
+
           </View>
 
           {
@@ -251,7 +239,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => ({
   login: (user) => dispatch(login(user)),
   loginfb: (user) => dispatch(loginfb(user)),
-  updateRedirectFalse: () => dispatch(updateRedirectFalse()),
+  // updateRedirectFalse: () => dispatch(updateRedirectFalse()),
   decodeUser: (_token) => dispatch(decodeUser(_token))
 })
 
