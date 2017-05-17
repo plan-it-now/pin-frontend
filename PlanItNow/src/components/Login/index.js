@@ -5,7 +5,6 @@ import { View, Text, StyleSheet, Image, AsyncStorage, StatusBar } from 'react-na
 import { Container, Content, Footer, FooterTab, Form, Item, Input, Label, Button, Icon } from 'native-base';
 import { login, loginfb, updateRedirectFalse, decodeUser } from '../../actions'
 
-import LoginFb from '../FacebookLogin'
 const FBSDK = require('react-native-fbsdk');
 
 const {
@@ -55,7 +54,7 @@ class Login extends React.Component {
 
   loginSuccess() {
     const { navigate } = this.props.navigation;
-    navigate('Profile');
+    navigate('Profile', {willFetch: true});
     this.props.updateRedirectFalse();
   }
 
@@ -180,24 +179,31 @@ class Login extends React.Component {
                 <Text
                   style={{color: '#fff'}}
                   >Sign In</Text>
-              </Button>
+            </Button>
 
-              <Button onPress={() => this.authfacebooksdk()}
-                block
-                style={{
-                  marginTop: 20,
-                  alignItems: 'center',
-                  backgroundColor: '#3B5998'
-                }}
-              >
-                 <Icon name='logo-facebook' />
-                  <Text style={{color:'#fff'}}> Sign In with Facebook</Text>
-                </Button>
+            <Button onPress={() => this.authfacebooksdk()}
+              block
+              style={{
+                marginTop: 20,
+                alignItems: 'center',
+                backgroundColor: '#3B5998'
+              }}
+            >
+              <Icon name='logo-facebook' />
+              <Text style={{color:'#fff'}}> Sign In with Facebook</Text>
+            </Button>
           </View>
-          <View style={{flex:1, justifyContent:'center', flexDirection:'row'}}>
-            <Text style={{fontSize:15, color:'#fff', marginTop:10}}>{this.state.warning}</Text>
-            <Text style={{fontSize:15, color:'#fff', marginTop:10}}>{this.props.logindata.warning}</Text>
-          </View>
+
+          {
+            (this.state.warning == '' && this.props.logindata.warning !== '') ?
+              <View style={{flex:1, justifyContent:'center'}}>
+                <Text style={{ marginTop:10, color:'red', fontSize:18 }}>{this.props.logindata.warning}</Text>
+              </View>
+              :
+              <View style={{flex:1, justifyContent:'center'}}>
+                <Text style={{ marginTop:10, color:'red', fontSize:18 }}>{this.state.warning}</Text>
+              </View>
+           }
         </Image>
     </View>
 

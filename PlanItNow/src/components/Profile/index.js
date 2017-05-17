@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
 
 import { fetchItin, logout } from '../../actions';
+import Tags from './Tags';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -25,8 +26,12 @@ class Profile extends React.Component {
   };
 
   componentWillMount() {
-    const { fetchItin , user } = this.props
-    fetchItin(user.userdata._id);
+    const { params } = this.props.navigation.state;
+
+    if(params.willFetch){
+      const { fetchItin , user } = this.props;
+      fetchItin(user.userdata._id);
+    }
   }
 
   handleLogout() {
@@ -109,8 +114,8 @@ class Profile extends React.Component {
         </Header>
         {this.props.itineraries.length === 0 ? <Image
           style={{width:'100%', height:'100%', marginTop: -30}}
-          source={{ uri : 'http://i.imgur.com/xyH2gr7.png' }}
-        /> :
+          source={{ uri : 'http://i.imgur.com/xyH2gr7.png' }}/>
+          :
         <Content padder>
           {
             this.props.itineraries.map( (itinerary,index) => (
@@ -125,7 +130,7 @@ class Profile extends React.Component {
                         width: '100%',
                         height: 200,
                         backgroundColor: 'rgba(52, 52, 52, 0.8)' }}
-                      source={{ uri : itinerary.places[0].place.photo }}>
+                      source={{ uri : itinerary.places[Math.round(Math.random()*(itinerary.days-1))].place.photo }}>
                       <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', backgroundColor: 'rgba(52, 52, 52, 0.4)' }}>
                         <Text style={{
                             color: '#fff', fontWeight: 'bold', padding: 16, fontSize: 20
@@ -136,14 +141,10 @@ class Profile extends React.Component {
                   <CardItem>
                     <Body>
                       <Text>
-                        Posted at : {(new Date(itinerary.createdAt)).toLocaleDateString()}
+                        Posted at : {(new Date(itinerary.createdAt)).toLocaleDateString()}, {(new Date(itinerary.createdAt)).toLocaleTimeString()}
                       </Text>
                       <View style={{ flexDirection: 'row', flexWrap: 'wrap'}}>
-                        {
-                          itinerary.places.map((x,idx) => (
-                              <Text key={idx} style={{ paddingRight: 20, paddingTop: 5, color: '#5E35B1', fontWeight: 'bold' }} key={idx}>#{x.place.tag}</Text>
-                          ))
-                        }
+                        <Tags itinerary={itinerary}/>
                       </View>
 
                     </Body>

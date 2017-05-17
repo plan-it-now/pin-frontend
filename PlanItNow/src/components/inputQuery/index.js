@@ -6,7 +6,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
-import { Container, Picker, Button, Form, Item as Stay, Input, Label, Header, Body, Title, Icon } from 'native-base';
+import { Container, Picker, Button, Form, Item as Stay, Input, Label, Header, Body, Title, Icon, Toast } from 'native-base';
 
 import StepIndicator from 'react-native-step-indicator';
 
@@ -44,7 +44,6 @@ class inputQuery extends Component {
     this.state = {
       city: 'key0',
       days:'',
-      warning: '',
       isDatePickerVisible: false,
       date: '',
       currentPosition: 0
@@ -62,15 +61,31 @@ class inputQuery extends Component {
     });
   }
 
+  showError() {
+    Toast.show({
+            type: 'danger',
+            text: 'Please Input All Fields',
+            position: 'bottom',
+            duration: 3000,
+            buttonText: 'OK'
+          })
+  }
+
   submitQuery() {
     const regex = new RegExp('^(?=.*[0-9])')
     if(regex.test(this.state.days)){
-      this.setState({warning:''})
+
       const { pref, fetchPlaces } = this.props;
       fetchPlaces(pref,this.state.city , +(this.state.days));
       this.props.navigation.navigate('Recomendation');
     } else {
-      this.setState({warning: 'Length of Stay field can only accept number.'})
+      Toast.show({
+              type: 'danger',
+              text: 'Length of Stay only accept number.',
+              position: 'bottom',
+              duration: 3000,
+              buttonText: 'OK'
+            })
     }
   }
 
@@ -105,8 +120,11 @@ class inputQuery extends Component {
                   <Input onChangeText={(days) => this.setState({days})} />
                 </Stay>
               </Form>
+
+
+
               <View style={{flex:1,justifyContent:'center', marginTop:50, flexDirection:'row'}}>
-                <Button block warning onPress={() => {(this.state.days !== '' && this.state.city !== 'key0') ? this.submitQuery() : this.setState({warning:'Please input all fields'})}}
+                <Button block warning onPress={() => {(this.state.days !== '' && this.state.city !== 'key0') ? this.submitQuery() : this.showError()}}
                 style={{
                   marginTop: 20,
                   alignItems: 'center',
@@ -116,12 +134,10 @@ class inputQuery extends Component {
                   borderRadius:100
                 }}>
 
-                   <Icon name="md-paper-plane" style={{color: '#fff', fontSize:50}}/>
-               </Button>
-             </View>
-             <View style={{flex:1, justifyContent:'center', flexDirection:'row'}}>
-             <Text style={{fontSize:15, color:'red'}}>{this.state.warning}</Text>
-             </View>
+                  <Icon name="md-paper-plane" style={{color: '#fff', fontSize:50}}/>
+                </Button>
+              </View>
+
             </View>
           </View>
 

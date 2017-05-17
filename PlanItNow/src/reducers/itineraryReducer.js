@@ -4,11 +4,10 @@ const itineraryReducer = (state = [], action) => {
   switch (action.type) {
     case POST_ITIN:{
       const newArr = [
+        action.payload,
         ...state
       ]
-      newArr.push(action.payload)
       return newArr;
-
     }
     case FETCH_ITIN:{
       return action.payload;

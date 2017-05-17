@@ -5,7 +5,7 @@ import { View, Text, StyleSheet, Image, StatusBar } from 'react-native';
 
 import { Container, Content, Form, Item, Input, Label, Button, Icon } from 'native-base';
 
-import { signup } from '../../actions'
+import { signup, updateRedirectFalse } from '../../actions'
 
 class Register extends React.Component {
   constructor(props) {
@@ -32,7 +32,7 @@ class Register extends React.Component {
 
   loginSuccess() {
     const { navigate } = this.props.navigation;
-    navigate('Profile');
+    navigate('Profile', {willFetch: false});
     this.props.updateRedirectFalse();
   }
 
@@ -45,7 +45,7 @@ class Register extends React.Component {
   }
 
   signupHandler() {
-    const regexName = /^[a-zA-Z ]{6,30}$/;
+    const regexName = /^[a-zA-Z ]{3,30}$/;
     let checkName = false;
     let checkEmail = false;
     let checkPassword = false;
@@ -53,7 +53,7 @@ class Register extends React.Component {
       checkName = true
       this.setState({warning1: ''})
     } else {
-      this.setState({warningMessage: 'SignUp Error :', warning1: '• Wrong Name format'})
+      this.setState({warningMessage: 'SignUp Error :', warning1: '• Name length min 3 char'})
     }
 
     const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -181,7 +181,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  signup: (user) => dispatch(signup(user))
+  signup: (user) => dispatch(signup(user)),
+  updateRedirectFalse: () => dispatch(updateRedirectFalse())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);
