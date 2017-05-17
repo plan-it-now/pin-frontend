@@ -5,7 +5,6 @@ import { View, Text, StyleSheet, Image, AsyncStorage, StatusBar } from 'react-na
 import { Container, Content, Footer, FooterTab, Form, Item, Input, Label, Button, Icon } from 'native-base';
 import { login, loginfb, updateRedirectFalse, decodeUser } from '../../actions'
 
-import LoginFb from '../FacebookLogin'
 const FBSDK = require('react-native-fbsdk');
 
 const {
