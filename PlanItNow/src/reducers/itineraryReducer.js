@@ -8,7 +8,6 @@ const itineraryReducer = (state = [], action) => {
       ]
       newArr.push(action.payload)
       return newArr;
-
     }
     case FETCH_ITIN:{
       return action.payload;

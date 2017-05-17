@@ -95,10 +95,10 @@ class ItineraryStepThree extends React.Component {
       }
     }
 
-    updateUser(user,places);
     postItinerary(user.userdata,newArrOfPlaces);
+    updateUser(user,places);
 
-    navigation.navigate('Profile');
+    navigation.navigate('Profile', {willFetch: false});
   }
 
   render () {

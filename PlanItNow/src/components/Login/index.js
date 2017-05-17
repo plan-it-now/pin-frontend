@@ -55,7 +55,7 @@ class Login extends React.Component {
 
   loginSuccess() {
     const { navigate } = this.props.navigation;
-    navigate('Profile');
+    navigate('Profile', {willFetch: true});
     this.props.updateRedirectFalse();
   }
 

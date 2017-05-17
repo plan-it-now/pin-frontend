@@ -26,8 +26,12 @@ class Profile extends React.Component {
   };
 
   componentWillMount() {
-    const { fetchItin , user } = this.props
-    fetchItin(user.userdata._id);
+    const { params } = this.props.navigation.state;
+
+    if(params.willFetch){
+      const { fetchItin , user } = this.props;
+      fetchItin(user.userdata._id);
+    }
   }
 
   handleLogout() {
@@ -126,7 +130,7 @@ class Profile extends React.Component {
                         width: '100%',
                         height: 200,
                         backgroundColor: 'rgba(52, 52, 52, 0.8)' }}
-                      source={{ uri : itinerary.places[0].place.photo }}>
+                      source={{ uri : itinerary.places[Math.round(Math.random()*(itinerary.days-1))].place.photo }}>
                       <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', backgroundColor: 'rgba(52, 52, 52, 0.4)' }}>
                         <Text style={{
                             color: '#fff', fontWeight: 'bold', padding: 16, fontSize: 20
