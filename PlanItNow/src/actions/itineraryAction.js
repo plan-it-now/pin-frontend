@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { POST_ITIN, FETCH_ITIN, SERVER_URL } from './constants';
+import { POST_ITIN, FETCH_ITIN, SERVER_URL, CLEAR_DATA } from './constants';
 
 const postItinSuccess = (data) => ({
   type: POST_ITIN,
@@ -33,3 +33,7 @@ export const fetchItin = (userid,_token) => (
     .then(res => dispatch(fetchItinSuccess(res.data)))
   )
 )
+
+export const clearDataItinerary = () => ({
+  type: CLEAR_DATA
+})
