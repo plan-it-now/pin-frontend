@@ -36,7 +36,7 @@ const customStyles = {
   currentStepLabelColor: '#5E35B1'
 }
 
-class RowComponent extends React.Component {
+export class RowComponent extends React.Component {
   render () {
     return (
       <TouchableHighlight
