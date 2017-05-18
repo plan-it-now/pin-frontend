@@ -43,7 +43,7 @@ const updateSuccess = (data) => ({
   payload: data,
 })
 
-export const updateUser = (user,places) => {
+export const updateUser = (user,places,token) => {
   let newUser = user;
   for (let i = 0; i < places.approvedPlaces.length; i++) {
     if (places.approvedPlaces[i].place.tag == 'Art' && newUser.userdata.pref.art <= 95) {
@@ -77,6 +77,8 @@ export const updateUser = (user,places) => {
     dispatch => (
       axios.put(`http://ec2-52-221-233-16.ap-southeast-1.compute.amazonaws.com/users/${newUser.userdata._id}`, {
         pref: newUser.userdata.pref
+      },{
+        headers: {'token': token}
       })
       .then((res) => (dispatch(updateSuccess(res.data))))
     )

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView, StatusBar, Alert } from 'react-native'
+import { View, Text,AsyncStorage, ScrollView, StatusBar, Alert } from 'react-native'
 
 import { Container, Header, Body, Title, Content, Item, Input, Fab, Button, Footer, FooterTab } from 'native-base'
 
@@ -95,10 +95,16 @@ class ItineraryStepThree extends React.Component {
       }
     }
 
-    postItinerary(user.userdata,newArrOfPlaces);
-    updateUser(user,places);
+    AsyncStorage.getItem('token', (err,_token) => {
+      if(err) {
+        console.log(err);
+      } else {
+        postItinerary(user.userdata,newArrOfPlaces,_token);
+        updateUser(user,places,_token);
+        navigation.navigate('Profile', {willFetch: false});
+      }
+    });
 
-    navigation.navigate('Profile', {willFetch: false});
   }
 
   render () {
@@ -150,8 +156,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  updateUser: (user,places) => dispatch(updateUser(user,places)),
-  postItinerary: (userid,arrayPlaces) => dispatch(postItinerary(userid,arrayPlaces))
+  updateUser: (user,places,token) => dispatch(updateUser(user,places,token)),
+  postItinerary: (userid,arrayPlaces,token) => dispatch(postItinerary(userid,arrayPlaces,token))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(ItineraryStepThree);

@@ -2,7 +2,7 @@ import React from 'react';
 
 import DrawerProfile from '../DrawerProfile';
 
-import { View, Image, TouchableOpacity, DrawerLayoutAndroid, BackHandler } from 'react-native'
+import { View, Image, AsyncStorage, TouchableOpacity, DrawerLayoutAndroid, BackHandler } from 'react-native'
 
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Card, CardItem, Text, Drawer,
 } from 'native-base';
@@ -30,7 +30,14 @@ class Profile extends React.Component {
 
     if(params.willFetch){
       const { fetchItin , user } = this.props;
-      fetchItin(user.userdata._id);
+      AsyncStorage.getItem('token', (err,_token) => {
+        if(err) {
+          console.log(err);
+        } else {
+          fetchItin(user.userdata._id, _token);
+        }
+      });
+
     }
   }
 
@@ -182,7 +189,7 @@ const mapStateToProps = state => ({
   itineraries: state.itineraries
 })
 const mapDispatchToProps = dispatch => ({
-  fetchItin: (userid) => dispatch(fetchItin(userid)),
+  fetchItin: (userid,token) => dispatch(fetchItin(userid,token)),
   logout: () => dispatch(logout())
 })
 
