@@ -3,7 +3,8 @@ import {
   Text,
   View,
   StatusBar,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Picker, Button, Form, Item as Stay, Input, Label, Header, Body, Title, Icon, Toast } from 'native-base';
@@ -76,8 +77,15 @@ class inputQuery extends Component {
     if(regex.test(this.state.days)){
 
       const { pref, fetchPlaces } = this.props;
-      fetchPlaces(pref,this.state.city , +(this.state.days));
-      this.props.navigation.navigate('Recomendation');
+      AsyncStorage.getItem('token', (err,_token) => {
+        if(err) {
+          console.log(err);
+        } else {
+          fetchPlaces(pref,this.state.city , +(this.state.days),_token);
+          this.props.navigation.navigate('Recomendation');
+        }
+      });
+
     } else {
       Toast.show({
               type: 'danger',
@@ -159,7 +167,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchPlaces: (pref,city,days) => dispatch(fetchPlaces(pref,city,days))
+  fetchPlaces: (pref,city,days,token) => dispatch(fetchPlaces(pref,city,days,token))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(inputQuery);

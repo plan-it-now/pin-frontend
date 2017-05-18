@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { View, Image, StyleSheet, Modal, TouchableHighlight, Dimensions, Alert, StatusBar, BackHandler } from 'react-native';
+import { View, Image, StyleSheet, Modal, TouchableHighlight, AsyncStorage, Dimensions, Alert, StatusBar, BackHandler } from 'react-native';
 import { Container, Icon, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Button, Content, Header, Title, Footer, FooterTab } from 'native-base';
 
 import { connect } from 'react-redux';

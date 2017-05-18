@@ -7,12 +7,14 @@ const postItinSuccess = (data) => ({
   payload: data
 })
 
-export const postItinerary = (user, arrayPlaces) => (
+export const postItinerary = (user, arrayPlaces,_token) => (
   dispatch => (
     axios.post(SERVER_URL+'itineraries', {
       user: user,
       days: arrayPlaces.days,
       places: arrayPlaces.places
+    },{
+      headers: {'token': _token}
     })
     .then((res) => dispatch(postItinSuccess(res.data)))
   )
@@ -23,9 +25,11 @@ const fetchItinSuccess = (data) => ({
   payload: data
 })
 
-export const fetchItin = (userid) => (
+export const fetchItin = (userid,_token) => (
   dispatch => (
-    axios.get(SERVER_URL+'itineraries/user/'+userid)
+    axios.get(SERVER_URL+'itineraries/user/'+userid,{
+      headers: {'token': _token}
+    })
     .then(res => dispatch(fetchItinSuccess(res.data)))
   )
 )

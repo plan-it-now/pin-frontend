@@ -84,10 +84,12 @@ const fetchPlacesSucces = (pref,data,days) => ({
   }
 })
 
-export const fetchPlaces = (pref,city,days) => {
+export const fetchPlaces = (pref,city,days,_token) => {
   return (
     dispatch => (
-      axios.get(SERVER_URL+'places/city/'+city)
+      axios.get(SERVER_URL+'places/city/'+city,{
+        headers: {'token': _token}
+      })
       .then((res) => (dispatch(fetchPlacesSucces(pref,res.data,days))))
     )
   )
