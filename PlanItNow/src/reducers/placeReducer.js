@@ -1,4 +1,4 @@
-import { FETCH_PLACES, PROCESS_PLACES, PROCESS_STEP1, PROCESS_STEP2} from '../actions/constants';
+import { FETCH_PLACES, PROCESS_PLACES, PROCESS_STEP1, PROCESS_STEP2, DELETE_PLACE} from '../actions/constants';
 
 const initialState = {
   days: 0,
@@ -13,6 +13,12 @@ const initialState = {
     }
   ]
 }
+
+const deletePlace = (state, selectedPlace) => {
+    const newState = state.approvedPlaces.filter(x => x.place._id !== selectedPlace.place._id );
+    return newState;
+}
+
 const placeReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_PLACES:{
@@ -38,6 +44,13 @@ const placeReducer = (state = initialState, action) => {
         ...state,
         ...action.payload
       }
+    }
+    case DELETE_PLACE: {
+      const approvedPlaces = deletePlace(state,action.payload);
+      return {
+        ...state,
+        approvedPlaces
+      };
     }
     default: return state;
 
