@@ -122,7 +122,7 @@ class MyComponent extends React.Component {
               animationType={"slide"}
               transparent={false}
               visible={this.state.modalVisible}
-              onRequestClose={() => {alert("Modal has been closed.")}}>
+              onRequestClose={() => {console.log("Modal has been closed.")}}>
 
                 <View style={{height:50}}>
                   <TouchableHighlight onPress={() => {
