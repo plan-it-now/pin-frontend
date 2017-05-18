@@ -10,7 +10,7 @@ import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Rig
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
 
-import { fetchItin, logout } from '../../actions';
+import { fetchItin, clearDataItinerary, logout } from '../../actions';
 import Tags from './Tags';
 
 class Profile extends React.Component {
@@ -43,6 +43,7 @@ class Profile extends React.Component {
 
   handleLogout() {
     this.props.logout();
+    this.props.clearDataItinerary();
     const { navigate } = this.props.navigation;
     navigate('Login');
   }
@@ -190,6 +191,7 @@ const mapStateToProps = state => ({
 })
 const mapDispatchToProps = dispatch => ({
   fetchItin: (userid,token) => dispatch(fetchItin(userid,token)),
+  clearDataItinerary: () => dispatch(clearDataItinerary()),
   logout: () => dispatch(logout())
 })
 

@@ -1,6 +1,8 @@
-import { POST_ITIN, FETCH_ITIN } from '../actions/constants';
+import { POST_ITIN, FETCH_ITIN, CLEAR_DATA } from '../actions/constants';
 
-const itineraryReducer = (state = [], action) => {
+const initialState = [];
+
+const itineraryReducer = (state = initialState, action) => {
   switch (action.type) {
     case POST_ITIN:{
       const newArr = [
@@ -12,6 +14,7 @@ const itineraryReducer = (state = [], action) => {
     case FETCH_ITIN:{
       return action.payload;
     }
+    case CLEAR_DATA: return initialState;
     default: return state;
 
   }
