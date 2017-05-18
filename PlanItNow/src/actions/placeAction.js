@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { FETCH_PLACES, PROCESS_PLACES, PROCESS_STEP1, PROCESS_STEP2, SERVER_URL } from './constants';
+import { FETCH_PLACES, PROCESS_PLACES, PROCESS_STEP1, PROCESS_STEP2, SERVER_URL, DELETE_PLACE } from './constants';
 
 const mockingjayAlgorithm = (pref,data) => {
   let arrayPlaces = data;
@@ -92,6 +92,11 @@ export const fetchPlaces = (pref,city,days) => {
     )
   )
 }
+
+export const deletePlace = (selectedPlace) => ({
+  type: DELETE_PLACE,
+  payload: selectedPlace
+})
 
 export const processPlaces = (rejectedList, approvedList) => {
   let approvedPlaces = approvedList.map(place => ({
