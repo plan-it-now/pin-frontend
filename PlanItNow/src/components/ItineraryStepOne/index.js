@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { View, Text, StyleSheet, ScrollView, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, StatusBar, TouchableOpacity } from 'react-native';
 
-import { Container, Footer, FooterTab, Button, Content, Picker, Header, Body, Title } from 'native-base';
+import { Container, Footer, FooterTab, Button, Content, Picker, Header, Body, Title, Icon } from 'native-base';
 
 import { connect } from 'react-redux';
 
-import { processStep1 } from '../../actions';
+import { processStep1, deletePlace } from '../../actions';
 
 import StepIndicator from 'react-native-step-indicator';
 
@@ -113,7 +113,7 @@ class ItineraryStepOne extends React.Component {
                         borderRadius:10
                       }}
                     >
-                      <View style={{ width: 200, paddingLeft: 30 }}>
+                      <View style={{ width: 160, paddingLeft: 10 }}>
                         <Text style={{ color: '#000', fontSize: 18}}>{appPlace.place.name} </Text>
                       </View>
 
@@ -131,6 +131,9 @@ class ItineraryStepOne extends React.Component {
                           }
                         </Picker>
                       </View>
+                      <TouchableOpacity style={{ marginRight: 20 }} onPress={() => this.props.deletePlace(appPlace)}>
+                        <Icon name="md-close" />
+                      </TouchableOpacity>
                     </View>
                   ))
                 }
@@ -155,6 +158,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+  deletePlace: (selectedPlace) => dispatch(deletePlace(selectedPlace)),
   processStep1: (approvedList) => dispatch(processStep1(approvedList))
 })
 
